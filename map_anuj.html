@@ -5,11 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>amMap examples</title>
 
-        <link rel="stylesheet" href="../ammap/ammap.css" type="text/css">
-        <script src="../ammap/ammap.js" type="text/javascript"></script>
-		<script src="../ammap/maps/js/worldLow.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="./ammap3/ammap/ammap.css" type="text/css">
+        <script src="./ammap3/ammap/ammap.js" type="text/javascript"></script>
+		<script src="./ammap3/ammap/maps/js/worldLow.js" type="text/javascript"></script>
         <!-- map file should be included after ammap.js -->
-		<script src="../ammap/maps/js/continentsLow.js" type="text/javascript"></script>
+		<script src="./ammap3/ammap/maps/js/continentsLow.js" type="text/javascript"></script>
 
 		<script>
 			var map;
@@ -34,23 +34,20 @@
 				};
 
 				map.dataProvider = {
-					mapURL: "ammap/maps/svg/testMap.svg",
+//					mapURL: "./ammap3/ammap/maps/svg/testMap.svg",
 //					mapVar: AmCharts.maps.worldLow,
+					"map": "worldLow",
 					getAreasFromMap:true,
 					
 					"areas":[
 						{ "id": "AU", "color": "#CC0000", "alpha": 0.5},
 						{ "id": "US", "color": "#00CC00", "bringForwardOnHover": "true" },
 						{ "id": "FR", "color": "#0000CC","pattern": {
-							"url": "patterns/white/pattern2.png",
+							"url": "./patterns/white/pattern2.png",
 							width: 4,
 							height: 4
 						} },
-						{ "id": "IN", "color": "#0000CC","pattern": {
-							"url": "patterns/white/pattern3.png",
-							width: 4,
-							height: 4
-						} }
+						{ "id": "IN", "color": "#0000CC"}
 					]
 				};
 				var zoomControl = map.zoomControl;
@@ -64,7 +61,7 @@
         </script>
     </head>
 
-    <body style="background-image: url('images/board.jpg'); background-color:#000000;">
+    <body style="background-image: url('./ammap3/images/board.jpg'); background-color:#000000;">
         <div id="mapdiv" style="width: 100%; height: 500px;"></div>
     </body>
 

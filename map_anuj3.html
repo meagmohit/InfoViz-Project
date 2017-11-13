@@ -13,18 +13,6 @@
 		<script src="https://d3js.org/d3.v3.min.js"></script>
 
 		<script>
- 			var years = [1990,1995,2000,2005,2010,2011,2012,2013,2014,2015];
-			var idData = {};
-			var popData = {};
-			var minVal = 999999;
-			var maxVal = 0;
-	
-			loadData();
-			getCounryColor();
-
-			console.log(getCounryColor());
-			var color = d3.scale.linear().domain([minVal,maxVal]).range(["white","red"]);
-
 
 			var map;
 
@@ -72,11 +60,40 @@
 
 			});
 
+			var years = [1990,1995,2000,2005,2010,2011,2012,2013,2014,2015];
+			var idData = {};
+			d3.csv("./data/countryId.csv", function idD(data) {
+				for(var i=0;i<data.length;i++){
+					idData[data[i]['id']] = data[i]['Country'].trim();
+				}
+//				getColor(idData);
+			});
+
+			var popData = {};
+			var minVal = 999999;
+			var maxVal = 0;
+			d3.csv("./data/Population_InMillions.csv", function pop(data) {
+//				popData = data;
+				for(var i=0;i<data.length;i++){
+					popData[data[i]['Country'].trim()] = data[i];
+				
+					for(var y in years){
+						if (data[i][years[y]] < minVal)
+							minVal = data[i][years[y]];
+						if (data[i][years[y]] > maxVal)
+							maxVal = data[i][years[y]];
+					}
+				}
+//				getColor(popData);
+			});
+
+			var color = d3.scale.linear().domain([minVal,maxVal]).range(["white","red"]);
+
 //			idD();
 //			pop();
 			function getColor(id){
-//				console.log(popData);
-//				console.log(idData);
+				console.log(popData);
+				console.log(idData);
 				return color(popData[idData[id]][2010]);
 			}
 
@@ -89,25 +106,8 @@
 					thisData["alpha"] = 0.5;
 					allData[i] = thisData;
 				}
-			}
-			function loadData(){
-				d3.csv("./data/countryId.csv", function(data) {
-					for(var i=0;i<data.length;i++){
-						window.idData[data[i]['id']] = data[i]['Country'].trim();
-					}
-				});
-				d3.csv("./data/Population_InMillions.csv", function(data) {
-					for(var i=0;i<data.length;i++){
-						window.popData[data[i]['Country'].trim()] = data[i];
-						
-						for(var y in years){
-							if (data[i][years[y]] < minVal)
-								window.minVal = data[i][years[y]];
-							if (data[i][years[y]] > maxVal)
-								window.maxVal = data[i][years[y]];
-						}
-					}
-				});
+				
+
 			}
 
         </script>

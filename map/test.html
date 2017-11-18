@@ -1,25 +1,29 @@
 <html>
         <head>
             <meta charset="utf-8">
-            <link href="./d3-geomap/css/d3.geomap.css" rel="stylesheet">
-            <script src="./d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
-            <script src="./d3-geomap/js/d3.geomap.min.js"></script>
+            <link href="/map/d3-geomap/css/d3.geomap.css" rel="stylesheet">
+            <script src="/map/d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
+            <script src="/map/d3-geomap/js/d3.geomap.min.js"></script>
 
             <script>
 
                 var format = function(d) {
+                    d = d / 1;
                     return d3.format(',.02f')(d) + 'M';
                 }                
+                 var dat;
 
                var map = d3.geomap.choropleth()
-                           .geofile('./d3-geomap/topojson/world/countries.json')
+                           .geofile('/map/d3-geomap/topojson/world/countries.json')
                            .colors(colorbrewer.YlGnBu[9])
-                           .column('2010')
+                           .column('2011')
                            .format(format)
                             .legend(true)
+//                            .scale(10)
                             .unitId('id'); 
 
-               d3.csv('/data/Population.csv', function(error, data) {
+               d3.csv('/data/HDI.csv', function(error, data) {
+                   dat = data;
                     d3.select('#map')
                     .datum(data)
                     .call(map.draw, map);

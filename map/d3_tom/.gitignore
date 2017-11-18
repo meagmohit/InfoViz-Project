@@ -1,0 +1,7 @@
+*.pyc
+*~
+*.yaml
+*.dbf
+*.shp
+__pycache__
+venv

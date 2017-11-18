@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>amMap examples</title>
+
+        <link rel="stylesheet" href="./ammap3/ammap/ammap.css" type="text/css">
+        <script src="./ammap3/ammap/ammap.js" type="text/javascript"></script>
+		<script src="./ammap3/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+        <!-- map file should be included after ammap.js -->
+		<script src="./ammap3/ammap/maps/js/continentsLow.js" type="text/javascript"></script>
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+
+		<script>
+ 			var years = [1990,1995,2000,2005,2010,2011,2012,2013,2014,2015];
+			var idData = {};
+			var popData = {};
+			var minVal = 999999;
+			var maxVal = 0;
+	
+			var color = d3.scale.linear().domain([minVal,maxVal]).range(["white","red"]);
+	
+			loadData();
+			var a = getCountryColor();
+			var map;
+
+			AmCharts.ready(function() {
+
+
+				var map;
+
+				map = new AmCharts.AmMap();
+
+				map.dragMap = false;
+				map.color = "#FFFFFF";
+
+				map.areasSettings = {
+					autoZoom: false,
+					rollOverOutlineColor: "#FFFFFF",
+					selectedColor: "#FFFFFF",
+					rollOverColor: "#FFFFFF",
+					outlineAlpha: 1,
+					outlineColor: "#FFFFFF",
+					outlineThickness: 1,
+					color: "#000000"
+				};
+
+				map.dataProvider = {
+//					mapURL: "./ammap3/ammap/maps/svg/testMap.svg",
+//					mapVar: AmCharts.maps.worldLow,
+					"map": "worldLow",
+					getAreasFromMap:true,
+					
+					"areas":[
+						{ "id": "AU", "color": "#CC0000", "alpha": 0.5},
+						{ "id": "US", "color": "#00CC00", "bringForwardOnHover": "true" },
+						{ "id": "FR", "color": "#0000CC","pattern": {
+							"url": "./patterns/white/pattern2.png",
+							width: 4,
+							height: 4
+						} },
+						{ "id": "IN", "color": getColor("IN")}
+					]
+				};
+				var zoomControl = map.zoomControl;
+				zoomControl.panControlEnabled = false;
+				zoomControl.zoomControlEnabled = false;
+
+				map.write("mapdiv");
+
+			});
+
+//			idD();
+//			pop();
+			function getColor(id){
+//				console.log(popData);
+//				console.log(idData);
+				return color(popData[idData[id]][2010]);
+			}
+
+			function getCountryColor(){
+				var allData = [];
+				for (var i=0;i<idData.length;i++){
+					thisData = {};
+					thisData["id"] = keys(idData)[i];
+					thisData["color"] = getColor(keys(idData)[i]);
+					thisData["alpha"] = 0.5;
+					allData[i] = thisData;
+				}
+				console.log(allData);
+				return allData;
+			}
+			function loadData(){
+				d3.csv("./data/countryId.csv", function(data) {
+					for(var i=0;i<data.length;i++){
+						window.idData[data[i]['id']] = data[i]['Country'].trim();
+					}
+				});
+				d3.csv("./data/Population_InMillions.csv", function(data) {
+					for(var i=0;i<data.length;i++){
+						window.popData[data[i]['Country'].trim()] = data[i];
+						
+						for(var y in years){
+							if (data[i][years[y]] < minVal)
+								window.minVal = data[i][years[y]];
+							if (data[i][years[y]] > maxVal)
+								window.maxVal = data[i][years[y]];
+						}
+					}
+				});
+			}
+
+        </script>
+    </head>
+
+    <body style="background-image: url('./ammap3/images/board.jpg'); background-color:#000000;">
+        <div id="mapdiv" style="width: 100%; height: 500px;"></div>
+    </body>
+
+</html>

@@ -1,0 +1,34 @@
+<html>
+        <head>
+            <meta charset="utf-8">
+            <link href="./d3-geomap/css/d3.geomap.css" rel="stylesheet">
+            <script src="./d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
+            <script src="./d3-geomap/js/d3.geomap.min.js"></script>
+
+            <script>
+
+                var format = function(d) {
+                    return d3.format(',.02f')(d) + 'M';
+                }                
+
+               var map = d3.geomap.choropleth()
+                           .geofile('./d3-geomap/topojson/world/countries.json')
+                           .colors(colorbrewer.YlGnBu[9])
+                           .column('2010')
+                           .format(format)
+                            .legend(true)
+                            .unitId('id'); 
+
+               d3.csv('/data/Population.csv', function(error, data) {
+                    d3.select('#map')
+                    .datum(data)
+                    .call(map.draw, map);
+                }); 
+            </script>    
+                
+           
+        </head>
+        <body>
+            <div id="map"></div>
+        </body>
+    </html>

@@ -47,7 +47,7 @@
     // only works if array.length-1 is between 3 and 9 (d3 color scheme)
     var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
     var init_year = 1990;
-    var headline = "Number of deaths caused by storms in ";
+    var headline = "Number of deaths caused in ";
 
     /// main
 
@@ -55,7 +55,7 @@
     d3.select("body").insert("p", ":first-child").append("input")
         .attr("type", "range")
         .attr("min", "1990")
-        .attr("max", "2016")
+        .attr("max", "2014")
         .attr("value", init_year)
         .attr("id", "year");
 
@@ -94,13 +94,26 @@
         .append("g")
           .attr("class", "bars")
           .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
-
+	
+	//init area chart containor
+//    var margin = {top: 50, right:10, bottom:50, left:30};
+    var svgAreaWidth = 960 - margin.left - margin.right,
+        svgAreaHeight = 200 - margin.top - margin.bottom;	
+	
+	var xArea = d3.scaleLinear().range([0, width]);
+	var yArea = d3.scaleLinear().range([height, 0]);
+	
+	var area = d3.area()
+		.x(function(d) { return xArea(d.date); })
+		.y0(height)
+		.y1(function(d) { return yArea(d.close); });
+	
     // load data
-    d3.json("data/emdat_data.json", function(error, d) {
+    d3.json("data/AIDS_DEATHS.json", function(error, d) {
 
       if (error) throw error;
 
-      let data_all = d['Storm'];
+      let data_all = d['Deaths'];
 
       let data = data_all[init_year];
       let color = calcColorScale(data);

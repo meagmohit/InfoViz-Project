@@ -1,0 +1,19 @@
+id,x,y,value
+US,United States ,MenHaveSexWithMen,14.5
+US,United States ,PeopleInjectDrug,3.6
+US,United States ,SexWorkers,-1
+CN,China ,MenHaveSexWithMen,7.75
+CN,China ,PeopleInjectDrug,5.9
+CN,China ,SexWorkers,0.19
+IN,India ,MenHaveSexWithMen,4.3
+IN,India ,PeopleInjectDrug,9.9
+IN,India ,SexWorkers,2.2
+BR,Brazil ,MenHaveSexWithMen,10.5
+BR,Brazil ,PeopleInjectDrug,5.9
+BR,Brazil ,SexWorkers,5.3
+JP,Japan ,MenHaveSexWithMen,4.8
+JP,Japan ,PeopleInjectDrug,0.02
+JP,Japan ,SexWorkers,0
+TH,Thailand ,MenHaveSexWithMen,9.15
+TH,Thailand ,PeopleInjectDrug,19.02
+TH,Thailand ,SexWorkers,1

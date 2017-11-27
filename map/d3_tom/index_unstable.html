@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        }
+
+        p {
+            font-size: 10pt;
+            margin-left: 20px;
+        }
+
+        .countries {
+            stroke: #fff;
+        }
+
+        .legend rect {
+            stroke: #000;
+        }
+
+        .legend,
+        .legend_title text {
+            font-size: 10pt;
+        }
+
+        .barlabel {
+            font-size: 8pt;
+            text-anchor: middle;
+
+        }
+    </style>
+</head>
+
+<body>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+	
+    <script src="functions.js"></script>
+    <script>
+	//<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.min.js">
+	
+        /// params
+
+        var color_na = d3.rgb("#d4d4d4");
+        // only works if array.length-1 is between 3 and 9 (d3 color scheme)
+        var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
+        var init_year = 1991;
+        var headline = "Number of deaths caused in ";
+
+        /// main
+		var svg = d3.select('svg');
+
+		var backLayer = svg.append("g");
+
+
+        // slider
+        d3.select("body").insert("p", ":first-child").append("input")
+            .attr("type", "range")
+            .attr("min", "1990")
+            .attr("max", "2014")
+            .attr("value", init_year)
+            .attr("id", "year");
+
+        d3.select("body").insert("h2", ":first-child").text(headline + init_year);
+
+        // init country GDP bubbles containor
+
+        var marginBubble = {
+            top: 5,
+            right: 10,
+            bottom: 5,
+            left: 30
+        };
+        var svgBubbleWidth = 960 - marginBubble.left - marginBubble.right,
+            svgBubbleHeight = 100 - marginBubble.top - marginBubble.bottom;
+
+        var svg_bubbles = d3.select("body").append("svg")
+            .attr("id", "bubbles")
+            .attr("width", svgBubbleWidth + marginBubble.left + marginBubble.right)
+            .attr("height", svgBubbleHeight + marginBubble.top + marginBubble.bottom);
+
+
+		//init path 
+		
+	var dataSet = d3.range(10).map(function(d) {
+  return {
+    x: d * 30 + 10,
+    y: Math.random() * 130 + 10
+  }
+});	
+var lineGenerator = d3.line()
+  .x(function(d) {
+    return d.x
+  })
+  .y(function(d) {
+    return d.y
+  })
+  .interpolate("monotone")
+			
+        // init map container, projection
+        var width = 960,
+            height = 425;
+        var svg_map = d3.select("body").insert("svg")
+            .attr("id", "map")
+            .attr("height", height)
+            .attr("width", width);
+        var path = d3.geoPath(d3.geoRobinson());
+
+        // init legend container
+        svg_map.append("g")
+            .attr("class", "legend");
+        svg_map.append("g")
+            .attr("class", "legend_title")
+            .append("text");
+
+        // init bars container
+        var margin = {
+            top: 50,
+            right: 10,
+            bottom: 50,
+            left: 30
+        };
+        var svgBarsWidth = 960 - margin.left - margin.right,
+            svgBarsHeight = 200 - margin.top - margin.bottom;
+
+        var x = d3.scaleBand()
+            .rangeRound([0, svgBarsWidth])
+            .padding(.05);
+        var y = d3.scaleLinear().range([svgBarsHeight, 0]);
+
+        var svg_bars = d3.select("body")
+            .append("svg")
+            .attr("id", "bars")
+            .attr("width", svgBarsWidth + margin.left + margin.right)
+            .attr("height", svgBarsHeight + margin.top + margin.bottom)
+            .append("g")
+            .attr("class", "bars")
+            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+        //init area chart containor : this section is being taken care my mohit
+        //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var svgAreaWidth = 960 - margin.left - margin.right,
+            svgAreaHeight = 200 - margin.top - margin.bottom;
+
+        var xArea = d3.scaleLinear().range([0, width]);
+        var yArea = d3.scaleLinear().range([height, 0]);
+
+        var area = d3.area()
+            .x(function(d) {
+                return xArea(d.date);
+            })
+            .y0(height)
+            .y1(function(d) {
+                return yArea(d.close);
+            });
+
+        // load data
+        d3.json("data/all_data.json", function(error, d) {
+
+            if (error) throw error;
+
+            let data_deaths = d['Deaths'];
+            let data_GDP = d['GDP'];
+
+            let data = data_deaths[init_year];
+            let dataG = data_GDP[init_year];
+            let color = calcColorScale(data);
+
+            // load map data and render it
+            d3.json("data/world.json", function(error, worldmap) {
+                if (error) throw error;
+
+                // init map
+                svg_map.append("g")
+                    .attr("class", "countries")
+                    .selectAll("path")
+                    .data(topojson.feature(worldmap, worldmap.objects.world).features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("id", function(d) {
+                        return d.id;
+                    })
+                    .call(fillMap, color, data)
+                    .append("title")
+                    .call(setPathTitle, data);
+
+                // init legend
+                renderLegend(color, data);
+                renderBars(color, data);
+                renderCircles(color, dataG);
+				
+//				console.log(svg_bubbles.children());
+//				displayLine(dataSet)
+				
+				
+            }); // map data
+
+renderPaths(dataSet);	
+
+            // was the slider used?
+            d3.select("#year").on("input", function() {
+                let upd_color = calcColorScale(data_deaths[this.value]);
+                updateMap(upd_color, data_deaths[this.value]);
+                renderLegend(upd_color, data_deaths[this.value]);
+                renderBars(upd_color, data_deaths[this.value]);
+                renderCircles(upd_color, data_GDP[this.value]);
+//				renderPaths(d);
+            });
+
+        }); // disaster data
+    </script>
+	<svg></svg>
+	
+</body>
+
+</html>

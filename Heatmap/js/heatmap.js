@@ -6,13 +6,17 @@ var itemSize = 30,
 var width = 800 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;
 
+var countryID = 'CN'
+
 d3.csv("data/comparison.csv", function (rawdata) {
 
     var selectedData = d3.nest()
-        .key(function(d) { return d[selectCountry()]; })
+        .key(function(d) { return d.id == countryID; })
         .entries(rawdata);
 
-    var data = selectedData.map(function(item) {
+    var dataCases = selectedData[1].values;
+
+    var data = dataCases.map(function(item) {
     var newItem = {};
     newItem.country = item.x;
     newItem.attribute = item.y;
@@ -86,8 +90,9 @@ d3.csv("data/comparison.csv", function (rawdata) {
 
 });
 
+//This should be the interaction parts
 function selectCountry(){
   var node = d3.select('#id').node();
   var i = node.selectedIndex;
-  return node[i].value;
+  countryID = node[i].value;
 }

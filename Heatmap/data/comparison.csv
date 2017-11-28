@@ -1,19 +1,333 @@
 id,x,y,value
-US,United States ,MenHaveSexWithMen,14.5
-US,United States ,PeopleInjectDrug,3.6
-US,United States ,SexWorkers,-1
-CN,China ,MenHaveSexWithMen,7.75
-CN,China ,PeopleInjectDrug,5.9
-CN,China ,SexWorkers,0.19
-IN,India ,MenHaveSexWithMen,4.3
-IN,India ,PeopleInjectDrug,9.9
-IN,India ,SexWorkers,2.2
-BR,Brazil ,MenHaveSexWithMen,10.5
-BR,Brazil ,PeopleInjectDrug,5.9
-BR,Brazil ,SexWorkers,5.3
-JP,Japan ,MenHaveSexWithMen,4.8
-JP,Japan ,PeopleInjectDrug,0.02
-JP,Japan ,SexWorkers,0
-TH,Thailand ,MenHaveSexWithMen,9.15
-TH,Thailand ,PeopleInjectDrug,19.02
-TH,Thailand ,SexWorkers,1
+AF,Afghanistan,Men Have Sex With Men,0.5
+AL,Albania,Men Have Sex With Men,0.5
+DZ,Algeria,Men Have Sex With Men,4.3
+AG,Antigua and Barbuda,Men Have Sex With Men,2.5
+AR,Argentina,Men Have Sex With Men,11.4
+AM,Armenia,Men Have Sex With Men,0.8
+AU,Australia,Men Have Sex With Men,18.3
+AZ,Azerbaijan,Men Have Sex With Men,2.2
+BS,Bahamas,Men Have Sex With Men,19.6
+BD,Bangladesh,Men Have Sex With Men,0.2
+BB,Barbados,Men Have Sex With Men,14.4
+BY,Belarus,Men Have Sex With Men,5.7
+BE,Belgium,Men Have Sex With Men,12.3
+BZ,Belize,Men Have Sex With Men,13.85
+BJ,Benin,Men Have Sex With Men,7.1
+BO,Bolivia,Men Have Sex With Men,25.4
+BO,Bosnia and Herzegovina,Men Have Sex With Men,1.1
+BW,Botswana,Men Have Sex With Men,13.1
+BR,Brazil,Men Have Sex With Men,10.5
+BG,Bulgaria,Men Have Sex With Men,0
+BF,Burkina Faso,Men Have Sex With Men,3.6
+BI,Burundi,Men Have Sex With Men,4.8
+CV,Cape Verde,Men Have Sex With Men,15
+KH,Cambodia,Men Have Sex With Men,2.3
+CM,Cameroon,Men Have Sex With Men,37.2
+CA,Canada,Men Have Sex With Men,14.9
+CF,Central African Republic,Men Have Sex With Men,25.4
+CL,Chile,Men Have Sex With Men,13.9
+CN,China,Men Have Sex With Men,7.75
+CO,Colombia,Men Have Sex With Men,17
+KM,Comoros,Men Have Sex With Men,0
+CG,Congo,Men Have Sex With Men,26.1
+CR,Costa Rica,Men Have Sex With Men,12.7
+HR,Croatia,Men Have Sex With Men,2.7
+CU,Cuba,Men Have Sex With Men,1.8
+CZ,Czech Republic,Men Have Sex With Men,4.8
+CI,Ivory Coast,Men Have Sex With Men,11.2
+CD,Democratic Republic of the Congo,Men Have Sex With Men,3.3
+DM,Dominica,Men Have Sex With Men,26.7
+DO,Dominican Republic,Men Have Sex With Men,7.1
+EC,Ecuador,Men Have Sex With Men,13.3
+EG,Egypt,Men Have Sex With Men,6.2
+SV,El Salvador,Men Have Sex With Men,10.3
+FJ,Fiji,Men Have Sex With Men,0.5
+FI,Finland,Men Have Sex With Men,0.4
+FR,France,Men Have Sex With Men,17.7
+GE,Georgia,Men Have Sex With Men,20.7
+DE,Germany,Men Have Sex With Men,6
+GH,Ghana,Men Have Sex With Men,17.5
+GR,Greece,Men Have Sex With Men,12.7
+GT,Guatemala,Men Have Sex With Men,8
+GY,Guyana,Men Have Sex With Men,4.9
+HT,Haiti,Men Have Sex With Men,18.2
+HN,Honduras,Men Have Sex With Men,11.7
+HU,Hungary,Men Have Sex With Men,4.1
+IN,India,Men Have Sex With Men,4.3
+ID,Indonesia,Men Have Sex With Men,25.8
+IE,Ireland,Men Have Sex With Men,7.8
+IT,Italy,Men Have Sex With Men,6.7
+JM,Jamaica,Men Have Sex With Men,32.8
+JP,Japan,Men Have Sex With Men,4.8
+JO,Jordan,Men Have Sex With Men,7.5
+KZ,Kazakhstan,Men Have Sex With Men,3.2
+KE,Kenya,Men Have Sex With Men,18.2
+KG,Kyrgyzstan,Men Have Sex With Men,6.3
+LA,Lao People's Democratic Republic,Men Have Sex With Men,1.6
+LV,Latvia,Men Have Sex With Men,7.8
+LB,Lebanon,Men Have Sex With Men,27.5
+LS,Lesotho,Men Have Sex With Men,32.9
+LR,Liberia,Men Have Sex With Men,19.8
+LY,Libya,Men Have Sex With Men,3.1
+LT,Lithuania,Men Have Sex With Men,5.9
+MG,Madagascar,Men Have Sex With Men,14.9
+MW,Malawi,Men Have Sex With Men,17.3
+MY,Malaysia,Men Have Sex With Men,8.9
+ML,Mali,Men Have Sex With Men,13.7
+MR,Mauritania,Men Have Sex With Men,44.4
+MU,Mauritius,Men Have Sex With Men,17.2
+MX,Mexico,Men Have Sex With Men,17.3
+MN,Mongolia,Men Have Sex With Men,13.7
+ME,Montenegro,Men Have Sex With Men,12.5
+MA,Morocco,Men Have Sex With Men,5.7
+MM,Myanmar,Men Have Sex With Men,6.4
+NP,Nepal,Men Have Sex With Men,2.4
+NL,Netherlands,Men Have Sex With Men,15
+NZ,New Zealand,Men Have Sex With Men,6.5
+NI,Nicaragua,Men Have Sex With Men,8.6
+NE,Niger,Men Have Sex With Men,17.6
+NG,Nigeria,Men Have Sex With Men,23
+PK,Pakistan,Men Have Sex With Men,3.7
+PA,Panama,Men Have Sex With Men,13.06
+PY,Paraguay,Men Have Sex With Men,15.4
+PE,Peru,Men Have Sex With Men,15.2
+PH,Philippines,Men Have Sex With Men,4.9
+PL,Poland,Men Have Sex With Men,7.2
+PT,Portugal,Men Have Sex With Men,7.2
+KR,South Korea,Men Have Sex With Men,3
+MD,Republic of Moldova,Men Have Sex With Men,5.7
+RO,Romania,Men Have Sex With Men,18.2
+KN,Saint Kitts and Nevis,Men Have Sex With Men,1.3
+VC,Saint Vincent and the Grenadines,Men Have Sex With Men,29.6
+SN,Senegal,Men Have Sex With Men,41.9
+RS,Serbia,Men Have Sex With Men,8.3
+SC,Seychelles,Men Have Sex With Men,13.2
+SL,Sierra Leone,Men Have Sex With Men,14
+SG,Singapore,Men Have Sex With Men,11
+SI,Slovenia,Men Have Sex With Men,4
+ZA,South Africa,Men Have Sex With Men,26.8
+ES,Spain,Men Have Sex With Men,11.3
+LK,Sri Lanka,Men Have Sex With Men,1.5
+SD,Sudan,Men Have Sex With Men,1.4
+SZ,Swaziland,Men Have Sex With Men,12.6
+SE,Sweden,Men Have Sex With Men,4
+CH,Switzerland,Men Have Sex With Men,11.2
+TJ,Tajikistan,Men Have Sex With Men,2.7
+TH,Thailand,Men Have Sex With Men,9.15
+MK,The former Yugoslav Republic of Macedonia,Men Have Sex With Men,1.9
+TL,Timor-Leste,Men Have Sex With Men,1.3
+TG,Togo,Men Have Sex With Men,13
+TO,Tonga,Men Have Sex With Men,0
+TT,Trinidad and Tobago,Men Have Sex With Men,31.6
+TN,Tunisia,Men Have Sex With Men,9.1
+TV,Tuvalu,Men Have Sex With Men,0
+UG,Uganda,Men Have Sex With Men,13.2
+UA,Ukraine,Men Have Sex With Men,8.5
+GB,United Kingdom,Men Have Sex With Men,2.5
+TZ,United Republic of Tanzania,Men Have Sex With Men,17.6
+US,United States,Men Have Sex With Men,14.5
+UY,Uruguay,Men Have Sex With Men,9.7
+UZ,Uzbekistan,Men Have Sex With Men,3.3
+VN,Viet Nam,Men Have Sex With Men,8.2
+YE,Yemen,Men Have Sex With Men,5.9
+AF,Afghanistan,People Who Inject Drugs,4.4
+AL,Albania,People Who Inject Drugs,0.5
+DZ,Algeria,People Who Inject Drugs,4.3
+AM,Armenia,People Who Inject Drugs,0.5
+AU,Australia,People Who Inject Drugs,1.7
+AZ,Azerbaijan,People Who Inject Drugs,8.5
+BD,Bangladesh,People Who Inject Drugs,1.1
+BY,Belarus,People Who Inject Drugs,25.1
+BE,Belgium,People Who Inject Drugs,2
+BJ,Benin,People Who Inject Drugs,4.7
+BO,Bosnia and Herzegovina,People Who Inject Drugs,0
+BR,Brazil,People Who Inject Drugs,5.9
+BG,Bulgaria,People Who Inject Drugs,10.6
+CV,Cabo Verde,People Who Inject Drugs,20
+KH,Cambodia,People Who Inject Drugs,24.8
+CA,Canada,People Who Inject Drugs,10.9
+CN,China,People Who Inject Drugs,5.9
+CO,Colombia,People Who Inject Drugs,2.8
+CY,Cyprus,People Who Inject Drugs,0
+CZ,Czech Republic,People Who Inject Drugs,0.2
+CI,Ivory Coast,People Who Inject Drugs,5.3
+CD,Democratic Republic of the Congo,People Who Inject Drugs,5.9
+EG,Egypt,People Who Inject Drugs,2.4
+EE,Estonia,People Who Inject Drugs,48.3
+FI,Finland,People Who Inject Drugs,1.2
+FR,France,People Who Inject Drugs,10
+GE,Georgia,People Who Inject Drugs,2.2
+DE,Germany,People Who Inject Drugs,4.9
+GR,Greece,People Who Inject Drugs,8.5
+HU,Hungary,People Who Inject Drugs,0.3
+IN,India,People Who Inject Drugs,9.9
+ID,Indonesia,People Who Inject Drugs,28.76
+IR,Iran,People Who Inject Drugs,9.3
+IT,Italy,People Who Inject Drugs,20.9
+JP,Japan,People Who Inject Drugs,0.02
+KZ,Kazakhstan,People Who Inject Drugs,8.5
+KE,Kenya,People Who Inject Drugs,18.3
+KG,Kyrgyzstan,People Who Inject Drugs,12.4
+LV,Latvia,People Who Inject Drugs,18.5
+LB,Lebanon,People Who Inject Drugs,0.9
+LR,Liberia,People Who Inject Drugs,3.9
+LT,Lithuania,People Who Inject Drugs,2.2
+LU,Luxembourg,People Who Inject Drugs,2.4
+MG,Madagascar,People Who Inject Drugs,8.5
+MY,Malaysia,People Who Inject Drugs,16.3
+ML,Mali,People Who Inject Drugs,5.1
+MT,Malta,People Who Inject Drugs,3
+MU,Mauritius,People Who Inject Drugs,44.3
+MX,Mexico,People Who Inject Drugs,2.5
+ME,Montenegro,People Who Inject Drugs,0.5
+MA,Morocco,People Who Inject Drugs,7.9
+MM,Myanmar,People Who Inject Drugs,26.3
+NP,Nepal,People Who Inject Drugs,6.4
+NL,Netherlands,People Who Inject Drugs,10.2
+NZ,New Zealand,People Who Inject Drugs,0.2
+NG,Nigeria,People Who Inject Drugs,3.4
+OM,Oman,People Who Inject Drugs,1.1
+PK,Pakistan,People Who Inject Drugs,21
+PH,Philippines,People Who Inject Drugs,29
+PL,Poland,People Who Inject Drugs,14.7
+PT,Portugal,People Who Inject Drugs,18.9
+MD,Republic of Moldova,People Who Inject Drugs,8.5
+RO,Romania,People Who Inject Drugs,21.4
+SA,Saudi Arabia,People Who Inject Drugs,0
+SN,Senegal,People Who Inject Drugs,10.2
+RS,Serbia,People Who Inject Drugs,1.8
+SC,Seychelles,People Who Inject Drugs,3.8
+SL,Sierra Leone,People Who Inject Drugs,8.5
+SG,Singapore,People Who Inject Drugs,1.5
+SI,Slovenia,People Who Inject Drugs,0
+ES,Spain,People Who Inject Drugs,2.3
+LK,Sri Lanka,People Who Inject Drugs,0
+SE,Sweden,People Who Inject Drugs,1
+CH,Switzerland,People Who Inject Drugs,9.8
+Syrian Arab Republic,Syrian Arab Republic,People Who Inject Drugs,0.5
+TJ,Tajikistan,People Who Inject Drugs,13.5
+TH,Thailand,People Who Inject Drugs,19.02
+MK,Macedonia,People Who Inject Drugs,0
+TG,Togo,People Who Inject Drugs,0
+TN,Tunisia,People Who Inject Drugs,3.9
+UA,Ukraine,People Who Inject Drugs,21.9
+GB,United Kingdom,People Who Inject Drugs,1.3
+TZ,United Republic of Tanzania,People Who Inject Drugs,15.5
+US,United States,People Who Inject Drugs,3.6
+UZ,Uzbekistan,People Who Inject Drugs,5.6
+VN,Viet Nam,People Who Inject Drugs,11
+AF,Afghanistan,Sex Workers,0.3
+AL,Albania,Sex Workers,0
+DZ,Algeria,Sex Workers,5.2
+AO,Angola,Sex Workers,4.7
+AG,Antigua and Barbuda,Sex Workers,1
+AM,Armenia,Sex Workers,0.1
+AU,Australia,Sex Workers,0
+AZ,Azerbaijan,Sex Workers,2.3
+BD,Bangladesh,Sex Workers,0.2
+BY,Belarus,Sex Workers,6.8
+BE,Belgium,Sex Workers,0.7
+BZ,Belize,Sex Workers,0.9
+BJ,Benin,Sex Workers,15.7
+BO,Bolivia,Sex Workers,4.3
+BO,Bosnia and Herzegovina,Sex Workers,0
+BW,Botswana,Sex Workers,61.9
+BR,Brazil,Sex Workers,5.3
+BG,Bulgaria,Sex Workers,1.8
+BF,Burkina Faso,Sex Workers,16.2
+BI,Burundi,Sex Workers,21.3
+CV,Cabo Verde,Sex Workers,7.7
+CM,Cameroon,Sex Workers,24.3
+CF,Central African Republic,Sex Workers,9.2
+TD,Chad,Sex Workers,20
+CL,Chile,Sex Workers,1.1
+CN,China,Sex Workers,0.19
+CO,Colombia,Sex Workers,1.2
+KM,Comoros,Sex Workers,0
+CG,Congo,Sex Workers,7.5
+CU,Cuba,Sex Workers,0.3
+CZ,Czech Republic,Sex Workers,0.2
+CI,Ivory Coast,Sex Workers,11
+CD,Democratic Republic of the Congo,Sex Workers,5.7
+DJ,Djibouti,Sex Workers,12.9
+DO,Dominican Republic,Sex Workers,3.7
+EG,Egypt,Sex Workers,2.8
+SV,El Salvador,Sex Workers,2.8
+ER,Eritrea,Sex Workers,10.4
+EE,Estonia,Sex Workers,6.2
+ET,Ethiopia,Sex Workers,24.3
+FJ,Fiji,Sex Workers,0.7
+FI,Finland,Sex Workers,3.5
+GE,Georgia,Sex Workers,0.7
+GH,Ghana,Sex Workers,6.9
+GT,Guatemala,Sex Workers,1.6
+GN,Guinea,Sex Workers,14.2
+GW,Guinea-Bissau,Sex Workers,39
+GY,Guyana,Sex Workers,6.1
+HT,Haiti,Sex Workers,8.4
+HN,Honduras,Sex Workers,5.3
+IN,India,Sex Workers,2.2
+ID,Indonesia,Sex Workers,5.3
+IR,Iran,Sex Workers,2.1
+IE,Ireland,Sex Workers,0
+JM,Jamaica,Sex Workers,2.8
+JP,Japan,Sex Workers,0
+JO,Jordan,Sex Workers,0.5
+KZ,Kazakhstan,Sex Workers,1.3
+KG,Kyrgyzstan,Sex Workers,2
+LV,Latvia,Sex Workers,22.2
+LB,Lebanon,Sex Workers,1
+LS,Lesotho,Sex Workers,71.9
+LT,Lithuania,Sex Workers,1.8
+MG,Madagascar,Sex Workers,5.5
+MW,Malawi,Sex Workers,24.9
+MY,Malaysia,Sex Workers,7.3
+MR,Mauritania,Sex Workers,4
+MU,Mauritius,Sex Workers,15
+MX,Mexico,Sex Workers,7
+FM,Micronesia,Sex Workers,0
+MN,Mongolia,Sex Workers,0
+ME,Montenegro,Sex Workers,0.5
+MA,Morocco,Sex Workers,1.3
+MM,Myanmar,Sex Workers,5.4
+NI,Nicaragua,Sex Workers,2.6
+NE,Niger,Sex Workers,17
+NG,Nigeria,Sex Workers,14.4
+PK,Pakistan,Sex Workers,3.8
+PA,Panama,Sex Workers,2
+PG,Papua New Guinea,Sex Workers,17.8
+PY,Paraguay,Sex Workers,7
+PE,Peru,Sex Workers,1.3
+PH,Philippines,Sex Workers,0.6
+PT,Portugal,Sex Workers,5.7
+MD,Republic of Moldova,Sex Workers,11.6
+RW,Rwanda,Sex Workers,45.8
+ST,Sao Tome and Principe,Sex Workers,0
+SN,Senegal,Sex Workers,6.6
+RS,Serbia,Sex Workers,1.6
+SC,Seychelles,Sex Workers,4.6
+SL,Sierra Leone,Sex Workers,8.5
+SG,Singapore,Sex Workers,0
+SO,Somalia,Sex Workers,5.2
+ZA,South Africa,Sex Workers,57.7
+ES,Spain,Sex Workers,2
+LK,Sri Lanka,Sex Workers,0
+SD,Sudan,Sex Workers,1.3
+SR,Suriname,Sex Workers,5.8
+SZ,Swaziland,Sex Workers,60.5
+TJ,Tajikistan,Sex Workers,3.5
+TH,Thailand,Sex Workers,1
+MK,The former Yugoslav Republic of Macedonia,Sex Workers,0
+TL,Timor-Leste,Sex Workers,1.5
+TG,Togo,Sex Workers,11.7
+TN,Tunisia,Sex Workers,0.92
+UG,Uganda,Sex Workers,34.2
+UA,Ukraine,Sex Workers,7
+TZ,United Republic of Tanzania,Sex Workers,28
+UY,Uruguay,Sex Workers,1.3
+UZ,Uzbekistan,Sex Workers,2.9
+VN,Viet Nam,Sex Workers,2.7
+YE,Yemen,Sex Workers,0
+ZM,Zambia,Sex Workers,56.4
+ZW,Zimbabwe,Sex Workers,57.1

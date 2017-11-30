@@ -31,8 +31,13 @@
         .barlabel {
             font-size: 8pt;
             text-anchor: middle;
-
         }
+        .selected {
+           opacity: 0.6;
+           stroke-width: 4;
+           stroke: black;
+        }
+
     </style>
 </head>
 
@@ -165,7 +170,13 @@
                     .enter().append("path")
                     .attr("d", path)
                     .attr("id", function(d) {
+                        //console.log(d.id);
                         return d.id;
+                    })
+                    .on("click", function(d, i){
+                        //d3.select(".selected").classed("selected", false);
+                        d3.select(this).classed("selected", true);
+                        console.log(d);
                     })
                     .call(fillMap, color, data)
                     .append("title")

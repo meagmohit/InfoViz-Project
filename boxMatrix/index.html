@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+ 
+ </script>
+  <style>
+    body { margin:0;top:0;right:0;bottom:0;left:0;font-family:Arial, sans-serif }
+    rect, line { shape-rendering: crispEdges; }
+    .box text { fill: white; }
+    
+    .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }
+    .annotation text { fill: #002e5e; font-size: 14}
+  </style>
+</head>
+
+<body>
+  <script>
+d3.csv("HDI.csv", function(data) {	
+	var selectedIDs = ["AFG","ARG","AUS","BEL","USA"];
+	
+	//creates a lookup table storing the index within the raw data array that corresponds to each country ID
+	var lookupByID = {};
+	for (var i = 0; i < data.length; i++) {
+		lookupByID[data[i].id] = i;
+	}
+	
+	//creates a dataset containing the information for countries whose IDs are currently selected
+	dataset = [];
+	for (var i = 0; i < selectedIDs.length; i++) {
+		dataset.push(data[lookupByID[selectedIDs[i]]]);
+	}
+	var rows = dataset.length;
+	
+	console.log(dataset);
+	
+	const width = 500;
+    const height = 600;
+    const margin = {"top": 50, "left": 100, "right": 50, "bottom": 50};
+    const annotationPadding = 1;
+    const rowPadding = 10;
+    const annotationPaddingV = rowPadding/2;
+	
+	var rowHeight = height/rows;
+	
+	//create a scale for each column
+	var colKeys = [];
+	var sizeScales = [];
+	var colorScales = [];
+	for (var key in dataset[0])
+	{
+		if (key !== "id") {
+			colKeys.push(key);
+			var maxValue = d3.max(dataset, function(d){ return d[key]; });
+			var sizeScale = d3.scaleSqrt()
+				.domain([0,maxValue])
+				.range([0,(rowHeight - rowPadding)/2]);
+			sizeScales.push(sizeScale);
+			var colorScale = d3.scaleLinear()
+				.domain([0,maxValue])
+				.range(['honeydew','darkgreen']);
+			colorScales.push(colorScale);
+		}
+	}
+	//console.log(colKeys);
+
+    var columnWidth = width/colKeys.length;
+    
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.right + margin.left)
+      .attr("height", height + margin.top + margin.bottom);
+    
+    var chart = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    var columnHeader = chart.append("g")
+      .attr("transform", "translate(0,0)");
+    
+    var columnLabels = columnHeader.selectAll("g")
+      .data(colKeys)
+      .enter()
+      .append("g")
+      .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
+    
+    columnLabels.append("text")
+    .text(function(d) { return d })
+    .attr("y", -10)
+	.attr("x", columnWidth/2)
+	.style("text-anchor","middle");
+    //.attr("transform", "translate(20)rotate(-45)")
+    
+    dataset.forEach(function(d) {
+	
+	  //console.log(d,d.values);
+      
+      var rowNumber = selectedIDs.indexOf(d.id);
+
+      var rowG = chart.append("g")
+      .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");
+      
+      rowG.append("text")
+      .text(d.id)
+      .attr("x", -rowPadding)
+      .attr("y", rowHeight/2 + 6)
+      .style("text-anchor", "end");
+
+	  var boxes =  rowG.selectAll("g")
+	  .data(d3.values(d).slice(0,-1))
+	  .enter()
+	  .append("g")
+	  .attr("class", "box")
+	  .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
+	  
+	  boxes.append("rect")
+	  .attr("x", function(d,i) { return (columnWidth - sizeScales[i](d))/2; })
+	  .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
+	  .attr("width", function(d,i) { return sizeScales[i](d); })
+	  .attr("height", function(d,i) { return sizeScales[i](d); })
+	  .style("fill", function(d,i){ return colorScales[i](d); });
+	  
+	  boxes.append("text")
+	  .text(function(d,i){ return d; })
+	  .attr("x", columnWidth/2)
+	  .attr("y", rowHeight/2 + 6)
+	  .style("text-anchor", "middle");
+      
+    });
+ 
+}); 
+  </script>
+</body>

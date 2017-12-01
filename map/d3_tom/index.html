@@ -71,7 +71,7 @@
 								{ value: "NHIT", text: "New HIV infections (total)" }]
 
         /// main
-        var defaults = ['AFG','DZA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+        var defaults = ['AFG','DZA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
 
 
 
@@ -192,8 +192,20 @@
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
 
 
+        // Ryan's box plot
+       const widthBP = 1000;
+        const heightBP = 600;
+        const marginBP = {"top": 50, "left": 100, "right": 50, "bottom": 50};
+        const annotationPadding = 1;
+        const rowPadding = 50;
+        const annotationPaddingV = rowPadding/2;
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", widthBP + marginBP.right + marginBP.left)
+            .attr("height", heightBP + marginBP.top + marginBP.bottom);
 
         // load data
+        d3.csv("data/HDI.csv", function(dataTemp) {  
         d3.json("data/all_data2.json", function(error, d) {
 			if (error) throw error;
 
@@ -227,6 +239,7 @@
                         console.log(arg1.id);
                         defaults.push(arg1.id);
                         renderArea(d);
+                        renderBoxPlot(dataTemp);
                     })
                     .call(fillMap, color, data)
                     .append("title")
@@ -240,12 +253,14 @@
                         temp[myX]['date'] = parseTime(myKeys[myX]);
                     };
                     mydata = temp;*/
-
+                
                 // init legend
                 renderLegend(color, data);
                 renderBars(color, data);
                 renderCircles(color, dataG);
                 renderArea(d);
+                renderBoxPlot(dataTemp);
+            });
             }); // map data
 
 

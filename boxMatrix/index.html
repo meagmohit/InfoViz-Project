@@ -16,42 +16,46 @@
 
 <body>
   <script>
-d3.csv("HDI.csv", function(data) {	
-	var selectedIDs = ["AFG","ARG","AUS","BEL","USA"];
+d3.csv("HDI.csv", function(dataTemp) {	
+	var defaults = ["AFG","ARG","AUS","BEL","USA"];
 	
-	//creates a lookup table storing the index within the raw data array that corresponds to each country ID
+	//creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
 	var lookupByID = {};
-	for (var i = 0; i < data.length; i++) {
-		lookupByID[data[i].id] = i;
+	for (var i = 0; i < dataTemp.length; i++) {
+		lookupByID[dataTemp[i].id] = i;
 	}
 	
-	//creates a dataset containing the information for countries whose IDs are currently selected
-	dataset = [];
-	for (var i = 0; i < selectedIDs.length; i++) {
-		dataset.push(data[lookupByID[selectedIDs[i]]]);
+	//creates a dataTempset containing the information for countries whose IDs are currently selected
+	dataTempset = [];
+	for (var i = 0; i < defaults.length; i++) {
+		dataTempset.push(dataTemp[lookupByID[defaults[i]]]);
 	}
-	var rows = dataset.length;
+	var rows = dataTempset.length;
 	
-	console.log(dataset);
+	//console.log(dataTempset);
 	
-	const width = 500;
-    const height = 600;
-    const margin = {"top": 50, "left": 100, "right": 50, "bottom": 50};
+	const widthBP = 500;
+    const heightBP = 600;
+    const marginBP = {"top": 50, "left": 100, "right": 50, "bottom": 50};
     const annotationPadding = 1;
     const rowPadding = 10;
     const annotationPaddingV = rowPadding/2;
+
+ 	var svg = d3.select("body").append("svg")
+      .attr("width", widthBP + marginBP.right + marginBP.left)
+      .attr("height", heightBP + marginBP.top + marginBP.bottom);
 	
-	var rowHeight = height/rows;
+	var rowHeight = heightBP/rows;
 	
 	//create a scale for each column
 	var colKeys = [];
 	var sizeScales = [];
 	var colorScales = [];
-	for (var key in dataset[0])
+	for (var key in dataTempset[0])
 	{
 		if (key !== "id") {
 			colKeys.push(key);
-			var maxValue = d3.max(dataset, function(d){ return d[key]; });
+			var maxValue = d3.max(dataTempset, function(d){ return d[key]; });
 			var sizeScale = d3.scaleSqrt()
 				.domain([0,maxValue])
 				.range([0,(rowHeight - rowPadding)/2]);
@@ -64,14 +68,10 @@ d3.csv("HDI.csv", function(data) {
 	}
 	//console.log(colKeys);
 
-    var columnWidth = width/colKeys.length;
-    
-    var svg = d3.select("body").append("svg")
-      .attr("width", width + margin.right + margin.left)
-      .attr("height", height + margin.top + margin.bottom);
+    var columnWidth = widthBP/colKeys.length;
     
     var chart = svg.append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + marginBP.left + "," + marginBP.top + ")");
     
     var columnHeader = chart.append("g")
       .attr("transform", "translate(0,0)");
@@ -89,11 +89,11 @@ d3.csv("HDI.csv", function(data) {
 	.style("text-anchor","middle");
     //.attr("transform", "translate(20)rotate(-45)")
     
-    dataset.forEach(function(d) {
+    dataTempset.forEach(function(d) {
 	
 	  //console.log(d,d.values);
       
-      var rowNumber = selectedIDs.indexOf(d.id);
+      var rowNumber = defaults.indexOf(d.id);
 
       var rowG = chart.append("g")
       .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");

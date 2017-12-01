@@ -362,3 +362,103 @@ function renderArea(data) {
     .text("Deaths")
 
 }
+
+function renderBoxPlot(dataTemp) {
+        //creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
+    var lookupByID = {};
+    for (var i = 0; i < dataTemp.length; i++) {
+        lookupByID[dataTemp[i].id] = i;
+    }
+    
+    //creates a dataTempset containing the information for countries whose IDs are currently selected
+    dataTempset = [];
+    for (var i = 0; i < defaults.length; i++) {
+        dataTempset.push(dataTemp[lookupByID[defaults[i]]]);
+    }
+    var rows = dataTempset.length;
+
+    var rowHeight = heightBP/rows;
+    
+    //create a scale for each column
+    var colKeys = [];
+    var sizeScales = [];
+    var colorScales = [];
+    for (var key in dataTempset[0])
+    {
+        if (key !== "id") {
+            colKeys.push(key);
+            var maxValue = d3.max(dataTempset, function(d){ return d[key]; });
+            var sizeScale = d3.scaleSqrt()
+                .domain([0,maxValue])
+                .range([0,(rowHeight - rowPadding)/2]);
+            sizeScales.push(sizeScale);
+            var colorScale = d3.scaleLinear()
+                .domain([0,maxValue])
+                .range(['honeydew','darkgreen']);
+            colorScales.push(colorScale);
+        }
+    }
+    //console.log(colKeys);
+
+    var columnWidth = widthBP/colKeys.length;
+    
+    svg.selectAll('g').remove();
+    var chart = svg.append("g")
+      .attr("transform", "translate(" + marginBP.left + "," + marginBP.top + ")");
+    
+
+    var columnHeader = chart.append("g")
+      .attr("transform", "translate(0,0)");
+    
+    var columnLabels = columnHeader.selectAll("g")
+      .data(colKeys)
+      .enter()
+      .append("g")
+      .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
+    
+    columnLabels.append("text")
+    .text(function(d) { return d })
+    .attr("y", -10)
+    .attr("x", columnWidth/2)
+    .style("text-anchor","middle");
+    //.attr("transform", "translate(20)rotate(-45)")
+    
+
+    dataTempset.forEach(function(d) {
+    
+      //console.log(d,d.values);
+      
+      var rowNumber = defaults.indexOf(d.id);
+
+      var rowG = chart.append("g")
+      .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");
+      
+      rowG.append("text")
+      .text(d.id)
+      .attr("x", -rowPadding)
+      .attr("y", rowHeight/2 + 6)
+      .style("text-anchor", "end");
+
+      var boxes =  rowG.selectAll("g")
+      .data(d3.values(d).slice(0,-1))
+      .enter()
+      .append("g")
+      .attr("class", "box")
+      .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
+      
+      boxes.append("rect")
+      .attr("x", function(d,i) { return (columnWidth - sizeScales[i](d))/2; })
+      .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
+      .attr("width", function(d,i) { return sizeScales[i](d); })
+      .attr("height", function(d,i) { return sizeScales[i](d); })
+      .style("fill", function(d,i){ return colorScales[i](d); });
+      
+      boxes.append("text")
+      .text(function(d,i){ return d; })
+      .attr("x", columnWidth/2)
+      .attr("y", rowHeight/2 + 6)
+      .style("text-anchor", "middle");
+      
+    });
+ 
+}

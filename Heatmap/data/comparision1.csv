@@ -1,0 +1,303 @@
+id,x,y,value
+AFG,Afghanistan,Men Have Sex With Men,0.5
+AFG,Afghanistan,People Who Inject Drugs,4.4
+AFG,Afghanistan,Sex Workers,0.3
+ALB,Albania,People Who Inject Drugs,0.5
+ALB,Albania,Men Have Sex With Men,0.5
+ALB,Albania,Sex Workers,0
+ARM,Armenia,Sex Workers,0.1
+ARM,Armenia,Men Have Sex With Men,0.8
+ARM,Armenia,People Who Inject Drugs,0.5
+AGO,Angola,Sex Workers,4.7
+ARG,Argentina,Men Have Sex With Men,11.4
+AUS,Australia,People Who Inject Drugs,1.7
+AUS,Australia,Men Have Sex With Men,18.3
+AUS,Australia,Sex Workers,0
+AZE,Azerbaijan,Sex Workers,2.3
+AZE,Azerbaijan,People Who Inject Drugs,8.5
+AZE,Azerbaijan,Men Have Sex With Men,2.2
+BRB,Barbados,Men Have Sex With Men,14.4
+BGD,Bangladesh,Men Have Sex With Men,0.2
+BGD,Bangladesh,People Who Inject Drugs,1.1
+BGD,Bangladesh,Sex Workers,0.2
+BEL,Belgium,Sex Workers,0.7
+BEL,Belgium,Men Have Sex With Men,12.3
+BEL,Belgium,People Who Inject Drugs,2
+BFA,Burkina Faso,Sex Workers,16.2
+BFA,Burkina Faso,Men Have Sex With Men,3.6
+BGR,Bulgaria,Men Have Sex With Men,0
+BGR,Bulgaria,Sex Workers,1.8
+BGR,Bulgaria,People Who Inject Drugs,10.6
+BDI,Burundi,Sex Workers,21.3
+BDI,Burundi,Men Have Sex With Men,4.8
+BEN,Benin,Sex Workers,15.7
+BEN,Benin,People Who Inject Drugs,4.7
+BEN,Benin,Men Have Sex With Men,7.1
+BOL,Bosnia and Herzegovina,Men Have Sex With Men,1.1
+BOL,Bosnia and Herzegovina,People Who Inject Drugs,0
+BOL,Bosnia and Herzegovina,Sex Workers,0
+BOL,Bolivia,Sex Workers,4.3
+BOL,Bolivia,Men Have Sex With Men,25.4
+BRA,Brazil,People Who Inject Drugs,5.9
+BRA,Brazil,Men Have Sex With Men,10.5
+BRA,Brazil,Sex Workers,5.3
+BHS,Bahamas,Men Have Sex With Men,19.6
+BWA,Botswana,Men Have Sex With Men,13.1
+BWA,Botswana,Sex Workers,61.9
+BLR,Belarus,Men Have Sex With Men,5.7
+BLR,Belarus,People Who Inject Drugs,25.1
+BLR,Belarus,Sex Workers,6.8
+BLZ,Belize,Men Have Sex With Men,13.85
+BLZ,Belize,Sex Workers,0.9
+CAN,Canada,Men Have Sex With Men,14.9
+CAN,Canada,People Who Inject Drugs,10.9
+CHE,Switzerland,Men Have Sex With Men,11.2
+CHE,Switzerland,People Who Inject Drugs,9.8
+CHL,Chile,Men Have Sex With Men,13.9
+CHL,Chile,Sex Workers,1.1
+CMR,Cameroon,Sex Workers,24.3
+CMR,Cameroon,Men Have Sex With Men,37.2
+CHN,China,Sex Workers,0.19
+CHN,China,People Who Inject Drugs,5.9
+CHN,China,Men Have Sex With Men,7.75
+COL,Colombia,Sex Workers,1.2
+COL,Colombia,People Who Inject Drugs,2.8
+COL,Colombia,Men Have Sex With Men,17
+CRI,Costa Rica,Men Have Sex With Men,12.7
+CUB,Cuba,Sex Workers,0.3
+CUB,Cuba,Men Have Sex With Men,1.8
+CPV,Cabo Verde,People Who Inject Drugs,20
+CPV,Cape Verde,Men Have Sex With Men,15
+CPV,Cabo Verde,Sex Workers,7.7
+CYP,Cyprus,People Who Inject Drugs,0
+DEU,Germany,People Who Inject Drugs,4.9
+DEU,Germany,Men Have Sex With Men,6
+DJI,Djibouti,Sex Workers,12.9
+DMA,Dominica,Men Have Sex With Men,26.7
+DZA,Algeria,Sex Workers,5.2
+DZA,Algeria,Men Have Sex With Men,4.3
+DZA,Algeria,People Who Inject Drugs,4.3
+ECU,Ecuador,Men Have Sex With Men,13.3
+EST,Estonia,Sex Workers,6.2
+EST,Estonia,People Who Inject Drugs,48.3
+EGY,Egypt,Men Have Sex With Men,6.2
+EGY,Egypt,Sex Workers,2.8
+EGY,Egypt,People Who Inject Drugs,2.4
+ERI,Eritrea,Sex Workers,10.4
+ESP,Spain,People Who Inject Drugs,2.3
+ESP,Spain,Sex Workers,2
+ESP,Spain,Men Have Sex With Men,11.3
+ETH,Ethiopia,Sex Workers,24.3
+FIN,Finland,Men Have Sex With Men,0.4
+FIN,Finland,People Who Inject Drugs,1.2
+FIN,Finland,Sex Workers,3.5
+FJI,Fiji,Men Have Sex With Men,0.5
+FJI,Fiji,Sex Workers,0.7
+FRA,France,People Who Inject Drugs,10
+FRA,France,Men Have Sex With Men,17.7
+GBR,United Kingdom,People Who Inject Drugs,1.3
+GBR,United Kingdom,Men Have Sex With Men,2.5
+GEO,Georgia,People Who Inject Drugs,2.2
+GEO,Georgia,Men Have Sex With Men,20.7
+GEO,Georgia,Sex Workers,0.7
+GHA,Ghana,Men Have Sex With Men,17.5
+GHA,Ghana,Sex Workers,6.9
+GIN,Guinea,Sex Workers,14.2
+GRC,Greece,Men Have Sex With Men,12.7
+GRC,Greece,People Who Inject Drugs,8.5
+GTM,Guatemala,Sex Workers,1.6
+GTM,Guatemala,Men Have Sex With Men,8
+GNB,Guinea-Bissau,Sex Workers,39
+GUY,Guyana,Sex Workers,6.1
+GUY,Guyana,Men Have Sex With Men,4.9
+HND,Honduras,Men Have Sex With Men,11.7
+HND,Honduras,Sex Workers,5.3
+HRV,Croatia,Men Have Sex With Men,2.7
+HTI,Haiti,Men Have Sex With Men,18.2
+HTI,Haiti,Sex Workers,8.4
+HUN,Hungary,Men Have Sex With Men,4.1
+HUN,Hungary,People Who Inject Drugs,0.3
+IDN,Indonesia,People Who Inject Drugs,28.76
+IDN,Indonesia,Sex Workers,5.3
+IDN,Indonesia,Men Have Sex With Men,25.8
+IRL,Ireland,Sex Workers,0
+IRL,Ireland,Men Have Sex With Men,7.8
+IND,India,Sex Workers,2.2
+IND,India,People Who Inject Drugs,9.9
+IND,India,Men Have Sex With Men,4.3
+IRN,Iran,People Who Inject Drugs,9.3
+IRN,Iran,Sex Workers,2.1
+ITA,Italy,Men Have Sex With Men,6.7
+ITA,Italy,People Who Inject Drugs,20.9
+JAM,Jamaica,Men Have Sex With Men,32.8
+JAM,Jamaica,Sex Workers,2.8
+JOR,Jordan,Men Have Sex With Men,7.5
+JOR,Jordan,Sex Workers,0.5
+JPN,Japan,People Who Inject Drugs,0.02
+JPN,Japan,Men Have Sex With Men,4.8
+JPN,Japan,Sex Workers,0
+KEN,Kenya,Men Have Sex With Men,18.2
+KEN,Kenya,People Who Inject Drugs,18.3
+KGZ,Kyrgyzstan,Sex Workers,2
+KGZ,Kyrgyzstan,People Who Inject Drugs,12.4
+KGZ,Kyrgyzstan,Men Have Sex With Men,6.3
+KHM,Cambodia,People Who Inject Drugs,24.8
+KHM,Cambodia,Men Have Sex With Men,2.3
+COM,Comoros,Sex Workers,0
+COM,Comoros,Men Have Sex With Men,0
+KAZ,Kazakhstan,People Who Inject Drugs,8.5
+KAZ,Kazakhstan,Men Have Sex With Men,3.2
+KAZ,Kazakhstan,Sex Workers,1.3
+LBN,Lebanon,Men Have Sex With Men,27.5
+LBN,Lebanon,People Who Inject Drugs,0.9
+LBN,Lebanon,Sex Workers,1
+LKA,Sri Lanka,Men Have Sex With Men,1.5
+LKA,Sri Lanka,People Who Inject Drugs,0
+LKA,Sri Lanka,Sex Workers,0
+LBR,Liberia,People Who Inject Drugs,3.9
+LBR,Liberia,Men Have Sex With Men,19.8
+LSO,Lesotho,Sex Workers,71.9
+LSO,Lesotho,Men Have Sex With Men,32.9
+LTU,Lithuania,Men Have Sex With Men,5.9
+LTU,Lithuania,Sex Workers,1.8
+LTU,Lithuania,People Who Inject Drugs,2.2
+LUX,Luxembourg,People Who Inject Drugs,2.4
+LVA,Latvia,People Who Inject Drugs,18.5
+LVA,Latvia,Sex Workers,22.2
+LVA,Latvia,Men Have Sex With Men,7.8
+LBY,Libya,Men Have Sex With Men,3.1
+MAR,Morocco,People Who Inject Drugs,7.9
+MAR,Morocco,Sex Workers,1.3
+MAR,Morocco,Men Have Sex With Men,5.7
+MDA,Republic of Moldova,Sex Workers,11.6
+MDA,Republic of Moldova,Men Have Sex With Men,5.7
+MDA,Republic of Moldova,People Who Inject Drugs,8.5
+MNE,Montenegro,People Who Inject Drugs,0.5
+MNE,Montenegro,Men Have Sex With Men,12.5
+MNE,Montenegro,Sex Workers,0.5
+MDG,Madagascar,People Who Inject Drugs,8.5
+MDG,Madagascar,Sex Workers,5.5
+MDG,Madagascar,Men Have Sex With Men,14.9
+MKD,The former Yugoslav Republic of Macedonia,Sex Workers,0
+MKD,The former Yugoslav Republic of Macedonia,Men Have Sex With Men,1.9
+MKD,Macedonia,People Who Inject Drugs,0
+MLI,Mali,People Who Inject Drugs,5.1
+MLI,Mali,Men Have Sex With Men,13.7
+MMR,Myanmar,People Who Inject Drugs,26.3
+MMR,Myanmar,Men Have Sex With Men,6.4
+MMR,Myanmar,Sex Workers,5.4
+MNG,Mongolia,Men Have Sex With Men,13.7
+MNG,Mongolia,Sex Workers,0
+MRT,Mauritania,Men Have Sex With Men,44.4
+MRT,Mauritania,Sex Workers,4
+MUS,Mauritius,Sex Workers,15
+MUS,Mauritius,Men Have Sex With Men,17.2
+MUS,Mauritius,People Who Inject Drugs,44.3
+MWI,Malawi,Men Have Sex With Men,17.3
+MWI,Malawi,Sex Workers,24.9
+MEX,Mexico,Men Have Sex With Men,17.3
+MEX,Mexico,Sex Workers,7
+MEX,Mexico,People Who Inject Drugs,2.5
+MYS,Malaysia,People Who Inject Drugs,16.3
+MYS,Malaysia,Men Have Sex With Men,8.9
+MYS,Malaysia,Sex Workers,7.3
+NER,Niger,Men Have Sex With Men,17.6
+NER,Niger,Sex Workers,17
+NGA,Nigeria,Men Have Sex With Men,23
+NGA,Nigeria,People Who Inject Drugs,3.4
+NGA,Nigeria,Sex Workers,14.4
+NIC,Nicaragua,Sex Workers,2.6
+NIC,Nicaragua,Men Have Sex With Men,8.6
+NLD,Netherlands,Men Have Sex With Men,15
+NLD,Netherlands,People Who Inject Drugs,10.2
+NPL,Nepal,Men Have Sex With Men,2.4
+NPL,Nepal,People Who Inject Drugs,6.4
+NZL,New Zealand,Men Have Sex With Men,6.5
+NZL,New Zealand,People Who Inject Drugs,0.2
+OMN,Oman,People Who Inject Drugs,1.1
+PAN,Panama,Sex Workers,2
+PAN,Panama,Men Have Sex With Men,13.06
+PER,Peru,Men Have Sex With Men,15.2
+PER,Peru,Sex Workers,1.3
+PNG,Papua New Guinea,Sex Workers,17.8
+PHL,Philippines,People Who Inject Drugs,29
+PHL,Philippines,Men Have Sex With Men,4.9
+PHL,Philippines,Sex Workers,0.6
+PAK,Pakistan,People Who Inject Drugs,21
+PAK,Pakistan,Sex Workers,3.8
+PAK,Pakistan,Men Have Sex With Men,3.7
+POL,Poland,Men Have Sex With Men,7.2
+POL,Poland,People Who Inject Drugs,14.7
+PRT,Portugal,Men Have Sex With Men,7.2
+PRT,Portugal,People Who Inject Drugs,18.9
+PRT,Portugal,Sex Workers,5.7
+PRY,Paraguay,Men Have Sex With Men,15.4
+PRY,Paraguay,Sex Workers,7
+ROU,Romania,Men Have Sex With Men,18.2
+ROU,Romania,People Who Inject Drugs,21.4
+SRB,Serbia,Men Have Sex With Men,8.3
+SRB,Serbia,Sex Workers,1.6
+SRB,Serbia,People Who Inject Drugs,1.8
+RWA,Rwanda,Sex Workers,45.8
+SAU,Saudi Arabia,People Who Inject Drugs,0
+SDN,Sudan,Men Have Sex With Men,1.4
+SDN,Sudan,Sex Workers,1.3
+SWE,Sweden,People Who Inject Drugs,1
+SWE,Sweden,Men Have Sex With Men,4
+SGP,Singapore,People Who Inject Drugs,1.5
+SGP,Singapore,Men Have Sex With Men,11
+SGP,Singapore,Sex Workers,0
+SVN,Slovenia,Men Have Sex With Men,4
+SVN,Slovenia,People Who Inject Drugs,0
+SLE,Sierra Leone,Sex Workers,8.5
+SLE,Sierra Leone,Men Have Sex With Men,14
+SLE,Sierra Leone,People Who Inject Drugs,8.5
+SEN,Senegal,People Who Inject Drugs,10.2
+SEN,Senegal,Men Have Sex With Men,41.9
+SEN,Senegal,Sex Workers,6.6
+SOM,Somalia,Sex Workers,5.2
+SUR,Suriname,Sex Workers,5.8
+SLV,El Salvador,Sex Workers,2.8
+SLV,El Salvador,Men Have Sex With Men,10.3
+SWZ,Swaziland,Sex Workers,60.5
+SWZ,Swaziland,Men Have Sex With Men,12.6
+TCD,Chad,Sex Workers,20
+TGO,Togo,Sex Workers,11.7
+TGO,Togo,Men Have Sex With Men,13
+TGO,Togo,People Who Inject Drugs,0
+THA,Thailand,People Who Inject Drugs,19.02
+THA,Thailand,Men Have Sex With Men,9.15
+THA,Thailand,Sex Workers,1
+TJK,Tajikistan,Sex Workers,3.5
+TJK,Tajikistan,Men Have Sex With Men,2.7
+TJK,Tajikistan,People Who Inject Drugs,13.5
+TLS,Timor-Leste,Sex Workers,1.5
+TLS,Timor-Leste,Men Have Sex With Men,1.3
+TUN,Tunisia,People Who Inject Drugs,3.9
+TUN,Tunisia,Men Have Sex With Men,9.1
+TUN,Tunisia,Sex Workers,0.92
+TON,Tonga,Men Have Sex With Men,0
+TZA,United Republic of Tanzania,Men Have Sex With Men,17.6
+TZA,United Republic of Tanzania,Sex Workers,28
+TZA,United Republic of Tanzania,People Who Inject Drugs,15.5
+UKR,Ukraine,Sex Workers,7
+UKR,Ukraine,People Who Inject Drugs,21.9
+UKR,Ukraine,Men Have Sex With Men,8.5
+UGA,Uganda,Sex Workers,34.2
+UGA,Uganda,Men Have Sex With Men,13.2
+USA,United States,Men Have Sex With Men,14.5
+USA,United States,People Who Inject Drugs,3.6
+URY,Uruguay,Men Have Sex With Men,9.7
+URY,Uruguay,Sex Workers,1.3
+UZB,Uzbekistan,People Who Inject Drugs,5.6
+UZB,Uzbekistan,Men Have Sex With Men,3.3
+UZB,Uzbekistan,Sex Workers,2.9
+VNM,Viet Nam,Men Have Sex With Men,8.2
+VNM,Viet Nam,Sex Workers,2.7
+VNM,Viet Nam,People Who Inject Drugs,11
+YEM,Yemen,Sex Workers,0
+YEM,Yemen,Men Have Sex With Men,5.9
+ZAF,South Africa,Men Have Sex With Men,26.8
+ZAF,South Africa,Sex Workers,57.7
+ZMB,Zambia,Sex Workers,56.4
+ZWE,Zimbabwe,Sex Workers,57.1

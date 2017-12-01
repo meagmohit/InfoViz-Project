@@ -287,3 +287,78 @@ function pairQuantiles(arr) {
 
     return new_arr;
 }
+
+function renderArea(data) {
+
+
+
+    let myKeys = d3.keys(data['Deaths']);
+    let temp = d3.values(data['Deaths']);
+    //var bottom = temp.map(function(d) { return d[defaults[0]]; });
+    //console.log("Hello");
+    //console.log(temp);
+
+    for(let myX in myKeys){
+        temp[myX]['date'] = parseTime(myKeys[myX]);
+    };
+    mydata = temp;
+
+  var maxDateVal = d3.max(mydata, function(d){
+  var vals = defaults.map(function(key){ return key !== 'date' ? d[key] : 0 });
+    //console.log(vals);
+    return d3.sum(vals);
+  });
+  //console.log(maxDateVal);
+  // scale the range of the data
+  xArea.domain(d3.extent(mydata, function(d) { return d.date; }));
+  yArea.domain([0, maxDateVal]);
+
+  stackArea.keys(defaults);
+
+  stackArea.order(d3.stackOrderNone);
+  stackArea.offset(d3.stackOffsetNone);
+
+  console.log(stackArea(mydata));
+
+  //d3.select("svg#area g.area").selectAll('g.axis').remove();
+  svg_area.selectAll('g').remove();//.data(stackArea(mydata)).remove();
+  var browser = svg_area.selectAll('.browser')
+      .data(stackArea(mydata))
+    .enter().append('g')
+      .attr('class', function(d){ 
+        //console.log(d.key);
+        return 'browser ' + d.key; })
+      .attr('fill-opacity', 0.5);
+
+  //svg_area.selectAll('path').remove();
+  browser.append('path')
+      .attr('class', 'area')
+      .attr('d', area)
+      .style('fill', function(d) { return colorArea(d.key); });
+
+    // add the area
+ browser.append('text')
+      .datum(function(d) { return d; })
+      .attr('transform', function(d) { return 'translate(' + xArea(mydata[13].date) + ',' + yArea(d[13][1]) + ')'; })
+      .attr('x', -6) 
+      .attr('dy', '.35em')
+      .style("text-anchor", "start")
+      .text(function(d) { return d.key; })
+      .attr('fill-opacity', 1);
+
+  //svg_area.selectAll('g#yaxis').remove();
+  svg_area.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + heightArea + ')')
+      .call(xAreaAxis);
+
+  svg_area.append('g')
+      //.attr('id', 'yaxis');
+      .attr('class', 'y axis')
+      .call(yAreaAxis);
+
+  svg_area.append("text")
+    .attr("x", 0-margin.left)
+    .text("Deaths")
+
+}

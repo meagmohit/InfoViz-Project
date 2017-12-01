@@ -37,6 +37,16 @@
            stroke-width: 4;
            stroke: black;
         }
+        .line {
+        }       
+
+        .area {
+            fill: lightsteelblue;
+        }
+
+        .browser text {
+            text-anchor: end;
+        }
 
     </style>
 </head>
@@ -61,6 +71,7 @@
 								{ value: "NHIT", text: "New HIV infections (total)" }]
 
         /// main
+        var defaults = ['AFG','DZA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
 
 
 
@@ -118,6 +129,43 @@
             .append("text");
 
 
+        //init area chart containor : this section is being taken care my mohit
+        //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var marginArea = {top: 20, right: 20, bottom: 30, left: 50},
+            widthArea = 960 - marginArea.left - marginArea.right,
+            heightArea = 150 - marginArea.top - marginArea.bottom;
+        var parseTime = d3.timeParse("%Y");
+
+
+        var xArea = d3.scaleTime().range([0, widthArea]);
+        var yArea = d3.scaleLinear().range([heightArea, 0]);
+        var colorArea = d3.scaleOrdinal(d3.schemeCategory20).domain(defaults);;
+
+        var xAreaAxis = d3.axisBottom()
+            .scale(xArea);
+
+        var yAreaAxis = d3.axisLeft()
+            .scale(yArea);
+
+        var area = d3.area()
+            .x(function(d) { 
+                //console.log("yaha");
+                //console.log(d.data.date);
+                return xArea(d.data.date); })
+            .y0(function(d) { return yArea(d[0]); })
+            .y1(function(d) { return yArea(d[1]); });
+
+        var stackArea = d3.stack();
+
+        var svg_area = d3.select("body").append("svg")
+            .attr("id","area")
+            .attr("width", widthArea + marginArea.left + marginArea.right)
+            .attr("height", heightArea + marginArea.top + marginArea.bottom)
+            .append("g")
+            .attr("class", "area")
+            .attr("transform",
+                    "translate(" + marginArea.left + "," + marginArea.top + ")");
+
 
         // init bars container
         var margin = {
@@ -143,26 +191,12 @@
             .attr("class", "bars")
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
 
-        //init area chart containor : this section is being taken care my mohit
-        //    var margin = {top: 50, right:10, bottom:50, left:30};
-        var svgAreaWidth = 960 - margin.left - margin.right,
-            svgAreaHeight = 200 - margin.top - margin.bottom;
 
-        var xArea = d3.scaleLinear().range([0, width]);
-        var yArea = d3.scaleLinear().range([height, 0]);
-
-        var area = d3.area()
-            .x(function(d) {
-                return xArea(d.date);
-            })
-            .y0(height)
-            .y1(function(d) {
-                return yArea(d.close);
-            });
 
         // load data
         d3.json("data/all_data2.json", function(error, d) {
 			if (error) throw error;
+
 
             let data_deaths = d['Deaths'];
             let data_GDP = d['GDP'];
@@ -170,6 +204,7 @@
             let data = data_deaths[init_year];
             let dataG = data_GDP[init_year];
             let color = calcColorScale(data);
+
 
             // load map data and render it
             d3.json("data/world.json", function(error, worldmap) {
@@ -186,19 +221,31 @@
                         //console.log(d.id);
                         return d.id;
                     })
-                    .on("click", function(d, i){
+                    .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
                         d3.select(this).classed("selected", true);
-                        console.log(d);
+                        console.log(arg1.id);
+                        defaults.push(arg1.id);
+                        renderArea(d);
                     })
                     .call(fillMap, color, data)
                     .append("title")
                     .call(setPathTitle, data);
 
+                   let myKeys = d3.keys(data['Deaths']);
+                    let temp = d3.values(data['Deaths']);
+
+
+                 /*   for(let myX in myKeys){
+                        temp[myX]['date'] = parseTime(myKeys[myX]);
+                    };
+                    mydata = temp;*/
+
                 // init legend
                 renderLegend(color, data);
                 renderBars(color, data);
                 renderCircles(color, dataG);
+                renderArea(d);
             }); // map data
 
 
@@ -219,6 +266,8 @@
 				thisData = d[selected_dataset];
 				let upd_color = calcColorScale(thisData[init_year]);
 				updateMap(upd_color, thisData[init_year]);
+
+            //clicking on map
         });	
 
         }); // disaster data

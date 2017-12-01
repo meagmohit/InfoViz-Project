@@ -47,6 +47,7 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
     <script src="functions.js"></script>
+	<select id="dropdown"></select>
     <script>
         /// params
 
@@ -55,6 +56,9 @@
         var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
         var init_year = 1991;
         var headline = "Number of deaths caused in ";
+		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
+								{ value: "LWHT", text: "Living with HIV (Total)" },
+								{ value: "NHIT", text: "New HIV infections (total)" }]
 
         /// main
 
@@ -69,7 +73,17 @@
             .attr("id", "year");
 
         d3.select("body").insert("h2", ":first-child").text(headline + init_year);
-
+	
+		d3.select("#dropdown")
+          .selectAll("option")
+          .data(dropdown_options)
+          .enter()
+          .append("option")
+          .attr("value", function(option) { return option.value; })
+          .text(function(option) { return option.text; });
+	
+		var dropDown = d3.select("#dropdown");
+        
         // init country GDP bubbles containor
 
         var marginBubble = {
@@ -147,9 +161,8 @@
             });
 
         // load data
-        d3.json("data/all_data.json", function(error, d) {
-
-            if (error) throw error;
+        d3.json("data/all_data2.json", function(error, d) {
+			if (error) throw error;
 
             let data_deaths = d['Deaths'];
             let data_GDP = d['GDP'];
@@ -192,12 +205,21 @@
 
             // was the slider used?
             d3.select("#year").on("input", function() {
+				init_year = this.value;
                 let upd_color = calcColorScale(data_deaths[this.value]);
                 updateMap(upd_color, data_deaths[this.value]);
                 renderLegend(upd_color, data_deaths[this.value]);
                 renderBars(upd_color, data_deaths[this.value]);
                 renderCircles(upd_color, data_GDP[this.value]);
             });
+			
+			// dropdown used
+			dropDown.on("change", function() {
+				selected_dataset = d3.event.target.value;
+				thisData = d[selected_dataset];
+				let upd_color = calcColorScale(thisData[init_year]);
+				updateMap(upd_color, thisData[init_year]);
+        });	
 
         }); // disaster data
     </script>

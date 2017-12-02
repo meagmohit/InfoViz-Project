@@ -45,8 +45,27 @@
             text-anchor: end;
         }
         .legendArea text{
-            font-size: 24ptl
+            font-size: 12pt;
         }
+        #slider-range label {
+            position: absolute;
+            width: 20px;
+            margin-top: 20px;
+            margin-left: -10px;
+            text-align: center;
+            font-size: 10pt;
+        }
+        .tick {
+            width: 2px;
+            background-color:#999999;
+            margin-bottom: -10px;
+            height:10px;
+            position:absolute;
+            bottom:0px;
+            z-index: 1;
+        }
+
+        
     rect, line { shape-rendering: crispEdges; }
     .box text { fill: black; }
         .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }

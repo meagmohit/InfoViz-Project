@@ -28,7 +28,7 @@ function updateMap(color, data) {
         .call(setPathTitle, data);
 
     // update headline
-    d3.select("h2").text(headline + d3.select("#year").node().value);
+    d3.select("h5").text(headline + init_year + '-' + init_year2);//d3.select("#year").node().value);
 }
 
 function renderLegend(color, data) {
@@ -41,11 +41,13 @@ function renderLegend(color, data) {
 
     legend.exit().remove();
 
+
     legend.enter()
         .append("rect")
         .merge(legend)
         .attr("width", "20")
         .attr("height", "20")
+        .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
         .attr("y", function(d, i) {
             return (svg_height - 29) - 25 * i;
         })
@@ -68,6 +70,7 @@ function renderLegend(color, data) {
             return (svg_height - 14) - 25 * i;
         })
         .attr("x", 60)
+        .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
         .text(function(d, i) {
             return d;
         });
@@ -75,7 +78,8 @@ function renderLegend(color, data) {
     d3.select("svg#map g.legend_title text")
         .text("Legend (quintile ranges)")
         .attr("x", 30)
-        .attr("y", 286);
+        .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
+        .attr("y", 355);
 }
 
 function renderCircles(color, data) {

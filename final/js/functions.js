@@ -19,7 +19,7 @@ function setPathTitle(selection, data) {
 function updateMap(color, data) {
 
     // fill paths
-    d3.selectAll("svg#map path").transition()
+    d3.selectAll("svg#map path").transition().duration(100)
         .delay(100)
         .call(fillMap, color, data);
 
@@ -135,32 +135,42 @@ function renderBars(color, data) {
     // turn data into array of objects
     array = [];
     for (let key of Object.keys(data)) {
-        array.push({
-            'id': key,
-            'value': data[key]
-        })
+          array.push({
+              'id': key,
+              'value': data[key],
+              'sortvalue': data_GDP[2010][key]
+          })
     }
+    console.log(array);
 
     // sort by country id
-    array = sortArrObj(array, 'id');
+    array = sortArrObj(array, 'sortvalue');
 
-    x.domain(array.map(function(d) {
+    xBars.domain(array.map(function(d, i) {
         return d.id;
     }));
-    y.domain([0, d3.max(Object.values(data), function(d) {
+    yBars.domain([0, d3.max(Object.values(data), function(d) {
         return d;
     })]);
+
 
     d3.select("svg#bars g.axis").remove();
     let axis = d3.select("svg#bars").append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(" + 30 + "," + (svgBarsHeight + margin.top) + ")")
-        .call(d3.axisBottom(x))
+        .call(d3.axisBottom(xBars))
         .selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
+        .attr("font-size","0pt")
         .attr("transform", "rotate(-65)");
+
+    d3.select("svg#bars g.axis--y").remove();
+    let axis2 = d3.select("svg#bars").append("g")
+        .attr("class", "axis--y")
+        .attr("transform", "translate(" + margin.left + "," + (0 + margin.top) + ")")
+        .call(d3.axisLeft(yBars))
 
     let bars = d3.select("svg#bars g.bars").selectAll("rect").data(array);
     bars.exit().remove();
@@ -170,16 +180,16 @@ function renderBars(color, data) {
             return color(d.value);
         })
         .attr("x", function(d) {
-            return x(d.id);
+            return xBars(d.id) - 20;
         })
-        .attr("width", x.bandwidth())
+        .attr("width", xBars.bandwidth())
         .attr("y", function(d) {
-            return y(d.value);
+            return yBars(d.value);
         })
         .attr("height", function(d) {
-            return svgBarsHeight - y(d.value);
+            return svgBarsHeight - yBars(d.value);
         });
-
+    /*
     let annot = d3.select("svg#bars g.bars").selectAll("text").data(array);
     annot.exit().remove();
     annot.enter().append("text")
@@ -194,6 +204,8 @@ function renderBars(color, data) {
         .attr("y", function(d) {
             return y(d.value) - 5;
         });
+        */
+
 }
 
 function calcColorScale(data) {
@@ -296,12 +308,15 @@ function renderArea(data) {
 
 
 
-    let myKeys = d3.keys(data['Deaths']);
-    let temp = d3.values(data['Deaths']);
+    let myKeys = d3.keys(data_deaths);
+    let abc = d3.values(data_deaths);
+    //console.log(temp);
+
     //var bottom = temp.map(function(d) { return d[defaults[0]]; });
     //console.log("Hello");
     //console.log(temp);
-
+    temp = JSON.parse(JSON.stringify(abc));
+    //var tempArray = JSON.parse(JSON.stringify(mainArray));
     for(let myX in myKeys){
         temp[myX]['date'] = parseTime(myKeys[myX]);
     };
@@ -322,7 +337,7 @@ function renderArea(data) {
   stackArea.order(d3.stackOrderNone);
   stackArea.offset(d3.stackOffsetNone);
 
-  console.log(stackArea(mydata));
+  //console.log(stackArea(mydata));
 
   //d3.select("svg#area g.area").selectAll('g.axis').remove();
   svg_area.selectAll('g').remove();//.data(stackArea(mydata)).remove();
@@ -338,7 +353,7 @@ function renderArea(data) {
   browser.append('path')
       .attr('class', 'area')
       .attr('d', area)
-      .style('fill', function(d) { console.log(colorArea(d.key));return colorArea(d.key); });
+      .style('fill', function(d) { return colorArea(d.key); });
 
     // add the area
     /*
@@ -351,7 +366,8 @@ function renderArea(data) {
       .text(function(d) { return d.key; })
       .attr('fill-opacity', 1);*/
 
-  //svg_area.selectAll('g#yaxis').remove();
+  //svg_area.selectAll('g#yaxis').remove(); 
+
   svg_area.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + heightArea + ')')
@@ -394,6 +410,7 @@ function renderArea(data) {
   .attr('x', legendRectSize + legendSpacing )
   .attr('y', legendRectSize - legendSpacing + 8)
   .text(function(d) { return d; });
+  
 
 }
 

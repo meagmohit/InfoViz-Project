@@ -46,6 +46,7 @@
         /// params
 
         var color_na = d3.rgb("#d4d4d4");
+        var currMapdata = [];
         var data_deaths=[];
         var data_GDP=[];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
@@ -173,18 +174,18 @@
 
         // init bars container
         var margin = {
-            top: 50,
+            top: 20,
             right: 10,
-            bottom: 50,
-            left: 30
+            bottom: 10,
+            left: 50
         };
-        var svgBarsWidth = 960 - margin.left - margin.right,
-            svgBarsHeight = 200 - margin.top - margin.bottom;
+        var svgBarsWidth = 800 - margin.left - margin.right,
+            svgBarsHeight = 150 - margin.top - margin.bottom;
 
-        var x = d3.scaleBand()
+        var xBars = d3.scaleBand()
             .rangeRound([0, svgBarsWidth])
             .padding(.05);
-        var y = d3.scaleLinear().range([svgBarsHeight, 0]);
+        var yBars = d3.scaleLinear().range([svgBarsHeight, 0]);
 
         var svg_bars = d3.select("#bar")
             .append("svg")
@@ -203,13 +204,12 @@
         d3.json("data/all_data2.json", function(error, d) {
 			if (error) throw error;
 
-
             data_deaths = d['Deaths'];
             data_GDP = d['GDP'];
 
-            let data = data_deaths[init_year];
+            let dataD = data_deaths[init_year];
             let dataG = data_GDP[init_year];
-            let color = calcColorScale(data);
+            let color = calcColorScale(dataD);
 
 
             // load map data and render it
@@ -235,12 +235,12 @@
                         renderArea(d);
                         renderBoxPlot(dataTemp);
                     })
-                    .call(fillMap, color, data)
+                    .call(fillMap, color, dataD)
                     .append("title")
-                    .call(setPathTitle, data);
+                    .call(setPathTitle, dataD);
 
-                   let myKeys = d3.keys(data['Deaths']);
-                    let temp = d3.values(data['Deaths']);
+             //      let myKeys = d3.keys(dataD['Deaths']);
+               //     let temp = d3.values(dataD['Deaths']);
 
 
                  /*   for(let myX in myKeys){
@@ -249,8 +249,8 @@
                     mydata = temp;*/
                 
                 // init legend
-                renderLegend(color, data);
-                renderBars(color, data);
+                renderLegend(color, dataD);
+                renderBars(color, dataD);
                 renderCircles(color, dataG);
                 renderArea(d);
                 renderBoxPlot(dataTemp);
@@ -260,14 +260,14 @@
 
 
             // was the slider used?
-            d3.select("#year").on("input", function() {
+         /*   d3.select("#year").on("input", function() {
 				init_year = this.value;
                 let upd_color = calcColorScale(data_deaths[this.value]);
                 updateMap(upd_color, data_deaths[this.value]);
                 renderLegend(upd_color, data_deaths[this.value]);
                 renderBars(upd_color, data_deaths[this.value]);
                 renderCircles(upd_color, data_GDP[this.value]);
-            });
+            });*/
 
 			
 			// dropdown used

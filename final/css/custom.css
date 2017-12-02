@@ -44,6 +44,9 @@
         .browser text {
             text-anchor: end;
         }
+        .legendArea text{
+            font-size: 24ptl
+        }
     rect, line { shape-rendering: crispEdges; }
     .box text { fill: black; }
         .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }

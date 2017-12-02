@@ -119,7 +119,7 @@
 
         //init area chart containor : this section is being taken care my mohit
         //    var margin = {top: 50, right:10, bottom:50, left:30};
-        var marginArea = {top: 10, right: 15, bottom: 30, left: 50},
+        var marginArea = {top: 10, right: 50, bottom: 30, left: 15},
             widthArea = 380 - marginArea.left - marginArea.right,
             heightArea = 200 - marginArea.top - marginArea.bottom;
         var parseTime = d3.timeParse("%Y");
@@ -132,7 +132,7 @@
         var xAreaAxis = d3.axisBottom()
             .scale(xArea);
 
-        var yAreaAxis = d3.axisLeft()
+        var yAreaAxis = d3.axisRight()
             .scale(yArea);
 
         var area = d3.area()

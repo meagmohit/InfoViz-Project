@@ -337,6 +337,7 @@ function renderArea(data) {
       .style('fill', function(d) { console.log(colorArea(d.key));return colorArea(d.key); });
 
     // add the area
+    /*
  browser.append('text')
       .datum(function(d) { return d; })
       .attr('transform', function(d) { return 'translate(' + xArea(mydata[13].date) + ',' + yArea(d[13][1]) + ')'; })
@@ -344,7 +345,7 @@ function renderArea(data) {
       .attr('dy', '.35em')
       .style("text-anchor", "start")
       .text(function(d) { return d.key; })
-      .attr('fill-opacity', 1);
+      .attr('fill-opacity', 1);*/
 
   //svg_area.selectAll('g#yaxis').remove();
   svg_area.append('g')
@@ -355,11 +356,40 @@ function renderArea(data) {
   svg_area.append('g')
       //.attr('id', 'yaxis');
       .attr('class', 'y axis')
+      .attr("transform", "translate(" + widthArea + ",0)")
       .call(yAreaAxis);
 
   //svg_area.append("text")
   //  .attr("x", 0-margin.left)
   //  .text("Deaths")
+
+  //Legend Code
+  var legendRectSize = 10;
+  var legendSpacing = 8;
+
+  var legend = svg_area.selectAll('.legend')
+  .data(colorArea.domain())
+  .enter()
+  .append('g')
+  .attr('class', 'legendArea')
+  .attr('transform', function(d, i) {
+    var height = legendRectSize + legendSpacing;
+    var offset =  -50 + height * colorArea.domain().length / 2;
+    var horz = -2 * legendRectSize + 40;
+    var vert = i * height - offset;
+    return 'translate(' + horz + ',' + vert + ')';
+  });
+
+  legend.append('rect')
+  .attr('width', legendRectSize)
+  .attr('height', legendRectSize)
+  .style('fill', colorArea)
+  .style('stroke', colorArea);
+
+  legend.append('text')
+  .attr('x', legendRectSize + legendSpacing )
+  .attr('y', legendRectSize - legendSpacing + 8)
+  .text(function(d) { return d; });
 
 }
 

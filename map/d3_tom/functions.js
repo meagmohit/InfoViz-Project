@@ -458,6 +458,7 @@ function renderBoxPlot(dataTemp) {
       .attr("x", columnWidth/2)
       .attr("y", rowHeight/2 + 6)
       .style("text-anchor", "middle");
+      //.attr("font-size",2pt);
       
     });
  

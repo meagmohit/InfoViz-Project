@@ -59,8 +59,9 @@
         var headline = "Year: ";
 		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
 								{ value: "LWHT", text: "Living with HIV (Total)" },
-								{ value: "NHIT", text: "New HIV infections (total)" }
+								//{ value: "NHIT", text: "New HIV infections (total)" }
                                 ]
+        var selected_dataset = "Deaths";
 
         /// main
         var defaults = ['AFG','DZA', 'BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
@@ -205,7 +206,7 @@
 
         // load data
         d3.csv("data/HDI.csv", function(dataTemp) {  
-        d3.json("data/all_data3.json", function(error, d) {
+        d3.json("data/all_data4.json", function(error, d) {
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];
@@ -237,7 +238,7 @@
                         d3.select(this).classed("selected", true);
                         //console.log(arg1.id);
                         defaults.push(arg1.id);
-                        renderArea(d);
+                        renderArea(d[selected_dataset]);
                         renderBoxPlot(dataTemp);
                     })
                     .call(fillMap, color, computeranges(data_deaths))
@@ -257,7 +258,7 @@
                 renderLegend(color, computeranges(data_deaths));
                 renderBars(color, data_full['DHSFS']['2013']);
                 renderCircles(colorBubbles, computeranges(data_GDP));
-                renderArea(d);
+                renderArea(data_deaths);
                 renderBoxPlot(dataTemp);
    //         });
             }); // map data
@@ -281,6 +282,7 @@
 				thisData = d[selected_dataset];
 				let upd_color = calcColorScale(computeranges(thisData));
 				updateMap(upd_color, computeranges(thisData));
+				renderArea(d[selected_dataset]);
 
             //clicking on map
             });	

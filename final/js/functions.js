@@ -329,8 +329,8 @@ function renderArea(data) {
 
 
 
-    let myKeys = d3.keys(data_deaths);
-    let abc = d3.values(data_deaths);
+    let myKeys = d3.keys(data);
+    let abc = d3.values(data);
     //console.log(temp);
 
     //var bottom = temp.map(function(d) { return d[defaults[0]]; });

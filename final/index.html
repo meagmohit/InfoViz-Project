@@ -50,6 +50,7 @@
         var data_deaths=[];
         var colorBubbles = [];
         var data_GDP=[];
+        var flag_countryselect = false;
         var data_full=[];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
@@ -64,7 +65,7 @@
         var selected_dataset = "Deaths";
 
         /// main
-        var defaults = ['AFG','DZA', 'BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+        var defaults = ['Total'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
 
 
 
@@ -149,7 +150,6 @@
 
         var xArea = d3.scaleTime().range([0, widthArea]);
         var yArea = d3.scaleLinear().range([heightArea, 0]);
-        var colorArea = d3.scaleOrdinal(d3.schemeDark2).domain(defaults);;
 
         var xAreaAxis = d3.axisBottom()
             .scale(xArea);
@@ -206,7 +206,7 @@
 
         // load data
         d3.csv("data/HDI.csv", function(dataTemp) {  
-        d3.json("data/all_data4.json", function(error, d) {
+        d3.json("data/all_data5.json", function(error, d) {
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];
@@ -235,11 +235,36 @@
                     })
                     .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
-                        d3.select(this).classed("selected", true);
-                        //console.log(arg1.id);
-                        defaults.push(arg1.id);
+                  
+                        //console.log(defaults.some(function(entry) { return entry == arg1.id; }));
+                        if(defaults.some(function(entry) { return entry == arg1.id; })) {
+                        	let myindex = defaults.indexOf(arg1.id);
+                        	console.log(myindex);
+                        	if (myindex !== -1) {
+     						   defaults.splice(myindex, 1);
+     						   d3.select(this).classed("selected", false);
+     						   //console.log(defaults);
+    						}
+                        	if(defaults.length==0){
+                        		defaults.push("Total");
+                        	}
+                        }
+                        else{
+                        if (!flag_countryselect){
+                        	defaults[0] = arg1.id;
+                        	d3.select(this).classed("selected", true);
+                        	//console.log(defaults);
+                        	flag_countryselect = true;
+                        }else{
+                        	if(defaults.length<5){
+                        	defaults.push(arg1.id);
+                        	//console.log(defaults.length);
+                        	d3.select(this).classed("selected", true);
+                        }
+                        };        
+                    }
                         renderArea(d[selected_dataset]);
-                        renderBoxPlot(dataTemp);
+                        //renderBoxPlot(dataTemp);
                     })
                     .call(fillMap, color, computeranges(data_deaths))
                     .append("title")
@@ -259,7 +284,7 @@
                 renderBars(color, data_full['DHSFS']['2013']);
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(data_deaths);
-                renderBoxPlot(dataTemp);
+                //srenderBoxPlot(dataTemp);
    //         });
             }); // map data
 

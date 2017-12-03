@@ -328,7 +328,7 @@ function pairQuantiles(arr) {
 function renderArea(data) {
 
 
-
+    let colorArea = d3.scaleOrdinal(d3.schemeDark2).domain(defaults);;
     let myKeys = d3.keys(data);
     let abc = d3.values(data);
     //console.log(temp);

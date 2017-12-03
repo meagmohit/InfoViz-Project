@@ -609,3 +609,87 @@ function calcColorScaleBubbles(data_GDP){
 //          .domain([overMin,overMax])
 //          .range(d3.schemeBuPu[tot]);
 }
+
+
+function renderPaths(data){
+	console.log(data_deaths)
+
+	
+	console.log(rect1.top);
+	console.log(rect2.top);
+	
+	var arr = Object.keys(data).map(function(key) {
+        return data[key];
+    });
+	console.log(Object.keys(arr[0]));
+    array = [];
+
+    for (let key of Object.keys(arr[0])) {
+        array.push({
+            'id': key,
+            'x1': getMapX(key),
+			'y1': getMapY(key),
+			'x2': getBubbleX(key),
+			'y2': getBubbleY(key),
+			'x3': getBarX(key),
+			'y3': getBarY(key)
+        })
+    }
+
+	
+	// let paths = d3.select("svg#paths").append("line")
+					// .attr("x1", rect1.x)
+					// .attr("y1", rect1.y)
+					// .attr("x2", rect2.left +  window.scrollX)
+					// .attr("y2", rect2.top + window.scrollY)
+					// .attr("stroke-width", 2)
+					// .attr("stroke", "black")
+	
+	// let paths = d3.select("svg#paths").selectAll("line").data(array);
+    // paths.exit().remove();
+
+    // paths.enter().append("line")
+        // .merge(paths)
+        // .attr("x1", function(d) {
+      // var index = array.findIndex(function(pair) {
+        // return pair.value == d.value
+      // });
+      // return (rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale;
+        // })
+        // .attr("y1", function(d) {
+      // var index = array.findIndex(function(pair) {
+        // return pair.value == d.value
+      // });
+            // return (125-yscaleEllipse((rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale));
+        // })
+        // .attr("x2", function(d) {
+      // var index = array.findIndex(function(pair) {
+        // return pair.value == d.value
+      // });
+      // return (rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale;
+        // })
+        // .attr("y2", function(d) {
+      // var index = array.findIndex(function(pair) {
+        // return pair.value == d.value
+      // });
+            // return (125-yscaleEllipse((rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale));
+        // })
+        // .attr("stroke-width", 2)
+        // .attr("stroke", "black");	
+}
+
+
+function getMapX(key){
+	a = document.getElementById("left-pane");
+	b = a.getElementsByClassName("border-round");
+//	map = $('.border-round','#map');
+//	bu = $('.border-round','#bubble');
+//	c = b["bubble"];
+	d = b["map"];
+	e = d.children["map"];
+	f = e.children[2];
+	p1 = f.children.key;
+//	p2 = f.children.MEX;
+	rect1 = p1.getBoundingClientRect();
+//	rect2 = p2.getBoundingClientRect();
+}

@@ -27,6 +27,7 @@
 	
 
 	<div class="col-md-8 border-round" id="left-pane">
+		<div class="border-round" id="path" style="z-index: 2; position: absolute;">Paths</div>
 		<div class="border-round" id="bubble">Bubble Chart</div>
 		<div class="border-round" id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px;"> 
 			<h4 style="margin-left: 10px;">GeoMap</h4>
@@ -107,6 +108,22 @@
             .attr("height", svgBubbleHeight + marginBubble.top + marginBubble.bottom);
 
 
+        // init country paths
+
+        var marginPath = {
+            top: 25,
+            right: 20,
+            bottom: 0,
+            left: 20
+        };
+        var svgPathWidth = 900,// + marginBubble.left - marginBubble.right,
+            svgPathHeight = 600;// + marginBubble.top - marginBubble.bottom;
+
+        var svg_paths = d3.select("#path").append("svg")
+            .attr("id", "paths")
+            .attr("width", svgPathWidth + marginPath.left + marginPath.right)
+            .attr("height", svgPathHeight + marginPath.top + marginPath.bottom);			
+			
 
         // init map container, projection
         var widthMap = 900,
@@ -260,6 +277,7 @@
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(data_deaths);
                 renderBoxPlot(dataTemp);
+				renderPaths(data_deaths);
    //         });
             }); // map data
 

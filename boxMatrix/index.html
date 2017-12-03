@@ -8,16 +8,13 @@
     body { margin:0;top:0;right:0;bottom:0;left:0;font-family:Arial, sans-serif }
     rect, line { shape-rendering: crispEdges; }
     .box text { fill: white; }
-    
-    .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }
-    .annotation text { fill: #002e5e; font-size: 14}
   </style>
 </head>
 
 <body>
   <script>
-d3.csv("HDI.csv", function(dataTemp) {	
-	var defaults = ["AFG","ARG","AUS","BEL","USA"];
+d3.csv("boxMatrixData.csv", function(dataTemp) {	
+	var defaults = ["ARG","AFG","AUS","BEL","USA","BIH"];
 	
 	//creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
 	var lookupByID = {};
@@ -34,12 +31,10 @@ d3.csv("HDI.csv", function(dataTemp) {
 	
 	//console.log(dataTempset);
 	
-	const widthBP = 500;
-    const heightBP = 600;
-    const marginBP = {"top": 50, "left": 100, "right": 50, "bottom": 50};
-    const annotationPadding = 1;
-    const rowPadding = 10;
-    const annotationPaddingV = rowPadding/2;
+	const widthBP = 300;
+    const heightBP = 300;
+    const marginBP = {"top": 150, "left": 150, "right": 150, "bottom": 50};
+    const rowPadding = 0;
 
  	var svg = d3.select("body").append("svg")
       .attr("width", widthBP + marginBP.right + marginBP.left)
@@ -47,18 +42,29 @@ d3.csv("HDI.csv", function(dataTemp) {
 	
 	var rowHeight = heightBP/rows;
 	
+	function getFontSize(text,space,max) {
+		max = max || -1;
+		len = text.length;
+		size = space/len * 2;
+		if (max !== -1 && size > max) {
+			size = max;
+		}
+		return size
+	}
+	
 	//create a scale for each column
 	var colKeys = [];
 	var sizeScales = [];
 	var colorScales = [];
 	for (var key in dataTempset[0])
 	{
-		if (key !== "id") {
+		if ((key !== "id") && (key !== "name")) {
 			colKeys.push(key);
-			var maxValue = d3.max(dataTempset, function(d){ return d[key]; });
+			var maxValue = d3.max(dataTempset, function(d){ return +d[key]; });
+			//console.log(maxValue);
 			var sizeScale = d3.scaleSqrt()
 				.domain([0,maxValue])
-				.range([0,(rowHeight - rowPadding)/2]);
+				.range([0,(rowHeight - rowPadding)-10]);
 			sizeScales.push(sizeScale);
 			var colorScale = d3.scaleLinear()
 				.domain([0,maxValue])
@@ -66,7 +72,6 @@ d3.csv("HDI.csv", function(dataTemp) {
 			colorScales.push(colorScale);
 		}
 	}
-	//console.log(colKeys);
 
     var columnWidth = widthBP/colKeys.length;
     
@@ -84,14 +89,15 @@ d3.csv("HDI.csv", function(dataTemp) {
     
     columnLabels.append("text")
     .text(function(d) { return d })
-    .attr("y", -10)
-	.attr("x", columnWidth/2)
-	.style("text-anchor","middle");
-    //.attr("transform", "translate(20)rotate(-45)")
+	.attr("font-size", function(d) { return String(getFontSize(d,marginBP.top*1.5,24))+"px" })
+    .attr("y", 10)
+	.attr("x", columnWidth/2-23)
+	.style("text-anchor","left")
+    .attr("transform", "translate(20)rotate(-30)");
     
     dataTempset.forEach(function(d) {
 	
-	  //console.log(d,d.values);
+	  //console.log(d3.values(d).slice(2));
       
       var rowNumber = defaults.indexOf(d.id);
 
@@ -99,13 +105,14 @@ d3.csv("HDI.csv", function(dataTemp) {
       .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");
       
       rowG.append("text")
-      .text(d.id)
+      .text(d.name)
+	  .attr("font-size", String(getFontSize(d.name,marginBP.left-20,24)) +"px")
       .attr("x", -rowPadding)
-      .attr("y", rowHeight/2 + 6)
+      .attr("y", rowHeight/2 + getFontSize(d.name,marginBP.left-20,24)/3)
       .style("text-anchor", "end");
 
 	  var boxes =  rowG.selectAll("g")
-	  .data(d3.values(d).slice(0,-1))
+	  .data(d3.values(d).slice(2))
 	  .enter()
 	  .append("g")
 	  .attr("class", "box")
@@ -116,12 +123,13 @@ d3.csv("HDI.csv", function(dataTemp) {
 	  .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
 	  .attr("width", function(d,i) { return sizeScales[i](d); })
 	  .attr("height", function(d,i) { return sizeScales[i](d); })
-	  .style("fill", function(d,i){ return colorScales[i](d); });
+	  .style("fill", function(d,i){ return colorScales[i](d); })
 	  
 	  boxes.append("text")
 	  .text(function(d,i){ return d; })
+	  .attr("font-size", function(d,i) { return String(getFontSize(d,sizeScales[i](d)-6,24)) +"px"})
 	  .attr("x", columnWidth/2)
-	  .attr("y", rowHeight/2 + 6)
+	  .attr("y", function(d,i) { return (rowHeight/2 + getFontSize(d,sizeScales[i](d)-6,24)/3)})
 	  .style("text-anchor", "middle");
       
     });

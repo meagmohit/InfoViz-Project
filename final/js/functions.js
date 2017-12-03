@@ -82,24 +82,17 @@ function renderLegend(color, data) {
         .attr("y", 355);
 }
 
-function renderCircles(color, data) {
-    var simulation = d3.forceSimulation()
-        .velocityDecay(0.1)
-        .force("x", d3.forceX(960 / 2).strength(.05))
-        .force("y", d3.forceY(100 / 2).strength(.05))
-        .force("charge", d3.forceManyBody().strength(-240))
-        .force("link", d3.forceLink().distance(50).strength(1));
-
-
+function renderCircles(colorBub, data) {
+  
+//  console.log("Test")
+//  console.log(data)
     var arr = Object.keys(data).map(function(key) {
         return data[key];
     });
     var min = Math.min.apply(null, arr);
     var max = Math.max.apply(null, arr);
-
+  
     array = [];
-    let rscale = d3.scaleLinear().domain([min, max]).range([5, 50]);
-    let xscale = d3.scaleLinear().domain([min, max]).range([5, 910]);
 
     for (let key of Object.keys(data)) {
         array.push({
@@ -109,26 +102,52 @@ function renderCircles(color, data) {
     }
 
     // sort by country on value : edit this code for takin
-    array = sortArrObj(array, 'value');
-
+  
+  array = array.sort(function(a, b) {
+    return a.value - b.value;
+    });
+//  console.log(array[45].value)
+//  console.log(colorBub(array[45].value))
+  var l = array.length;
+  
+  let rscale = d3.scalePow().exponent(6).domain([0, l]).range([20, 20000]);
+//  let rscale = d3.scaleLinear().domain([0, l]).range([0, l]);
+  var sumRscale = rscaleSum(rscale,l);
+  
+  //console.log(sumRscale)
+  //console.log(svgBubbleWidth)
+//    let xscale = d3.scaleLinear().domain([0, 2*sumRscale]).range([5, 900]);
+//  let rrscale = d3.scaleLinear().domain([0, array.length*(array.length+1)/2]).range([5, 50]);
+  
+//  console.log(rscale)
     let bubbles = d3.select("svg#bubbles").selectAll("circle").data(array);
     bubbles.exit().remove();
 
     bubbles.enter().append("circle")
         .merge(bubbles)
         .attr("cx", function(d) {
-            return xscale(d.value);
+      var index = array.findIndex(function(pair) {
+        return pair.value == d.value
+      });
+      return (rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale;
         })
         .attr("cy", function(d) {
-            return 50;
+      var index = array.findIndex(function(pair) {
+        return pair.value == d.value
+      });
+            return (125-yscaleEllipse((rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale));
         })
         .attr("r", function(d) {
-            return rscale(d.value);
+      var index = array.findIndex(function(pair) {
+        return pair.value == d.value
+      });
+            return rscale(index)*svgBubbleWidth/sumRscale;
         })
         .style("fill", function(d) {
-            return color(d.value);
+            return colorBub(d.value);
         });
 }
+
 
 function renderBars(color, data) {
 
@@ -138,10 +157,10 @@ function renderBars(color, data) {
           array.push({
               'id': key,
               'value': data[key],
-              'sortvalue': data_GDP[2010][key]
+              'sortvalue': data_full['KAHPYP']['2014'][key]
           })
     }
-    //console.log(array);
+    console.log(array);
 
     // sort by country id
     array = array.sort(function(a, b) {
@@ -215,8 +234,6 @@ function calcColorScale(data) {
     // TODO: minor, check how many data poins we've got
     // with few datapoints the resulting legend gets confusing
 
-    //console.log(data);
-    //console.log("Hello");
     // get values and sort
     let data_values = Object.values(data).sort(function(a, b) {
         return a - b;
@@ -544,4 +561,51 @@ function computeranges(data){
   //console.log(trData);
   return trData;
 
+}
+
+function rscaleSum(rscale,l){
+  var sum=0;
+  for (var i=0;i<=l;i++){
+    sum = sum + rscale(i);
+    }
+  return sum;
+}
+
+function yscaleEllipse(xVal){
+  yVal = Math.sqrt((1 - Math.pow((xVal - svgBubbleWidth/2),2)/Math.pow(svgBubbleWidth/2,2))*Math.pow(svgBubbleHeight,2))
+  return yVal
+}
+
+
+function calcColorScaleBubbles(data_GDP){
+//  console.log(Object.keys(data_GDP))
+  let overMin = 100000000;
+  let overMax = 0;
+  let tot = 0;
+  for(var year in data_GDP){
+    dt = data_GDP[year];
+//    console.log(year)
+    var min = d3.min(Object.values(data_GDP[year]));
+    var max = d3.max(Object.values(data_GDP[year]));
+//    console.log(overMin)
+//    console.log(min)
+    if (min < overMin){overMin = min;}
+    if (max > overMax){overMax = max;}
+    tot = tot + Object.values(data_GDP[year]).length
+  }
+  // console.log(overMin)
+  // console.log(overMax)
+
+  let color = d3.scaleLinear().domain([overMin,overMax])
+       .range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
+  let  colorScale = d3.scaleSequential(d3.interpolateInferno).domain([9365166,78870119013703]);  
+  let colorS = d3.scaleLog().base(100000).domain([overMin,overMax])
+    .interpolate(d3.interpolateHslLong)
+       .range([d3.rgb("#ff0000"), d3.rgb("#00ffe5")]);
+//  console.log(colorScale(1911600970))
+    
+  return colorS;
+//  let scale = d3.scalePow().exponent(6)
+//          .domain([overMin,overMax])
+//          .range(d3.schemeBuPu[tot]);
 }

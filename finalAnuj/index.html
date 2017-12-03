@@ -48,7 +48,9 @@
         var color_na = d3.rgb("#d4d4d4");
         var currMapdata = [];
         var data_deaths=[];
+        var colorBubbles = [];
         var data_GDP=[];
+        var data_full=[];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
         var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
@@ -57,8 +59,9 @@
         var headline = "Year: ";
 		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
 								{ value: "LWHT", text: "Living with HIV (Total)" },
-								{ value: "NHIT", text: "New HIV infections (total)" }
+								//{ value: "NHIT", text: "New HIV infections (total)" }
                                 ]
+        var selected_dataset = "Deaths";
 
         /// main
         var defaults = ['AFG','DZA', 'BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
@@ -90,12 +93,12 @@
         // init country GDP bubbles containor
 
         var marginBubble = {
-            top: 0,
-            right: 10,
+            top: 25,
+            right: 20,
             bottom: 0,
-            left: 0
+            left: 20
         };
-        var svgBubbleWidth = 600,// + marginBubble.left - marginBubble.right,
+        var svgBubbleWidth = 900,// + marginBubble.left - marginBubble.right,
             svgBubbleHeight = 100;// + marginBubble.top - marginBubble.bottom;
 
         var svg_bubbles = d3.select("#bubble").append("svg")
@@ -203,15 +206,16 @@
 
         // load data
         d3.csv("data/HDI.csv", function(dataTemp) {  
-        d3.json("data/all_data2.json", function(error, d) {
+        d3.json("data/all_data4.json", function(error, d) {
 			if (error) throw error;
-
+			data_full = d;
             data_deaths = d['Deaths'];
             data_GDP = d['GDP'];
 
             let dataD = data_deaths[init_year];
             let dataG = data_GDP[init_year];
             let color = calcColorScale(computeranges(data_deaths));
+            colorBubbles = calcColorScaleBubbles(data_GDP);
 
 
             // load map data and render it
@@ -232,9 +236,9 @@
                     .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
                         d3.select(this).classed("selected", true);
-                        console.log(arg1.id);
+                        //console.log(arg1.id);
                         defaults.push(arg1.id);
-                        renderArea(d);
+                        renderArea(d[selected_dataset]);
                         renderBoxPlot(dataTemp);
                     })
                     .call(fillMap, color, computeranges(data_deaths))
@@ -252,9 +256,9 @@
                 
                 // init legend
                 renderLegend(color, computeranges(data_deaths));
-                renderBars(color, computeranges(data_deaths));
-                renderCircles(color, dataG);
-                renderArea(d);
+                renderBars(color, data_full['DHSFS']['2013']);
+                renderCircles(colorBubbles, computeranges(data_GDP));
+                renderArea(data_deaths);
                 renderBoxPlot(dataTemp);
    //         });
             }); // map data
@@ -278,6 +282,7 @@
 				thisData = d[selected_dataset];
 				let upd_color = calcColorScale(computeranges(thisData));
 				updateMap(upd_color, computeranges(thisData));
+				renderArea(d[selected_dataset]);
 
             //clicking on map
             });	

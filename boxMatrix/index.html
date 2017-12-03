@@ -7,7 +7,6 @@
   <style>
     body { margin:0;top:0;right:0;bottom:0;left:0;font-family:Arial, sans-serif }
     rect, line { shape-rendering: crispEdges; }
-    .box text { fill: white; }
   </style>
 </head>
 
@@ -90,10 +89,19 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
     columnLabels.append("text")
     .text(function(d) { return d })
 	.attr("font-size", function(d) { return String(getFontSize(d,marginBP.top*1.5,24))+"px" })
-    .attr("y", 10)
-	.attr("x", columnWidth/2-23)
+    .attr("y",-5)
+	.attr("x", columnWidth/2-15)
 	.style("text-anchor","left")
     .attr("transform", "translate(20)rotate(-30)");
+	
+	var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+	.style("opacity","0.8")
+    .style("background", "white")
+	.style("color","black");
     
     dataTempset.forEach(function(d) {
 	
@@ -124,14 +132,10 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 	  .attr("width", function(d,i) { return sizeScales[i](d); })
 	  .attr("height", function(d,i) { return sizeScales[i](d); })
 	  .style("fill", function(d,i){ return colorScales[i](d); })
+	  .on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
+		  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+		  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 	  
-	  boxes.append("text")
-	  .text(function(d,i){ return d; })
-	  .attr("font-size", function(d,i) { return String(getFontSize(d,sizeScales[i](d)-6,24)) +"px"})
-	  .attr("x", columnWidth/2)
-	  .attr("y", function(d,i) { return (rowHeight/2 + getFontSize(d,sizeScales[i](d)-6,24)/3)})
-	  .style("text-anchor", "middle");
-      
     });
  
 }); 

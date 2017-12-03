@@ -205,7 +205,7 @@
 
         // load data
         d3.csv("data/HDI.csv", function(dataTemp) {  
-        d3.json("data/all_data2.json", function(error, d) {
+        d3.json("data/all_data3.json", function(error, d) {
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];
@@ -235,7 +235,7 @@
                     .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
                         d3.select(this).classed("selected", true);
-                        console.log(arg1.id);
+                        //console.log(arg1.id);
                         defaults.push(arg1.id);
                         renderArea(d);
                         renderBoxPlot(dataTemp);
@@ -255,7 +255,7 @@
                 
                 // init legend
                 renderLegend(color, computeranges(data_deaths));
-                renderBars(color, computeranges(data_deaths));
+                renderBars(color, data_full['DHSFS']['2013']);
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(d);
                 renderBoxPlot(dataTemp);

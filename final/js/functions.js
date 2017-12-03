@@ -114,8 +114,8 @@ function renderCircles(colorBub, data) {
 //  let rscale = d3.scaleLinear().domain([0, l]).range([0, l]);
   var sumRscale = rscaleSum(rscale,l);
   
-  console.log(sumRscale)
-  console.log(svgBubbleWidth)
+  //console.log(sumRscale)
+  //console.log(svgBubbleWidth)
 //    let xscale = d3.scaleLinear().domain([0, 2*sumRscale]).range([5, 900]);
 //  let rrscale = d3.scaleLinear().domain([0, array.length*(array.length+1)/2]).range([5, 50]);
   
@@ -157,10 +157,10 @@ function renderBars(color, data) {
           array.push({
               'id': key,
               'value': data[key],
-              'sortvalue': data_GDP[2014][key]
+              'sortvalue': data_full['KAHPYP']['2014'][key]
           })
     }
-    //console.log(array);
+    console.log(array);
 
     // sort by country id
     array = array.sort(function(a, b) {

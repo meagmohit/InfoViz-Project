@@ -43,7 +43,7 @@ function dostuff(begin, end){
   let upd_color = calcColorScale(computeranges(data_deaths));
   updateMap(upd_color, computeranges(data_deaths));
   renderLegend(upd_color, computeranges(data_deaths));
-  renderBars(upd_color, computeranges(data_deaths));
+  //renderBars(upd_color, computeranges(data_full['DHSFS']));
   renderCircles(colorBubbles, computeranges(data_GDP));
 }
 

@@ -39,10 +39,11 @@ $(function() {
 function dostuff(begin, end){
   init_year = begin;
   init_year2 = end;
-  let upd_color = calcColorScale(data_deaths[begin]);
-  updateMap(upd_color, data_deaths[begin]);
-  renderLegend(upd_color, data_deaths[begin]);
-  renderBars(upd_color, data_deaths[begin]);
+  console.log(init_year2);
+  let upd_color = calcColorScale(computeranges(data_deaths));
+  updateMap(upd_color, computeranges(data_deaths));
+  renderLegend(upd_color, computeranges(data_deaths));
+  renderBars(upd_color, computeranges(data_deaths));
   renderCircles(upd_color, data_GDP[begin]);
 }
 

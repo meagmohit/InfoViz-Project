@@ -141,10 +141,12 @@ function renderBars(color, data) {
               'sortvalue': data_GDP[2010][key]
           })
     }
-    console.log(array);
+    //console.log(array);
 
     // sort by country id
-    array = sortArrObj(array, 'sortvalue');
+    array = array.sort(function(a, b) {
+      return a.sortvalue - b.sortvalue;
+    });
 
     xBars.domain(array.map(function(d, i) {
         return d.id;
@@ -213,6 +215,8 @@ function calcColorScale(data) {
     // TODO: minor, check how many data poins we've got
     // with few datapoints the resulting legend gets confusing
 
+    //console.log(data);
+    //console.log("Hello");
     // get values and sort
     let data_values = Object.values(data).sort(function(a, b) {
         return a - b;
@@ -513,4 +517,31 @@ function renderBoxPlot(dataTemp) {
       
     });
  
+}
+
+function computeranges(data){
+  let trData = [];
+  ckeys = d3.keys(d3.values(data)[0]);
+  ykeys = d3.keys(data).filter(function(key){
+    return key >= init_year && key <= init_year2;
+  });
+
+  for (ck in ckeys){
+    let tempsum = 0;
+    let count = 0;
+    for (yk in ykeys){
+      tempsum = tempsum+data[ykeys[yk]][ckeys[ck]];
+      count = count+1;
+    }
+   // trData.push({
+    //  'id': ckeys[ck],
+    //  'value': tempsum/count
+      trData[ckeys[ck]] = tempsum/count;
+    //});
+  }
+  //console.log("Hello");
+  //console.log(d3.keys(data_deaths[1990]));
+  //console.log(trData);
+  return trData;
+
 }

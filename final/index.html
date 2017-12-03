@@ -49,6 +49,7 @@
         var currMapdata = [];
         var data_deaths=[];
         var data_GDP=[];
+        //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
         var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
         var init_year = 1991;
@@ -56,7 +57,8 @@
         var headline = "Year: ";
 		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
 								{ value: "LWHT", text: "Living with HIV (Total)" },
-								{ value: "NHIT", text: "New HIV infections (total)" }]
+								{ value: "NHIT", text: "New HIV infections (total)" }
+                                ]
 
         /// main
         var defaults = ['AFG','DZA', 'BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
@@ -209,7 +211,7 @@
 
             let dataD = data_deaths[init_year];
             let dataG = data_GDP[init_year];
-            let color = calcColorScale(dataD);
+            let color = calcColorScale(computeranges(data_deaths));
 
 
             // load map data and render it
@@ -235,9 +237,9 @@
                         renderArea(d);
                         renderBoxPlot(dataTemp);
                     })
-                    .call(fillMap, color, dataD)
+                    .call(fillMap, color, computeranges(data_deaths))
                     .append("title")
-                    .call(setPathTitle, dataD);
+                    .call(setPathTitle, computeranges(data_deaths));
 
              //      let myKeys = d3.keys(dataD['Deaths']);
                //     let temp = d3.values(dataD['Deaths']);
@@ -249,8 +251,8 @@
                     mydata = temp;*/
                 
                 // init legend
-                renderLegend(color, dataD);
-                renderBars(color, dataD);
+                renderLegend(color, computeranges(data_deaths));
+                renderBars(color, computeranges(data_deaths));
                 renderCircles(color, dataG);
                 renderArea(d);
                 renderBoxPlot(dataTemp);
@@ -274,8 +276,8 @@
 			dropDown.on("change", function() {
 				selected_dataset = d3.event.target.value;
 				thisData = d[selected_dataset];
-				let upd_color = calcColorScale(thisData[init_year]);
-				updateMap(upd_color, thisData[init_year]);
+				let upd_color = calcColorScale(computeranges(thisData));
+				updateMap(upd_color, computeranges(thisData));
 
             //clicking on map
             });	

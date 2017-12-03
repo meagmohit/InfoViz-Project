@@ -1,0 +1,72 @@
+        body {
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        }
+
+        p {
+            font-size: 10pt;
+            margin-left: 20px;
+        }
+
+        .border-round {
+            border:2px #000088 solid; 
+            border-radius: 4px;
+        }
+
+        .countries {
+            stroke: #fff;
+        }
+
+        .legend rect {
+            stroke: #000;
+        }
+
+        .legend,
+        .legend_title text {
+            font-size: 10pt;
+        }
+
+        .barlabel {
+            font-size: 8pt;
+            text-anchor: middle;
+        }
+        .selected {
+           opacity: 0.6;
+           stroke-width: 4;
+           stroke: black;
+        }
+        .line {
+        }       
+
+        .area {
+            fill: lightsteelblue;
+        }
+
+        .browser text {
+            text-anchor: end;
+        }
+        .legendArea text{
+            font-size: 12pt;
+        }
+        #slider-range label {
+            position: absolute;
+            width: 20px;
+            margin-top: 20px;
+            margin-left: -10px;
+            text-align: center;
+            font-size: 10pt;
+        }
+        .tick {
+            width: 2px;
+            background-color:#999999;
+            margin-bottom: -10px;
+            height:10px;
+            position:absolute;
+            bottom:0px;
+            z-index: 1;
+        }
+
+        
+    rect, line { shape-rendering: crispEdges; }
+    .box text { fill: black; }
+        .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }
+        .annotation text { fill: black; font-size: 36}

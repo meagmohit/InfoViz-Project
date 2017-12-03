@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VizKidz</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+</head>
+
+<body>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/myslider.js"></script>
+
+
+
+	
+
+	<div class="col-md-8 border-round" id="left-pane">
+		<div class="border-round" id="bubble">Bubble Chart</div>
+		<div class="border-round" id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px;"> 
+			<h4 style="margin-left: 10px;">GeoMap</h4>
+			<select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>
+            <div id="slider-range" style="z-index: 2; position: absolute; width: 50%; margin-left:350px; margin-top: 425px;"></div>
+            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 450px;"></div>
+		</div>	
+		<div class="border-round" id="bar">Bar Chart</div>  
+	</div>
+	<div class="col-md-4 border-round" id="right-pane">
+		<div class="border-round" id="mosaic">Demographics</div>
+		<div class="border-round" id="area">Stacked Area Chart: Deaths</div>
+		<div class="border-round" id="BP">BoxPlot Chart</div>
+	</div>
+
+    <script>
+        /// params
+
+        var color_na = d3.rgb("#d4d4d4");
+        var currMapdata = [];
+        var data_deaths=[];
+        var data_GDP=[];
+        //var trData = [];
+        // only works if array.length-1 is between 3 and 9 (d3 color scheme)
+        var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
+        var init_year = 1991;
+        var init_year2 = 2000;
+        var headline = "Year: ";
+		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
+								{ value: "LWHT", text: "Living with HIV (Total)" },
+								{ value: "NHIT", text: "New HIV infections (total)" }
+                                ]
+
+        /// main
+        var defaults = ['AFG','DZA', 'BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+
+
+
+        // slider
+        /*
+        d3.select("body").insert("p", ":first-child").append("input")
+            .attr("type", "range")
+            .attr("min", "1990")
+            .attr("max", "2014")
+            .attr("value", init_year)
+            .attr("id", "year");
+        */
+
+        d3.select("#select-years").insert("h5", ":first-child").text(headline + init_year + '-' + init_year2);
+	
+		d3.select("#dropdown")
+          .selectAll("option")
+          .data(dropdown_options)
+          .enter()
+          .append("option")
+          .attr("value", function(option) { return option.value; })
+          .text(function(option) { return option.text; });
+	
+		var dropDown = d3.select("#dropdown");
+        
+        // init country GDP bubbles containor
+
+        var marginBubble = {
+            top: 0,
+            right: 10,
+            bottom: 0,
+            left: 0
+        };
+        var svgBubbleWidth = 600,// + marginBubble.left - marginBubble.right,
+            svgBubbleHeight = 100;// + marginBubble.top - marginBubble.bottom;
+
+        var svg_bubbles = d3.select("#bubble").append("svg")
+            .attr("id", "bubbles")
+            .attr("width", svgBubbleWidth + marginBubble.left + marginBubble.right)
+            .attr("height", svgBubbleHeight + marginBubble.top + marginBubble.bottom);
+
+
+
+        // init map container, projection
+        var widthMap = 900,
+            heightMap = 500,
+            marginMap = {"top": 0, "left": -90, "right": 0, "bottom": 0};
+        var svg_map = d3.select("#map").insert("svg")
+            .attr("id", "map")
+            .attr("height", heightMap)
+            .attr("width", widthMap)
+            .attr("transform", "translate(" + marginMap.left + ", " + marginMap.top + ")");
+        var path = d3.geoPath(d3.geoRobinson());
+
+        // init legend container
+        svg_map.append("g")
+            .attr("class", "legend");
+        svg_map.append("g")
+            .attr("class", "legend_title")
+            .append("text");
+
+        // Ryan's code
+        widthBP = 400;
+        heightBP = 400;
+        marginBP = {"top": 50, "left": 100, "right": 50, "bottom": 50};
+        annotationPadding = 1;
+        rowPadding = 50;
+        annotationPaddingV = rowPadding/2;
+
+        var svg = d3.select("#BP").append("svg")
+            .attr("width", widthBP + marginBP.right + marginBP.left)
+            .attr("height", heightBP + marginBP.top + marginBP.bottom);
+
+
+        //init area chart containor : this section is being taken care my mohit
+        //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var marginArea = {top: 10, right: 50, bottom: 30, left: 15},
+            widthArea = 380 - marginArea.left - marginArea.right,
+            heightArea = 200 - marginArea.top - marginArea.bottom;
+        var parseTime = d3.timeParse("%Y");
+
+
+        var xArea = d3.scaleTime().range([0, widthArea]);
+        var yArea = d3.scaleLinear().range([heightArea, 0]);
+        var colorArea = d3.scaleOrdinal(d3.schemeDark2).domain(defaults);;
+
+        var xAreaAxis = d3.axisBottom()
+            .scale(xArea);
+
+        var yAreaAxis = d3.axisRight()
+            .scale(yArea);
+
+        var area = d3.area()
+            .x(function(d) { 
+                //console.log("yaha");
+                //console.log(d.data.date);
+                return xArea(d.data.date); })
+            .y0(function(d) { return yArea(d[0]); })
+            .y1(function(d) { return yArea(d[1]); });
+
+        var stackArea = d3.stack();
+
+        var svg_area = d3.select("#area").append("svg")
+            .attr("id","area")
+            .attr("width", widthArea + marginArea.left + marginArea.right)
+            .attr("height", heightArea + marginArea.top + marginArea.bottom)
+            .append("g")
+            .attr("class", "area")
+            .attr("transform",
+                    "translate(" + marginArea.left + "," + marginArea.top + ")");
+
+
+        // init bars container
+        var margin = {
+            top: 20,
+            right: 10,
+            bottom: 10,
+            left: 50
+        };
+        var svgBarsWidth = 800 - margin.left - margin.right,
+            svgBarsHeight = 150 - margin.top - margin.bottom;
+
+        var xBars = d3.scaleBand()
+            .rangeRound([0, svgBarsWidth])
+            .padding(.05);
+        var yBars = d3.scaleLinear().range([svgBarsHeight, 0]);
+
+        var svg_bars = d3.select("#bar")
+            .append("svg")
+            .attr("id", "bars")
+            .attr("width", svgBarsWidth + margin.left + margin.right)
+            .attr("height", svgBarsHeight + margin.top + margin.bottom)
+            .append("g")
+            .attr("class", "bars")
+            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+
+
+
+        // load data
+        d3.csv("data/HDI.csv", function(dataTemp) {  
+        d3.json("data/all_data2.json", function(error, d) {
+			if (error) throw error;
+
+            data_deaths = d['Deaths'];
+            data_GDP = d['GDP'];
+
+            let dataD = data_deaths[init_year];
+            let dataG = data_GDP[init_year];
+            let color = calcColorScale(computeranges(data_deaths));
+
+
+            // load map data and render it
+            d3.json("data/world.json", function(error, worldmap) {
+                if (error) throw error;
+
+                // init map
+                svg_map.append("g")
+                    .attr("class", "countries")
+                    .selectAll("path")
+                    .data(topojson.feature(worldmap, worldmap.objects.world).features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("id", function(d) {
+                        //console.log(d.id);
+                        return d.id;
+                    })
+                    .on("click", function(arg1, i){
+                        //d3.select(".selected").classed("selected", false);
+                        d3.select(this).classed("selected", true);
+                        console.log(arg1.id);
+                        defaults.push(arg1.id);
+                        renderArea(d);
+                        renderBoxPlot(dataTemp);
+                    })
+                    .call(fillMap, color, computeranges(data_deaths))
+                    .append("title")
+                    .call(setPathTitle, computeranges(data_deaths));
+
+             //      let myKeys = d3.keys(dataD['Deaths']);
+               //     let temp = d3.values(dataD['Deaths']);
+
+
+                 /*   for(let myX in myKeys){
+                        temp[myX]['date'] = parseTime(myKeys[myX]);
+                    };
+                    mydata = temp;*/
+                
+                // init legend
+                renderLegend(color, computeranges(data_deaths));
+                renderBars(color, computeranges(data_deaths));
+                renderCircles(color, dataG);
+                renderArea(d);
+                renderBoxPlot(dataTemp);
+   //         });
+            }); // map data
+
+
+
+            // was the slider used?
+         /*   d3.select("#year").on("input", function() {
+				init_year = this.value;
+                let upd_color = calcColorScale(data_deaths[this.value]);
+                updateMap(upd_color, data_deaths[this.value]);
+                renderLegend(upd_color, data_deaths[this.value]);
+                renderBars(upd_color, data_deaths[this.value]);
+                renderCircles(upd_color, data_GDP[this.value]);
+            });*/
+
+			
+			// dropdown used
+			dropDown.on("change", function() {
+				selected_dataset = d3.event.target.value;
+				thisData = d[selected_dataset];
+				let upd_color = calcColorScale(computeranges(thisData));
+				updateMap(upd_color, computeranges(thisData));
+
+            //clicking on map
+            });	
+
+        }); // disaster data
+    });
+    </script>
+</body>
+
+</html>

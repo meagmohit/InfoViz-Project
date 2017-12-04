@@ -39,10 +39,10 @@
             text-anchor: middle;
         }
         .selected {
-           /*opacity: 0.8;*/
-           /*stroke-width: 4;*/
-           /*stroke: green;*/
-           box-shadow: 10px 10px 5px #888888 ;
+           opacity: 0.8;
+           stroke-width: 4;
+           stroke: green;
+           /*box-shadow: 10px 10px 5px #888888 ;*/
 
         }
         .line {

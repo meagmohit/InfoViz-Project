@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/slider_styling.css" rel="stylesheet">
+    <link href="css/noYesBtns.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -34,6 +35,14 @@
             </div>
         <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
             <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  
+              <form class="form">
+                <div class="switch-field">
+                    <input type="radio" id="switch_left" name="switch_2" value="abc" checked onclick="renderHIV()"/>
+                    <label for="switch_left" id="switch_left_label">HIV</label>
+                    <input type="radio" id="switch_right" name="switch_2" value="no" onclick="renderAIDS()"/>
+                    <label for="switch_right" id="switch_right_label">AIDS</label>
+                </div>
+            </form>
             
             <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
         </div>  
@@ -87,6 +96,7 @@
         */
 
         d3.select("#select-years").insert("h5", ":first-child").text(headline + init_year + '-' + init_year2);
+
 	
 		d3.select("#dropdown")
           .selectAll("option")
@@ -95,7 +105,16 @@
           .append("option")
           .attr("value", function(option) { return option.value; })
           .text(function(option) { return option.text; });
-	
+	            function renderAIDS(){
+                //console.log("abc");
+                d3.selectAll("#switch_left_label").style("background-color","black");
+            }
+
+            function renderHIV(){
+                console.log("def");
+                //d3.selectAll("#switch_right").enter().style.backgroundColor = "#CCCCCC";
+                d3.selectAll("#switch_right_label").style("background-color","black");
+            }
 		var dropDown = d3.select("#dropdown");
         
         // init country GDP bubbles containor
@@ -323,6 +342,7 @@
 
             //clicking on map
             });	
+
 
         }); // disaster data
     });

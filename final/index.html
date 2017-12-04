@@ -85,7 +85,7 @@
         var selected_dataset = "Deaths";
 
         /// main
-        var defaults = ['MEX','BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+        var defaults = ['Total'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
 
         var div = d3.select("body").append("div")
                     .attr("class", "tooltip")
@@ -159,9 +159,9 @@
 
         // Ryan's code
         widthBP = 300;
-        heightBP = 200;
-        marginBP = {"top": 50, "left": 100, "right": 150, "bottom": 50};
-        rowPadding = 0;
+        heightBP = 300;
+        marginBP = {"top": 50, "left": 80, "right": 50, "bottom": 50};
+        rowPadding = 20;
 
         var svg = d3.select("#BP").append("svg")
             .attr("width", widthBP + marginBP.right + marginBP.left)
@@ -249,7 +249,7 @@
 
         // load data
         d3.csv("data/boxMatrixData.csv", function(dataTemp) {  
-        d3.json("data/all_data8.json", function(error, d) {
+        d3.json("data/all_data9.json", function(error, d) {
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];

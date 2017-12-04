@@ -517,9 +517,6 @@ function renderArea(data) {
 }
 
 function renderBoxPlot(dataTemp) {
-        //creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
-  //creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
-  console.log("dataTemp:", dataTemp);
   var lookupByID = {};
   for (var i = 0; i < dataTemp.length; i++) {
     lookupByID[dataTemp[i].id] = i;
@@ -532,8 +529,9 @@ function renderBoxPlot(dataTemp) {
   }
   var rows = dataTempset.length;
   
-  //console.log(dataTempset);
-  var rowHeight = heightBP/rows;
+  console.log("Temp:",dataTemp);
+  
+  var rowHeight = heightBP/4;
   
   function getFontSize(text,space,max) {
     max = max || -1;
@@ -542,9 +540,9 @@ function renderBoxPlot(dataTemp) {
     if (max !== -1 && size > max) {
       size = max;
     }
-    return size
+    return 16
   }
-  
+  console.log("TempSet",dataTemp);
   //create a scale for each column
   var colKeys = [];
   var sizeScales = [];
@@ -554,7 +552,7 @@ function renderBoxPlot(dataTemp) {
     if ((key !== "id") && (key !== "name")) {
       colKeys.push(key);
       var maxValue = d3.max(dataTempset, function(d){ return +d[key]; });
-      //console.log(maxValue);
+      console.log("maxval",maxValue);
       var sizeScale = d3.scaleSqrt()
         .domain([0,maxValue])
         .range([0,(rowHeight - rowPadding)-10]);
@@ -565,6 +563,7 @@ function renderBoxPlot(dataTemp) {
       colorScales.push(colorScale);
     }
   }
+  console.log("colkeys",colKeys);
 
     var columnWidth = widthBP/colKeys.length;
     
@@ -588,14 +587,14 @@ function renderBoxPlot(dataTemp) {
   .style("text-anchor","left")
     .attr("transform", "translate(20)rotate(-30)");
   
-  var tooltip = d3.select("body")
+  /*var tooltip = d3.select("body")
     .append("div")
     .style("position", "absolute")
     .style("z-index", "10")
     .style("visibility", "hidden")
   .style("opacity","0.8")
     .style("background", "white")
-  .style("color","black");
+  .style("color","black");*/
     
     dataTempset.forEach(function(d) {
   
@@ -625,10 +624,10 @@ function renderBoxPlot(dataTemp) {
     .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
     .attr("width", function(d,i) { return sizeScales[i](d); })
     .attr("height", function(d,i) { return sizeScales[i](d); })
-    .style("fill", function(d,i){ return colorScales[i](d); })
-    .on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
+    .style("fill", function(d,i){ return colorScales[i](d); });
+    /*.on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
       .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});*/
     
     });
  

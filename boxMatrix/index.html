@@ -13,7 +13,7 @@
 <body>
   <script>
 d3.csv("boxMatrixData.csv", function(dataTemp) {	
-	var defaults = ["MEX","BRA"];
+	var defaults = ["MEX","BRA", "BEN", "BFA"];
 	console.log("dataTemp:", dataTemp);
 	
 	//creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
@@ -40,7 +40,7 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
       .attr("width", widthBP + marginBP.right + marginBP.left)
       .attr("height", heightBP + marginBP.top + marginBP.bottom);
 	
-	var rowHeight = heightBP/rows;
+	var rowHeight = heightBP/4;
 	
 	function getFontSize(text,space,max) {
 		max = max || -1;
@@ -49,7 +49,7 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 		if (max !== -1 && size > max) {
 			size = max;
 		}
-		return size
+		return 16
 	}
 	
 	//create a scale for each column
@@ -61,7 +61,7 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 		if ((key !== "id") && (key !== "name")) {
 			colKeys.push(key);
 			var maxValue = d3.max(dataTempset, function(d){ return +d[key]; });
-			//console.log(maxValue);
+			console.log("maxval",maxValue);
 			var sizeScale = d3.scaleSqrt()
 				.domain([0,maxValue])
 				.range([0,(rowHeight - rowPadding)-10]);
@@ -72,6 +72,7 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 			colorScales.push(colorScale);
 		}
 	}
+	console.log("colkeys",colKeys);
 
     var columnWidth = widthBP/colKeys.length;
     
@@ -95,14 +96,14 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 	.style("text-anchor","left")
     .attr("transform", "translate(20)rotate(-30)");
 	
-	var tooltip = d3.select("body")
+	/*var tooltip = d3.select("body")
     .append("div")
     .style("position", "absolute")
     .style("z-index", "10")
     .style("visibility", "hidden")
 	.style("opacity","0.8")
     .style("background", "white")
-	.style("color","black");
+	.style("color","black");*/
     
     dataTempset.forEach(function(d) {
 	
@@ -132,10 +133,10 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 	  .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
 	  .attr("width", function(d,i) { return sizeScales[i](d); })
 	  .attr("height", function(d,i) { return sizeScales[i](d); })
-	  .style("fill", function(d,i){ return colorScales[i](d); })
-	  .on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
+	  .style("fill", function(d,i){ return colorScales[i](d); });
+	  /*.on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
 		  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-		  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+		  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});*/
 	  
     });
  

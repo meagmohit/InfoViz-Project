@@ -182,19 +182,26 @@ function renderBars(color, data) {
 
     // turn data into array of objects
     array = [];
-    for (let key of Object.keys(data)) {
+ //   for (let key of Object.keys(data)) {
+      for (let mkk in defaults) {
+          let key = defaults[mkk];
+          if (data[key] == null){
+            console.log("yes baby -- undefined..");
+          }
+          console.log("datakey",data[key])
+          console.log(data[key]== null ? 0 : data[key])
           array.push({
               'id': key,
-              'value': data[key],
-              'sortvalue': data_full['KAHPYP']['2014'][key]
+              'value': data[key]== null ? 0 : data[key] //,
+              //'sortvalue': data_full['KAHPYP']['2014'][key]
           })
     }
     //console.log(array);
 
     // sort by country id
-    array = array.sort(function(a, b) {
-      return a.sortvalue - b.sortvalue;
-    });
+   // array = array.sort(function(a, b) {
+   //   return a.sortvalue - b.sortvalue;
+   // });
 
     xBars.domain(array.map(function(d, i) {
         return d.id;
@@ -722,6 +729,7 @@ function onClickfunc(myobj, arg1, i){
     };        
   };
   renderArea(data_full[selected_dataset]);
+  renderBars(calcColorScale(computeranges(data_full['DHSFS']['2013'])), data_full['DHSFS']['2013']);
 }
 
 function renderDP(dataM, dataF, dataC){

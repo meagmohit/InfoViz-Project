@@ -53,7 +53,7 @@
 
     </div>
     <div class="col-md-4 col-lg-4" id="right-pane">
-        <div class="border-round bg-color" id="mosaic"><h4>Demographics</h4></div>
+        <div class="border-round bg-color" id="DP"><h4>Demographics</h4></div>
         <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
         <div class="border-round bg-color" id="bar">Bar Chart</div>  
     </div>
@@ -206,6 +206,20 @@
             .attr("transform",
                     "translate(" + marginArea.left + "," + marginArea.top + ")");
 
+        // demographics plot
+                //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var marginDP = {top: 0, right: 0, bottom: 0, left: 0},
+            widthDP = 300- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
+            heightDP = 100 - marginDP.top - marginDP.bottom;
+
+        var svg_DP = d3.select("#DP").append("svg")
+            .attr("id","mosaicplot")
+            .attr("width", widthDP + marginDP.left + marginDP.right)
+            .attr("height", heightArea + marginDP.top + marginDP.bottom)
+            .append("g")
+            .attr("transform",
+                    "translate(" + marginDP.left + "," + marginDP.top + ")");
+
 
         // init bars container
         var margin = {
@@ -300,6 +314,7 @@
                 renderBars(color, data_full['DHSFS']['2013']);
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(data_deaths);
+                renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 //srenderBoxPlot(dataTemp);
    //         });
             }); // map data
@@ -330,6 +345,8 @@
             });	*/
 
             // function renderHIV(){
+
+            console.log("thisdata: ",computeranges(d['LWHT']));
             d3.selectAll('#switch_left').on("click", function(arg1, i){  
                 colorcurr=colorHIV;
                 d3.selectAll("#switch_left_label").style("background-color","#FFC500");
@@ -340,6 +357,7 @@
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
                 renderArea(thisData);
+                renderDP();
                 
         
             });
@@ -355,6 +373,7 @@
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
                 renderArea(thisData);
+                renderDP();
                 
             });
 

@@ -723,3 +723,60 @@ function onClickfunc(myobj, arg1, i){
   };
   renderArea(data_full[selected_dataset]);
 }
+
+function renderDP(dataM, dataF, dataC){
+  /*let totalM=0, totalF=0, totalC=0;
+  for (var i = 0; i < defaults.length; i++) {
+        totalM = totalM + dataM[defaults[i]];
+        totalF = totalF + dataF[defaults[i]];
+        totalC = totalC + dataC[defaults[i]];
+    };
+  console.log("dataM: ",dataM);
+
+  hratio = (totalM+totalF)/(totalM+totalF+totalC);
+  wratio = totalM/(totalM+totalF);*/
+  hratio = 0.6;
+  wratio=0.8;
+  
+  svg_DP.append('rect') //men
+  .attr('width', (widthDP-10)*(wratio))
+  .attr('height', (heightDP-10)*(hratio))
+  .attr('x',0)
+  .attr('fill',colorcurr[4])
+  .attr('y',0);
+
+  svg_DP.append('text')
+  .text("Men")
+  .attr("x", (widthDP)*(wratio/2))
+  .attr("y", (heightDP)*(hratio/2))
+  .style("text-anchor", "middle");
+
+  svg_DP.append('rect') // women
+  .attr('width', (widthDP-10)*(1-wratio))
+  .attr('height', (heightDP-10)*(hratio))
+  .attr('x',widthDP*(wratio))
+  .attr('fill',colorcurr[4])
+  .attr('y',0);
+
+  svg_DP.append('text')
+  .text("Women")
+  .attr("x", (widthDP)*(wratio) + (widthDP-10)*(1-wratio)/2)
+  .attr("y", (heightDP)*(hratio/2))
+  .style("text-anchor", "middle");
+
+  svg_DP.append('rect') // children
+  .attr('width', (widthDP))
+  .attr('height', (heightDP-10)*(1-hratio))
+  .attr('x',0)
+  .attr('fill',colorcurr[4])
+  .attr('y',heightDP*hratio);
+
+  svg_DP.append('text')
+  .text("children")
+  .attr("x", widthDP*(1/2))
+  .attr("y", (heightDP)*(hratio) + (heightDP)*(1-hratio)/2)
+  .style("text-anchor", "middle");
+
+
+
+}

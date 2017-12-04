@@ -1,21 +1,9 @@
 function fillMap(selection, color, data) {
 
     // TODO: minor fix, sometimes d gets a -99, why?
+    //console.log("selection",selection);
     selection
-        .on("mouseover", function(d) {            // code for hover tooltip
-          console.log("Mouseover activated");
-          div.transition()
-          .duration(200)
-          .style("opacity", .9);
-          div.html(d.id + "<br/>")
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-        })
-       .on("mouseout", function(d) {
-          div.transition()
-          .duration(500)
-          .style("opacity", 0);
-        })   
+ 
         .attr("fill", function(d) {
             return typeof data[d.id] === 'undefined' ? color_na :
                 d3.rgb(color(data[d.id]));
@@ -28,6 +16,20 @@ function setPathTitle(selection, data) {
             return "" + d.id + ", " +
                 (typeof data[d.id] === 'undefined' ? 'N/A' : data[d.id]);
         })
+    /*   .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html(d.id + "<br/>")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        })
+       .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+        })   */
         .text(function(d) {
             return "" + d.id + ", " +
                 (typeof data[d.id] === 'undefined' ? 'N/A' : data[d.id]);

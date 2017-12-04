@@ -269,6 +269,19 @@
                         onClickfunc(this,arg1,i);
                         //renderBoxPlot(dataTemp);
                     })
+                    .on("mouseover", function(d) {            // code for hover tooltip
+                        div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                        div.html(d.id + "<br/>")
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function(d) {
+                        div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                    })  
                     .call(fillMap, color, computeranges(data_deaths))
                     .append("title")
                     .call(setPathTitle, computeranges(data_deaths));

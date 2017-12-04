@@ -246,8 +246,9 @@ function calcColorScale(data) {
     let scale = d3.scaleQuantile()
         .domain(quantiles_calc)
         //.range(d3.schemeOranges[(quantiles_calc.length) - 1]);
+        .range(colorcurr);
         //.range(["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"]);  //Colour Scheme for HIV
-        .range(["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"]); // Colour scheme for AIDS
+        //.range(["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"]); // Colour scheme for AIDS
 
 
     console.log(scale);
@@ -332,7 +333,13 @@ function pairQuantiles(arr) {
 function renderArea(data) {
 
 
-    let colorArea = d3.scaleOrdinal(d3.schemeDark2).domain(defaults);;
+    let colorArea = d3.scaleOrdinal().domain(defaults).range(colorcurr.slice(0,defaults.length));
+    //console.log("dom:",defaults);
+    //function colorArea(country_index){
+    //  return colorcurr[country_index];
+    //}
+
+//    } 
     //console.log(colorArea(0));
     //.range(d3.schemeOranges[(quantiles_calc.length) - 1]);
     //let colorArea = d3.scaleQuantile().domain(defaults).range(["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"]);
@@ -382,7 +389,10 @@ function renderArea(data) {
   browser.append('path')
       .attr('class', 'area')
       .attr('d', area)
-      .style('fill', function(d) { return colorArea(d.key); });
+      .style('stroke',"white")
+      .style('stroke-width',"1")
+      .style('fill', function(d) { //console.log("thisval:",d.index) ;
+        return colorArea(d.key); });
 
     // add the area
     /*
@@ -417,13 +427,13 @@ function renderArea(data) {
   var legendSpacing = 8;
 
   var legend = svg_area.selectAll('.legend')
-  .data(colorArea.domain())
+  .data(defaults)
   .enter()
   .append('g')
   .attr('class', 'legendArea')
   .attr('transform', function(d, i) {
     var height = legendRectSize + legendSpacing;
-    var offset =  -50 + height * colorArea.domain().length / 2;
+    var offset =  -50 + height * defaults.length / 2;
     var horz = -2 * legendRectSize + 40;
     var vert = i * height - offset;
     return 'translate(' + horz + ',' + vert + ')';

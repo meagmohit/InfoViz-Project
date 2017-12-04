@@ -1,6 +1,6 @@
 .switch-field {
   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-  padding: 40px;
+  padding: 10px;
     overflow: hidden;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .switch-field input:checked + label {
-  background-color: #A5DC86;
+  background-color: #FF3D00;
   -webkit-box-shadow: none;
   box-shadow: none;
 }

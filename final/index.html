@@ -31,18 +31,17 @@
     
 
     <div class="col-md-8 col-lg-8 border-round bg-color" id="left-pane">
-        <div id="bubble" style="z-index: 2; position: absolute;">
-            </div>
-        <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
-            <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  
-              <form class="form">
+        <div id="bubble" style="z-index: 2; position: absolute;"></div>
+            <form class="form" style="z-index:3; position: absolute;">
                 <div class="switch-field">
-                    <input type="radio" id="switch_left" name="switch_2" value="abc" checked onclick="renderHIV()"/>
+                    <input type="radio" id="switch_left" name="switch_2" value="abc" /> <!-- onclick="renderHIV()"/>-->
                     <label for="switch_left" id="switch_left_label">HIV</label>
-                    <input type="radio" id="switch_right" name="switch_2" value="no" onclick="renderAIDS()"/>
+                    <input type="radio" id="switch_right" name="switch_2" value="no" checked /> <!--onclick="renderAIDS()"/> -->
                     <label for="switch_right" id="switch_right_label">AIDS</label>
                 </div>
             </form>
+        <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
+           <!-- <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  -->
             
             <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
         </div>  
@@ -74,10 +73,13 @@
         var init_year = 1991;
         var init_year2 = 2000;
         var headline = "Year: ";
-		var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
-								{ value: "LWHT", text: "Living with HIV (Total)" },
-								//{ value: "NHIT", text: "New HIV infections (total)" }
-                                ]
+        var colorHIV = ["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"];
+        var colorAIDS = ["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"];
+        var colorcurr = colorAIDS;
+		//var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
+		//						{ value: "LWHT", text: "Living with HIV (Total)" },
+		//						//{ value: "NHIT", text: "New HIV infections (total)" }
+                                //]
         var selected_dataset = "Deaths";
 
         /// main
@@ -98,24 +100,16 @@
         d3.select("#select-years").insert("h5", ":first-child").text(headline + init_year + '-' + init_year2);
 
 	
-		d3.select("#dropdown")
+		/*d3.select("#dropdown")
           .selectAll("option")
           .data(dropdown_options)
           .enter()
           .append("option")
           .attr("value", function(option) { return option.value; })
-          .text(function(option) { return option.text; });
-	            function renderAIDS(){
-                //console.log("abc");
-                d3.selectAll("#switch_left_label").style("background-color","black");
-            }
+          .text(function(option) { return option.text; });*/
+	            
 
-            function renderHIV(){
-                console.log("def");
-                //d3.selectAll("#switch_right").enter().style.backgroundColor = "#CCCCCC";
-                d3.selectAll("#switch_right_label").style("background-color","black");
-            }
-		var dropDown = d3.select("#dropdown");
+		//var dropDown = d3.select("#dropdown");
         
         // init country GDP bubbles containor
 
@@ -333,15 +327,45 @@
 
 			
 			// dropdown used
+            /*
 			dropDown.on("change", function() {
 				selected_dataset = d3.event.target.value;
-				thisData = d[selected_dataset];
-				let upd_color = calcColorScale(computeranges(thisData));
-				updateMap(upd_color, computeranges(thisData));
-				renderArea(d[selected_dataset]);
+                thisData = d[selected_dataset];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderArea(d[selected_dataset]);
 
             //clicking on map
-            });	
+            });	*/
+
+            // function renderHIV(){
+            d3.selectAll('#switch_left').on("click", function(arg1, i){  
+                colorcurr=colorHIV;
+                d3.selectAll("#switch_left_label").style("background-color","#FFC500");
+                d3.selectAll("#switch_right_label").style("background-color","#e4e4e4");
+                thisData = d['LWHT'];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderLegend(upd_color, computeranges(thisData));
+                renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderArea(d[selected_dataset]);
+                
+        
+            });
+
+            //function renderAIDS()
+            d3.selectAll('#switch_right').on("click", function(arg1, i){ 
+                colorcurr=colorAIDS;
+                d3.selectAll("#switch_right_label").style("background-color","#FF3D00");
+                d3.selectAll("#switch_left_label").style("background-color","#e4e4e4");
+                thisData = d['Deaths'];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderLegend(upd_color, computeranges(thisData));
+                renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderArea(d[selected_dataset]);
+                
+            });
 
 
         }); // disaster data

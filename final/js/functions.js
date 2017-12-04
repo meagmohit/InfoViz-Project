@@ -143,6 +143,14 @@ function renderCircles(colorBub, data) {
       });
             return rscale(index)*svgBubbleWidth/sumRscale;
         })
+        .attr("id", function(d) {
+            return 'oc-bubble-'+d.id.toString();
+        })
+        .on("click", function(arg1, i){
+                        //d3.select(".selected").classed("selected", false);
+                        onClickfunc(this,arg1,i);
+                        //renderBoxPlot(dataTemp);
+                    })
         .style("fill", function(d) {
             return colorBub(d.value);
         });
@@ -354,6 +362,7 @@ function renderArea(data) {
     temp = JSON.parse(JSON.stringify(abc));
     //var tempArray = JSON.parse(JSON.stringify(mainArray));
     for(let myX in myKeys){
+        //console.log("checkhere:",temp[myX]["IND"]);
         temp[myX]['date'] = parseTime(myKeys[myX]);
     };
     mydata = temp;
@@ -626,4 +635,43 @@ function calcColorScaleBubbles(data_GDP){
 //  let scale = d3.scalePow().exponent(6)
 //          .domain([overMin,overMax])
 //          .range(d3.schemeBuPu[tot]);
+}
+
+function onClickfunc(myobj, arg1, i){
+                          //console.log(defaults.some(function(entry) { return entry == arg1.id; }));
+
+                          console.log("defaults:",defaults);
+  if(noselect.some(x => x == arg1.id)){
+    return;
+  }
+  console.log("defaults:",defaults);
+
+  if(defaults.some(function(entry) { return entry == arg1.id; })) {
+    let myindex = defaults.indexOf(arg1.id);
+    console.log(myindex);
+    if (myindex !== -1) {
+      defaults.splice(myindex, 1);
+      d3.select("#"+arg1.id).classed("selected", false);
+      d3.select("#oc-bubble-"+arg1.id).classed("selected", false);
+    }
+    if(defaults.length==0){
+      defaults.push("Total");
+    }
+  }
+  else{
+    if (!flag_countryselect){
+      defaults[0] = arg1.id;
+      d3.select("#"+arg1.id).classed("selected", true);
+      d3.select("#oc-bubble-"+arg1.id).classed("selected", true);
+      flag_countryselect = true;
+    }
+    else{
+      if(defaults.length<5){
+        defaults.push(arg1.id);
+        d3.select("#"+arg1.id).classed("selected", true);
+        d3.select("#oc-bubble-"+arg1.id).classed("selected", true);
+      }
+    };        
+  };
+  renderArea(data_full[selected_dataset]);
 }

@@ -67,6 +67,7 @@
         var data_GDP=[];
         var flag_countryselect = false;
         var data_full=[];
+        var noselect = ["USA","CAN","CHN","RUS"];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
         var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
@@ -260,35 +261,7 @@
                     })
                     .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
-                  
-                        //console.log(defaults.some(function(entry) { return entry == arg1.id; }));
-                        if(defaults.some(function(entry) { return entry == arg1.id; })) {
-                        	let myindex = defaults.indexOf(arg1.id);
-                        	console.log(myindex);
-                        	if (myindex !== -1) {
-     						   defaults.splice(myindex, 1);
-     						   d3.select(this).classed("selected", false);
-     						   //console.log(defaults);
-    						}
-                        	if(defaults.length==0){
-                        		defaults.push("Total");
-                        	}
-                        }
-                        else{
-                        if (!flag_countryselect){
-                        	defaults[0] = arg1.id;
-                        	d3.select(this).classed("selected", true);
-                        	//console.log(defaults);
-                        	flag_countryselect = true;
-                        }else{
-                        	if(defaults.length<5){
-                        	defaults.push(arg1.id);
-                        	//console.log(defaults.length);
-                        	d3.select(this).classed("selected", true);
-                        }
-                        };        
-                    }
-                        renderArea(d[selected_dataset]);
+                        onClickfunc(this,arg1,i);
                         //renderBoxPlot(dataTemp);
                     })
                     .call(fillMap, color, computeranges(data_deaths))
@@ -348,7 +321,7 @@
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
-                renderArea(d[selected_dataset]);
+                renderArea(thisData);
                 
         
             });
@@ -363,7 +336,7 @@
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
-                renderArea(d[selected_dataset]);
+                renderArea(thisData);
                 
             });
 

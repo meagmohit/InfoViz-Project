@@ -2,6 +2,20 @@ function fillMap(selection, color, data) {
 
     // TODO: minor fix, sometimes d gets a -99, why?
     selection
+        .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html(d.id + "<br/>")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        })
+       .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+        })   
         .attr("fill", function(d) {
             return typeof data[d.id] === 'undefined' ? color_na :
                 d3.rgb(color(data[d.id]));
@@ -10,10 +24,15 @@ function fillMap(selection, color, data) {
 
 function setPathTitle(selection, data) {
     selection
+        .attr("title",function(d) {
+            return "" + d.id + ", " +
+                (typeof data[d.id] === 'undefined' ? 'N/A' : data[d.id]);
+        })
         .text(function(d) {
             return "" + d.id + ", " +
                 (typeof data[d.id] === 'undefined' ? 'N/A' : data[d.id]);
         });
+        
 }
 
 function updateMap(color, data) {
@@ -382,7 +401,7 @@ function renderArea(data) {
   stackArea.order(d3.stackOrderNone);
   stackArea.offset(d3.stackOffsetNone);
 
-  //console.log(stackArea(mydata));
+  //console.log("mydata:",stackArea(mydata));
 
   //d3.select("svg#area g.area").selectAll('g.axis').remove();
   svg_area.selectAll('g').remove();//.data(stackArea(mydata)).remove();
@@ -392,7 +411,33 @@ function renderArea(data) {
       .attr('class', function(d){ 
         //console.log(d.key);
         return 'browser ' + d.key; })
+      .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html(d.key + "<br/>")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+       })
+      .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+       })          
+     /*   selection
+        .text(function(d) {
+            return "" + d.id + ", " +
+                (typeof data[d.id] === 'undefined' ? 'N/A' : data[d.id]);
+        });*/
       .attr('fill-opacity', 0.5);
+  
+ /* browser.append("title")
+        //.call(setPathTitle, computeranges(data_deaths));
+        .attr("text", function(d){
+          return d.key;
+        })  ;
+        */
 
   //svg_area.selectAll('path').remove();
   browser.append('path')

@@ -10,6 +10,7 @@
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/slider_styling.css" rel="stylesheet">
     <link href="css/noYesBtns.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -46,8 +47,8 @@
             <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
         </div>  
         <div style="margin-top: -90px;">
-            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; margin-left:20px; margin-top: 140px;"></div>
-            <div class="border-round bg-color" id="area" style="align: left">Stacked Area Chart: Deaths</div>
+            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 140px;"></div>
+            <div class="border-round bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;">Stacked Area Chart: Deaths</div>
         </div>
 
     </div>
@@ -85,6 +86,10 @@
 
         /// main
         var defaults = ['Total'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+
+        var div = d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
 
 
 

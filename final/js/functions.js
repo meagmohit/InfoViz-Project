@@ -656,6 +656,7 @@ function onClickfunc(myobj, arg1, i){
     }
     if(defaults.length==0){
       defaults.push("Total");
+      flag_countryselect = false;
     }
   }
   else{

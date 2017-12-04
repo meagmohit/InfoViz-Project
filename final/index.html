@@ -8,10 +8,13 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <link href="css/slider_styling.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+    <!--<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />-->
+
 </head>
 
 <body>
@@ -24,23 +27,27 @@
 
 
 
-	
+    
 
-	<div class="col-md-8 border-round" id="left-pane">
-		<div class="border-round" id="bubble">Bubble Chart</div>
-		<div class="border-round" id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px;"> 
-			<h4 style="margin-left: 10px;">GeoMap</h4>
-			<select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>
-            <div id="slider-range" style="z-index: 2; position: absolute; width: 50%; margin-left:350px; margin-top: 425px;"></div>
-            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 450px;"></div>
-		</div>	
-		<div class="border-round" id="bar">Bar Chart</div>  
-	</div>
-	<div class="col-md-4 border-round" id="right-pane">
-		<div class="border-round" id="mosaic">Demographics</div>
-		<div class="border-round" id="area">Stacked Area Chart: Deaths</div>
-		<div class="border-round" id="BP">BoxPlot Chart</div>
-	</div>
+    <div class="col-md-8 col-lg-8 border-round bg-color" id="left-pane">
+        <div id="bubble" style="z-index: 2; position: absolute;">
+            </div>
+        <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
+            <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  
+            
+            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
+        </div>  
+        <div style="margin-top: -90px;">
+            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; margin-left:20px; margin-top: 140px;"></div>
+            <div class="border-round bg-color" id="area" style="align: left">Stacked Area Chart: Deaths</div>
+        </div>
+
+    </div>
+    <div class="col-md-4 col-lg-4" id="right-pane">
+        <div class="border-round bg-color" id="mosaic"><h4>Demographics</h4></div>
+        <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
+        <div class="border-round bg-color" id="bar">Bar Chart</div>  
+    </div>
 
     <script>
         /// params
@@ -110,9 +117,12 @@
 
 
         // init map container, projection
-        var widthMap = 900,
-            heightMap = 500,
+        console.log(document.getElementById('left-pane').offsetWidth);
+        //legendmargin = 255;
+        var widthMap = document.getElementById('left-pane').offsetWidth*1.0583,
+            heightMap = widthMap*(5/9),
             marginMap = {"top": 0, "left": -90, "right": 0, "bottom": 0};
+        var legendmargin = heightMap/2;
         var svg_map = d3.select("#map").insert("svg")
             .attr("id", "map")
             .attr("height", heightMap)
@@ -142,9 +152,9 @@
 
         //init area chart containor : this section is being taken care my mohit
         //    var margin = {top: 50, right:10, bottom:50, left:30};
-        var marginArea = {top: 10, right: 50, bottom: 30, left: 15},
-            widthArea = 380 - marginArea.left - marginArea.right,
-            heightArea = 200 - marginArea.top - marginArea.bottom;
+        var marginArea = {top: 10, right: 70, bottom: 30, left: 10},
+            widthArea = 800- marginArea.left - marginArea.right,//document.getElementById('area').offsetWidth*0.9; 
+            heightArea = 150 - marginArea.top - marginArea.bottom;
         var parseTime = d3.timeParse("%Y");
 
 
@@ -173,6 +183,7 @@
             .attr("height", heightArea + marginArea.top + marginArea.bottom)
             .append("g")
             .attr("class", "area")
+            .attr("align", "left")
             .attr("transform",
                     "translate(" + marginArea.left + "," + marginArea.top + ")");
 
@@ -215,6 +226,7 @@
             let dataD = data_deaths[init_year];
             let dataG = data_GDP[init_year];
             let color = calcColorScale(computeranges(data_deaths));
+            console.log(color(150));
             colorBubbles = calcColorScaleBubbles(data_GDP);
 
 

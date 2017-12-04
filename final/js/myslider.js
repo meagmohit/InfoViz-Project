@@ -15,14 +15,16 @@ $(function() {
   })
   .each(function() {
 
+  /*
   var el = $('<label>' + (1990) + '</label>').css('left', 0 + '%');
   $("#slider-range").append(el);
   var el = $('<label>' + (2016) + '</label>').css('left', 100 + '%');
   $("#slider-range").append(el);
+  */
 
     // Position the labels
     
-    for (var i = 0; i <= 26; i++) {
+    /*for (var i = 0; i <= 26; i++) {
 
         // Create a new element and position it with percentages
         //var el = $('<label2>' + '|' + '</label2>').css('left', (i/26*100) + '%');
@@ -31,7 +33,7 @@ $(function() {
         // Add the element inside #slider
         $("#slider-range").append(el);
 
-    };
+    };*/
 
   });
 });

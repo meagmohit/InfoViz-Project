@@ -49,7 +49,7 @@ function renderLegend(color, data) {
         .attr("height", "20")
         .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
         .attr("y", function(d, i) {
-            return (svg_height - 29) - 25 * i;
+            return  legendmargin + 10 + 25 * i;
         })
         .attr("x", 30)
         .attr("fill", function(d, i) {
@@ -67,7 +67,7 @@ function renderLegend(color, data) {
     text.data(legend_items)
         .enter().append("text").merge(text)
         .attr("y", function(d, i) {
-            return (svg_height - 14) - 25 * i;
+            return legendmargin +25+ 25 * i;
         })
         .attr("x", 60)
         .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
@@ -76,10 +76,10 @@ function renderLegend(color, data) {
         });
 
     d3.select("svg#map g.legend_title text")
-        .text("Legend (quintile ranges)")
+        .text("Color Legend")
         .attr("x", 30)
         .attr("transform", "translate(" + (-1*marginMap.left) + ", " + marginMap.top + ")")
-        .attr("y", 355);
+        .attr("y", legendmargin);
 }
 
 function renderCircles(colorBub, data) {
@@ -160,7 +160,7 @@ function renderBars(color, data) {
               'sortvalue': data_full['KAHPYP']['2014'][key]
           })
     }
-    console.log(array);
+    //console.log(array);
 
     // sort by country id
     array = array.sort(function(a, b) {
@@ -245,8 +245,12 @@ function calcColorScale(data) {
 
     let scale = d3.scaleQuantile()
         .domain(quantiles_calc)
-        .range(d3.schemeReds[(quantiles_calc.length) - 1]);
+        //.range(d3.schemeOranges[(quantiles_calc.length) - 1]);
+        //.range(["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"]);  //Colour Scheme for HIV
+        .range(["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"]); // Colour scheme for AIDS
 
+
+    console.log(scale);
     return scale;
 }
 
@@ -329,6 +333,10 @@ function renderArea(data) {
 
 
     let colorArea = d3.scaleOrdinal(d3.schemeDark2).domain(defaults);;
+    //console.log(colorArea(0));
+    //.range(d3.schemeOranges[(quantiles_calc.length) - 1]);
+    //let colorArea = d3.scaleQuantile().domain(defaults).range(["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"]);
+    //let colorArea = d3.scaleQuantile().domain(defaults).range(d3.schemeOranges[(5)]);
     let myKeys = d3.keys(data);
     let abc = d3.values(data);
     //console.log(temp);

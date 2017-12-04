@@ -85,7 +85,7 @@
         var selected_dataset = "Deaths";
 
         /// main
-        var defaults = ['Total'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+        var defaults = ['MEX','BRA'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
 
         var div = d3.select("body").append("div")
                     .attr("class", "tooltip")
@@ -156,13 +156,12 @@
             .attr("class", "legend_title")
             .append("text");
 
+
         // Ryan's code
-        widthBP = 400;
-        heightBP = 400;
-        marginBP = {"top": 50, "left": 100, "right": 50, "bottom": 50};
-        annotationPadding = 1;
-        rowPadding = 50;
-        annotationPaddingV = rowPadding/2;
+        widthBP = 300;
+        heightBP = 200;
+        marginBP = {"top": 50, "left": 100, "right": 150, "bottom": 50};
+        rowPadding = 0;
 
         var svg = d3.select("#BP").append("svg")
             .attr("width", widthBP + marginBP.right + marginBP.left)
@@ -209,7 +208,7 @@
         // demographics plot
                 //    var margin = {top: 50, right:10, bottom:50, left:30};
         var marginDP = {top: 0, right: 0, bottom: 0, left: 0},
-            widthDP = 300- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
+            widthDP = 400- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
             heightDP = 100 - marginDP.top - marginDP.bottom;
 
         var svg_DP = d3.select("#DP").append("svg")
@@ -249,12 +248,12 @@
 
 
         // load data
-        d3.csv("data/HDI.csv", function(dataTemp) {  
-        d3.json("data/all_data5.json", function(error, d) {
+        d3.csv("data/boxMatrixData.csv", function(dataTemp) {  
+        d3.json("data/all_data8.json", function(error, d) {
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];
-            data_GDP = d['GDP'];
+            data_GDP = d['GDPPercent'];
 
             let dataD = data_deaths[init_year];
             let dataG = data_GDP[init_year];
@@ -315,7 +314,7 @@
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(data_deaths);
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
-                //srenderBoxPlot(dataTemp);
+                renderBoxPlot(dataTemp);
    //         });
             }); // map data
 

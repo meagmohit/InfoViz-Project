@@ -518,48 +518,59 @@ function renderArea(data) {
 
 function renderBoxPlot(dataTemp) {
         //creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
-    var lookupByID = {};
-    for (var i = 0; i < dataTemp.length; i++) {
-        lookupByID[dataTemp[i].id] = i;
+  //creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
+  console.log("dataTemp:", dataTemp);
+  var lookupByID = {};
+  for (var i = 0; i < dataTemp.length; i++) {
+    lookupByID[dataTemp[i].id] = i;
+  }
+  
+  //creates a dataTempset containing the information for countries whose IDs are currently selected
+  dataTempset = [];
+  for (var i = 0; i < defaults.length; i++) {
+    dataTempset.push(dataTemp[lookupByID[defaults[i]]]);
+  }
+  var rows = dataTempset.length;
+  
+  //console.log(dataTempset);
+  var rowHeight = heightBP/rows;
+  
+  function getFontSize(text,space,max) {
+    max = max || -1;
+    len = text.length;
+    size = space/len * 2;
+    if (max !== -1 && size > max) {
+      size = max;
     }
-    
-    //creates a dataTempset containing the information for countries whose IDs are currently selected
-    dataTempset = [];
-    for (var i = 0; i < defaults.length; i++) {
-        dataTempset.push(dataTemp[lookupByID[defaults[i]]]);
+    return size
+  }
+  
+  //create a scale for each column
+  var colKeys = [];
+  var sizeScales = [];
+  var colorScales = [];
+  for (var key in dataTempset[0])
+  {
+    if ((key !== "id") && (key !== "name")) {
+      colKeys.push(key);
+      var maxValue = d3.max(dataTempset, function(d){ return +d[key]; });
+      //console.log(maxValue);
+      var sizeScale = d3.scaleSqrt()
+        .domain([0,maxValue])
+        .range([0,(rowHeight - rowPadding)-10]);
+      sizeScales.push(sizeScale);
+      var colorScale = d3.scaleLinear()
+        .domain([0,maxValue])
+        .range(['honeydew','darkgreen']);
+      colorScales.push(colorScale);
     }
-    var rows = dataTempset.length;
-
-    var rowHeight = heightBP/rows;
-    
-    //create a scale for each column
-    var colKeys = [];
-    var sizeScales = [];
-    var colorScales = [];
-    for (var key in dataTempset[0])
-    {
-        if (key !== "id") {
-            colKeys.push(key);
-            var maxValue = d3.max(dataTempset, function(d){ return d[key]; });
-            var sizeScale = d3.scaleSqrt()
-                .domain([0,maxValue])
-                .range([0,(rowHeight - rowPadding)/2]);
-            sizeScales.push(sizeScale);
-            var colorScale = d3.scaleLinear()
-                .domain([0,maxValue])
-                .range(['honeydew','darkgreen']);
-            colorScales.push(colorScale);
-        }
-    }
-    //console.log(colKeys);
+  }
 
     var columnWidth = widthBP/colKeys.length;
     
-    svg.selectAll('g').remove();
     var chart = svg.append("g")
       .attr("transform", "translate(" + marginBP.left + "," + marginBP.top + ")");
     
-
     var columnHeader = chart.append("g")
       .attr("transform", "translate(0,0)");
     
@@ -571,48 +582,54 @@ function renderBoxPlot(dataTemp) {
     
     columnLabels.append("text")
     .text(function(d) { return d })
-    .attr("y", -10)
-    .attr("x", columnWidth/2)
-    .style("text-anchor","middle");
-    //.attr("transform", "translate(20)rotate(-45)")
+  .attr("font-size", function(d) { return String(getFontSize(d,marginBP.top*1.5,24))+"px" })
+    .attr("y",-5)
+  .attr("x", columnWidth/2-15)
+  .style("text-anchor","left")
+    .attr("transform", "translate(20)rotate(-30)");
+  
+  var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+  .style("opacity","0.8")
+    .style("background", "white")
+  .style("color","black");
     
-
     dataTempset.forEach(function(d) {
-    
-      //console.log(d,d.values);
-      
+  
+    //console.log(d3.values(d).slice(2));
+      console.log("ryan: ",d);
       var rowNumber = defaults.indexOf(d.id);
 
       var rowG = chart.append("g")
       .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");
       
       rowG.append("text")
-      .text(d.id)
+      .text(d.name)
+    .attr("font-size", String(getFontSize(d.name,marginBP.left-20,24)) +"px")
       .attr("x", -rowPadding)
-      .attr("y", rowHeight/2 + 6)
+      .attr("y", rowHeight/2 + getFontSize(d.name,marginBP.left-20,24)/3)
       .style("text-anchor", "end");
 
-      var boxes =  rowG.selectAll("g")
-      .data(d3.values(d).slice(0,-1))
-      .enter()
-      .append("g")
-      .attr("class", "box")
-      .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
-      
-      boxes.append("rect")
-      .attr("x", function(d,i) { return (columnWidth - sizeScales[i](d))/2; })
-      .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
-      .attr("width", function(d,i) { return sizeScales[i](d); })
-      .attr("height", function(d,i) { return sizeScales[i](d); })
-      .style("fill", function(d,i){ return colorScales[i](d); });
-      
-      boxes.append("text")
-      .text(function(d,i){ return d; })
-      .attr("x", columnWidth/2)
-      .attr("y", rowHeight/2 + 6)
-      .style("text-anchor", "middle");
-      //.attr("font-size",2pt);
-      
+    var boxes =  rowG.selectAll("g")
+    .data(d3.values(d).slice(2))
+    .enter()
+    .append("g")
+    .attr("class", "box")
+    .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
+    
+    boxes.append("rect")
+    .attr("x", function(d,i) { return (columnWidth - sizeScales[i](d))/2; })
+    .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
+    .attr("width", function(d,i) { return sizeScales[i](d); })
+    .attr("height", function(d,i) { return sizeScales[i](d); })
+    .style("fill", function(d,i){ return colorScales[i](d); })
+    .on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
+      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+    
     });
  
 }
@@ -733,7 +750,7 @@ function onClickfunc(myobj, arg1, i){
 }
 
 function renderDP(dataM, dataF, dataC){
-  /*let totalM=0, totalF=0, totalC=0;
+  let totalM=0, totalF=0, totalC=0;
   for (var i = 0; i < defaults.length; i++) {
         totalM = totalM + dataM[defaults[i]];
         totalF = totalF + dataF[defaults[i]];
@@ -742,7 +759,7 @@ function renderDP(dataM, dataF, dataC){
   console.log("dataM: ",dataM);
 
   hratio = (totalM+totalF)/(totalM+totalF+totalC);
-  wratio = totalM/(totalM+totalF);*/
+  wratio = totalM/(totalM+totalF);
   hratio = 0.6;
   wratio=0.8;
   

@@ -13,7 +13,8 @@
 <body>
   <script>
 d3.csv("boxMatrixData.csv", function(dataTemp) {	
-	var defaults = ["ARG","AFG","AUS","BEL","USA","BIH"];
+	var defaults = ["MEX","BRA"];
+	console.log("dataTemp:", dataTemp);
 	
 	//creates a lookup table storing the index within the raw dataTemp array that corresponds to each country ID
 	var lookupByID = {};
@@ -30,10 +31,10 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
 	
 	//console.log(dataTempset);
 	
-	const widthBP = 300;
+	const widthBP = 200;
     const heightBP = 300;
     const marginBP = {"top": 150, "left": 150, "right": 150, "bottom": 50};
-    const rowPadding = 0;
+    const rowPadding = 20;
 
  	var svg = d3.select("body").append("svg")
       .attr("width", widthBP + marginBP.right + marginBP.left)
@@ -106,7 +107,7 @@ d3.csv("boxMatrixData.csv", function(dataTemp) {
     dataTempset.forEach(function(d) {
 	
 	  //console.log(d3.values(d).slice(2));
-      
+      console.log("ryan: ",d);
       var rowNumber = defaults.indexOf(d.id);
 
       var rowG = chart.append("g")

@@ -148,19 +148,19 @@ function renderCircles(colorBub, data) {
         .merge(bubbles)
         .attr("cx", function(d) {
       var index = array.findIndex(function(pair) {
-        return pair.id == d.id
+        return pair.value == d.value
       });
       return (rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale;
         })
         .attr("cy", function(d) {
       var index = array.findIndex(function(pair) {
-        return pair.id == d.id
+        return pair.value == d.value
       });
             return (125-yscaleEllipse((rscaleSum(rscale,index-1))*svgBubbleWidth/sumRscale));
         })
         .attr("r", function(d) {
       var index = array.findIndex(function(pair) {
-        return pair.id == d.id
+        return pair.value == d.value
       });
             return rscale(index)*svgBubbleWidth/sumRscale;
         })
@@ -695,14 +695,14 @@ function calcColorScaleBubbles(data_GDP){
   // console.log(overMax)
 
   let color = d3.scaleLinear().domain([overMin,overMax])
-       .range([d3.rgb("#ff0000"), d3.rgb('#00ffe5')]);
+       .range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
   let  colorScale = d3.scaleSequential(d3.interpolateInferno).domain([9365166,78870119013703]);  
   let colorS = d3.scaleLog().base(100000).domain([overMin,overMax])
     .interpolate(d3.interpolateHslLong)
        .range([d3.rgb("#ff0000"), d3.rgb("#00ffe5")]);
 //  console.log(colorScale(1911600970))
     
-  return color;
+  return colorS;
 //  let scale = d3.scalePow().exponent(6)
 //          .domain([overMin,overMax])
 //          .range(d3.schemeBuPu[tot]);

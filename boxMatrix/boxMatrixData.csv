@@ -1,0 +1,192 @@
+id,name,Public Health Expenditure (% of GDP),Infections Averted due to PMTCT,Pregnant Women Receiving ARV,Early Infant Diagnosis
+AFG,Afghanistan,2.9,100,10,3
+AGO,Angola,2.1,2000,8800,12
+ALB,Albania,2.9,,,
+AND,Andorra,6.3,,,
+ARE,United Arab Emirates,2.6,,,
+ARG,Argentina,2.7,500,1400,56
+ARM,Armenia,1.9,,,
+AUS,Australia,6.3,100,80,95
+AUT,Austria,8.7,,,
+AZE,Azerbaijan,1.2,100,50,61
+BDI,Burundi,4,1000,3500,10
+BEL,Belgium,8.3,,,
+BEN,Benin,2.3,500,2100,29
+BFA,Burkina Faso,2.6,1000,4300,30
+BGD,Bangladesh,0.8,100,30,17
+BGR,Bulgaria,4.6,,,
+BHR,Bahrain,3.2,,,
+BHS,Bahamas,3.6,,,
+BIH,Bosnia and Herzegovina,6.8,,,
+BLR,Belarus,3.7,100,260,95
+BLZ,Belize,3.9,100,50,48
+BOL,Bolivia,4.6,100,230,
+BRA,Brazil,3.8,1300,5800,47
+BRB,Barbados,4.7,,,
+BRN,Brunei,2.5,,,
+BTN,Bhutan,2.6,,,
+BWA,Botswana,3.2,2100,11800,43
+CAF,Central African Republic,2.1,500,2600,9
+CAN,Canada,7.4,,,
+CHE,Switzerland,7.7,,,
+CHL,Chile,3.9,100,230,36
+CHN,China,3.1,,,
+CIV,Ivory Coast,1.7,3100,17800,34
+CMR,Cameroon,0.9,4100,22300,34
+COD,DR Congo,1.6,2100,12300,15
+COG,Congo,4.2,500,1200,1
+COL,Colombia,5.4,200,740,66
+COM,Comoros,2.2,,,
+CPV,Cape Verde,3.6,,60,
+CRI,Costa Rica,6.8,100,50,76
+CUB,Cuba,10.6,100,100,54
+CYP,Cyprus,3.3,,,
+CZE,Czech Republic,6.3,,,
+DEU,Germany,8.7,,,
+DJI,Djibouti,6.8,100,60,2
+DMA,Dominica,3.8,,,
+DNK,Denmark,9.2,,,
+DOM,Dominican Republic,2.9,200,1100,95
+DZA,Algeria,5.2,100,110,26
+ECU,Ecuador,4.5,,550,95
+EGY,Egypt,2.2,100,10,7
+ERI,Eritrea,1.5,200,390,40
+ESP,Spain,6.4,200,690,4
+EST,Estonia,5,,,
+ETH,Ethiopia,2.9,5100,20200,28
+FIN,Finland,7.3,,,
+FJI,Fiji,3,,,
+FRA,France,9,500,1800,
+FSM,Micronesia,12.4,,,
+GAB,Gabon,2.4,500,1400,19
+GBR,United Kingdom,7.6,,,
+GEO,Georgia,1.6,100,60,42
+GHA,Ghana,2.1,1600,8300,16
+GIN,Guinea,2.7,1000,3200,7
+GMB,Gambia,5,200,720,8
+GNB,Guinea-Bissau,1.1,500,1900,28
+GNQ,Equatorial Guinea,2.9,500,1200,
+GRC,Greece,5,,,
+GRD,Grenada,2.8,,,
+GTM,Guatemala,2.3,100,330,15
+GUY,Guyana,3.1,100,180,52
+HND,Honduras,4.4,100,200,56
+HRV,Croatia,6.4,,10,
+HTI,Haiti,1.6,1500,4500,36
+HUN,Hungary,4.9,,,
+IDN,Indonesia,1.1,1000,2600,5
+IND,India,1.4,,10200,6
+IRL,Ireland,5.1,100,70,0
+IRN,Iran,2.8,100,170,15
+IRQ,Iraq,3.3,,,
+ISL,Iceland,7.2,,,
+ISR,Israel,4.8,,,
+ITA,Italy,7,100,410,
+JAM,Jamaica,2.8,,390,0
+JOR,Jordan,5.2,,,
+JPN,Japan,8.6,,,
+KAZ,Kazakhstan,2.4,100,300,91
+KEN,Kenya,3.5,11000,50300,69
+KGZ,Kyrgyzstan,3.6,100,110,
+KHM,Cambodia,1.3,500,720,33
+KIR,Kiribati,8.3,,,
+KNA,Saint Kitts and Nevis,2.1,,,
+KOR,South Korea,4,,,
+KWT,Kuwait,2.6,,,
+LAO,Laos,0.9,100,30,
+LBN,Lebanon,3,,,
+LBR,Liberia,3.2,200,650,12
+LBY,Libya,3.7,,,
+LCA,Saint Lucia,3.6,,,
+LKA,Sri Lanka,2,,,
+LSO,Lesotho,8.1,,8200,48
+LTU,Lithuania,4.4,,,
+LUX,Luxembourg,5.8,100,,
+LVA,Latvia,3.7,100,60,86
+MAR,Morocco,2,100,210,58
+MCO,Monaco,3.8,,,
+MDA,Moldova,5.3,100,150,79
+MDG,Madagascar,1.5,100,60,1
+MDV,Maldives,10.8,,,
+MEX,Mexico,3.3,500,1200,
+MHL,Marshall Islands,14.4,,,
+MKD,Macedonia,4.1,,,
+MLI,Mali,1.6,1000,2400,6
+MLT,Malta,6.7,,,
+MMR,Myanmar,1,1000,3800,12
+MNE,Montenegro,3.7,,,
+MNG,Mongolia,2.6,,,
+MOZ,Mozambique,3.9,20000,94900,36
+MRT,Mauritania,1.9,,180,
+MUS,Mauritius,2.4,,,
+MWI,Malawi,6,12000,38500,19
+MYS,Malaysia,2.3,100,350,87
+NAM,Namibia,5.4,1800,9000,91
+NER,Niger,3.2,500,1500,1
+NGA,Nigeria,0.9,12000,60000,5
+NIC,Nicaragua,5.1,100,110,57
+NLD,Netherlands,9.5,100,140,
+NOR,Norway,8.3,,,
+NPL,Nepal,2.3,100,160,10
+NRU,Nauru,2.9,,,
+NZL,New Zealand,9.1,,,
+OMN,Oman,3.2,,,
+PAK,Pakistan,0.9,100,60,1
+PAN,Panama,5.9,,180,
+PER,Peru,3.3,,720,31
+PHL,Philippines,1.6,100,20,2
+PLW,Palau,6.5,,,
+PNG,Papua New Guinea,3.5,200,570,33
+POL,Poland,4.5,,,
+PRK,North Korea,,,,
+PRT,Portugal,6.2,,,
+PRY,Paraguay,4.5,100,200,41
+QAT,Qatar,1.9,,,
+ROU,Romania,4.5,100,150,95
+RUS,Russia,3.7,,,
+RWA,Rwanda,2.9,2700,9400,73
+SAU,Saudi Arabia,3.5,100,40,28
+SDN,Sudan,1.8,100,110,
+SEN,Senegal,2.4,500,1100,11
+SGP,Singapore,2.1,,,
+SLB,Solomon Islands,4.6,,,
+SLE,Sierra Leone,1.9,,2600,3
+SLV,El Salvador,4.5,100,170,49
+SMR,San Marino,5.7,,,
+SOM,Somalia,,100,50,
+SRB,Serbia,6.4,,,
+SSD,South Sudan,1.1,500,1900,
+STP,Sao Tome and Principe,3.6,,,
+SUR,Suriname,2.9,100,170,72
+SVK,Slovakia,5.8,,,
+SVN,Slovenia,6.6,,,
+SWE,Sweden,10,100,110,31
+SWZ,Swaziland,7,1900,12800,80
+SYC,Seychelles,3.1,,,
+SYR,Syria,1.5,,,
+TCD,Chad,2,1000,3000,7
+TGO,Togo,2,1000,3700,18
+THA,Thailand,5.6,1000,4500,73
+TJK,Tajikistan,2,100,180,14
+TKM,Turkmenistan,1.3,,,
+TLS,Timor-Leste,1.3,,,
+TON,Tonga,4.3,,,
+TTO,Trinidad and Tobago,3.2,100,130,95
+TUN,Tunisia,4,,,
+TUR,Turkey,4.2,,,
+TUV,Tuvalu,16.4,,,
+TZA,Tanzania,2.6,15000,75300,43
+UGA,Uganda,1.8,27000,113000,56
+UKR,Ukraine,3.6,500,3300,85
+URY,Uruguay,6.1,,130,95
+USA,United States,8.3,,,
+UZB,Uzbekistan,3.1,,,
+VCT,Saint Vincent and Grenadines,4.4,,,
+VEN,Venezuela,1.5,200,560,
+VNM,Vietnam,3.8,500,1600,41
+VUT,Vanuatu,4.5,,,
+WSM,Samoa,6.5,,,
+YEM,Yemen,1.3,100,30,2
+ZAF,South Africa,4.2,69000,255000,87
+ZMB,Zambia,2.8,26000,64700,74
+ZWE,Zimbabwe,2.5,,58700,52

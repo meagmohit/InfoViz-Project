@@ -507,11 +507,11 @@ function renderArea(data) {
       //Milestones
   svg_area.append('rect')
       .attr('class', 'milestones')
-      .attr('width', 5)
+      .attr('width', 10)
       .attr('height', heightDP*3/4)
-      .attr('x', 55)
+      .attr('x', 50)
       .attr('y',heightDP/4)
-      .attr('fill','#c0c0c0')
+      .attr('fill','#6CBA32')
       .on("mouseover", function(d) {            // code for hover tooltip
           console.log("Mouseover activated");
           div.transition()
@@ -528,11 +528,11 @@ function renderArea(data) {
        })         
   svg_area.append('rect')
       .attr('class', 'milestones')
-      .attr('width', 5)
+      .attr('width', 10)
       .attr('height', heightDP*3/4)
-      .attr('x', 110)
+      .attr('x', 105)
       .attr('y',heightDP/4)
-      .attr('fill','#c0c0c0')
+      .attr('fill','#6CBA32')
       .on("mouseover", function(d) {            // code for hover tooltip
           console.log("Mouseover activated");
           div.transition()
@@ -549,11 +549,11 @@ function renderArea(data) {
        })         
   svg_area.append('rect')
       .attr('class', 'milestones')
-      .attr('width', 5)
+      .attr('width', 10)
       .attr('height', heightDP*3/4)
-      .attr('x', 190)
+      .attr('x', 185)
       .attr('y',heightDP/4)
-      .attr('fill','#c0c0c0')
+      .attr('fill','#6CBA32')
       .on("mouseover", function(d) {            // code for hover tooltip
           console.log("Mouseover activated");
           div.transition()
@@ -570,11 +570,11 @@ function renderArea(data) {
        }) 
   svg_area.append('rect')
       .attr('class', 'milestones')
-      .attr('width', 5)
+      .attr('width', 10)
       .attr('height', heightDP*3/4)
-      .attr('x', 275)
+      .attr('x', 270)
       .attr('y',heightDP/4)
-      .attr('fill','#c0c0c0')
+      .attr('fill','#6CBA32')
       .on("mouseover", function(d) {            // code for hover tooltip
           console.log("Mouseover activated");
           div.transition()
@@ -623,7 +623,7 @@ function renderArea(data) {
   .attr('y', legendRectSize - legendSpacing + 8)
  // .attr('text-color', black)
  // .attr('color', black)     //#c0c0c0
-  .text(function(d) { return d; });
+  .text(function(d) { return data_full['countryMapping']['1990'][d] ; });
   
 
 }
@@ -929,7 +929,7 @@ function renderDP(dataM, dataF, dataC){
     div.transition()
     .duration(200)
     .style("opacity", .9);
-    div.html(totalM)
+    div.html(Math.round(totalM*100)/100)
     .style("left", (d3.event.pageX) + "px")
     .style("top", (d3.event.pageY - 28) + "px");
   })
@@ -955,7 +955,7 @@ function renderDP(dataM, dataF, dataC){
     div.transition()
     .duration(200)
     .style("opacity", .9);
-    div.html(totalF)
+    div.html(Math.round(totalF*100)/100)
     .style("left", (d3.event.pageX) + "px")
     .style("top", (d3.event.pageY - 28) + "px");
   })
@@ -981,7 +981,7 @@ function renderDP(dataM, dataF, dataC){
     div.transition()
     .duration(200)
     .style("opacity", .9);
-    div.html(totalC)
+    div.html(Math.round(totalC*100)/100)
     .style("left", (d3.event.pageX) + "px")
     .style("top", (d3.event.pageY - 28) + "px");
   })

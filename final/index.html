@@ -46,9 +46,9 @@
             
             <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:370px; margin-top: 400px;"></div>
         </div>  
-        <div style="margin-top: -90px;">
+        <div style="margin-top: 22px;">
             <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 120px;"></div>
-            <div  class="" id="areatext" style="align: left; position: absolute; "></div>
+            <div  class="" id="areatext" style="align: left; position: absolute; margin-top: -10px;"></div>
             <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;"></div>
         </div>
 
@@ -61,10 +61,10 @@
     </div>
 
     <div id="myNav" class="overlay" style="z-index: 5; width: 100%;">
-  <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">&times;</a>
-  <div class="overlay-content">
-    Put image here?? OR write text!!!
-  </div>
+          <div class="overlay-content">
+    <img src="img/infovis-overlay.png">  </div>
+  <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()" >&times;</a>
+
 </div>
 
     <script>
@@ -160,7 +160,7 @@
         var legendmargin = heightMap/2;
         var svg_map = d3.select("#map").insert("svg")
             .attr("id", "map")
-            .attr("height", heightMap)
+            .attr("height", heightMap-100)
             .attr("width", widthMap)
             .attr("transform", "translate(" + marginMap.left + ", " + marginMap.top + ")");
         var path = d3.geoPath(d3.geoRobinson());

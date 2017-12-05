@@ -63,10 +63,10 @@
             text-anchor: end;
         }
         .legendArea text{
-            font-size: 14pt;
-            fill: #c0c0c0;
+            font-size: 11pt;
+            fill: black;
             stroke: white;
-            stroke-width: 0.2px;
+            stroke-width: 0.1px;
         }
         #slider-range label {
             position: absolute;
@@ -134,7 +134,7 @@
 
 .overlay-content {
     position: relative;
-    top: 25%;
+    /*top: 25%;*/
     width: 100%;
     text-align: center;
     margin-top: 30px;

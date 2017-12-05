@@ -47,6 +47,13 @@ function dostuff(begin, end){
   renderLegend(upd_color, computeranges(data_deaths));
   //renderBars(upd_color, computeranges(data_full['DHSFS']));
   renderCircles(colorBubbles, computeranges(data_GDP));
+  console.log("sd:",selected_dataset)
+  if (selected_dataset=="LWHT"){
+    renderDP(computeranges(data_full['LWHM']), computeranges(data_full['LWHW']), computeranges(data_full['LWHC']));
+  };
+  if (selected_dataset=="Deaths"){
+    renderDP(computeranges(data_full['DeathsMale']), computeranges(data_full['DeathsFemale']), computeranges(data_full['DeathsChildren']));
+  };
 }
 
 //$(document).ready(function() {

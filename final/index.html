@@ -68,6 +68,7 @@
         var data_GDP=[];
         var flag_countryselect = false;
         var data_full=[];
+        var dataRyan = [];
         var noselect = ["USA","CAN","CHN","RUS"];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
@@ -160,7 +161,7 @@
         // Ryan's code
         widthBP = 300;
         heightBP = 300;
-        marginBP = {"top": 50, "left": 80, "right": 50, "bottom": 50};
+        marginBP = {"top": 80, "left": 80, "right": 50, "bottom": 50};
         rowPadding = 20;
 
         var svg = d3.select("#BP").append("svg")
@@ -250,6 +251,9 @@
         // load data
         d3.csv("data/boxMatrixData.csv", function(dataTemp) {  
         d3.json("data/all_data9.json", function(error, d) {
+
+            dataRyan = dataTemp;
+
 			if (error) throw error;
 			data_full = d;
             data_deaths = d['Deaths'];
@@ -348,6 +352,7 @@
             console.log("thisdata: ",computeranges(d['LWHT']));
             d3.selectAll('#switch_left').on("click", function(arg1, i){  
                 colorcurr=colorHIV;
+                selected_dataset = "LWHT";
                 d3.selectAll("#switch_left_label").style("background-color","#FFC500");
                 d3.selectAll("#switch_right_label").style("background-color","#e4e4e4");
                 thisData = d['LWHT'];
@@ -356,13 +361,16 @@
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
                 renderArea(thisData);
-                renderDP();
+                renderDP(computeranges(d['LWHM']), computeranges(d['LWHW']), computeranges(d['LWHC']));
+                
+                //renderDP();
                 
         
             });
 
             //function renderAIDS()
             d3.selectAll('#switch_right').on("click", function(arg1, i){ 
+                selected_dataset = "Deaths";
                 colorcurr=colorAIDS;
                 d3.selectAll("#switch_right_label").style("background-color","#FF3D00");
                 d3.selectAll("#switch_left_label").style("background-color","#e4e4e4");
@@ -371,8 +379,9 @@
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderArea(thisData);
-                renderDP();
+                //renderDP();
                 
             });
 

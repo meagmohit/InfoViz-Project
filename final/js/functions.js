@@ -540,7 +540,7 @@ function renderBoxPlot(dataTemp) {
     if (max !== -1 && size > max) {
       size = max;
     }
-    return 16
+    return 14
   }
   console.log("TempSet",dataTemp);
   //create a scale for each column
@@ -567,6 +567,7 @@ function renderBoxPlot(dataTemp) {
 
     var columnWidth = widthBP/colKeys.length;
     
+    svg.selectAll('g').remove();
     var chart = svg.append("g")
       .attr("transform", "translate(" + marginBP.left + "," + marginBP.top + ")");
     
@@ -602,6 +603,7 @@ function renderBoxPlot(dataTemp) {
       console.log("ryan: ",d);
       var rowNumber = defaults.indexOf(d.id);
 
+
       var rowG = chart.append("g")
       .attr("transform", "translate(0," + (rowNumber * rowHeight) + ")");
       
@@ -619,6 +621,7 @@ function renderBoxPlot(dataTemp) {
     .attr("class", "box")
     .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
     
+    //boxes.selectAll('rect').remove();
     boxes.append("rect")
     .attr("x", function(d,i) { return (columnWidth - sizeScales[i](d))/2; })
     .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
@@ -745,7 +748,14 @@ function onClickfunc(myobj, arg1, i){
     };        
   };
   renderArea(data_full[selected_dataset]);
+  renderBoxPlot(dataRyan);
   renderBars(calcColorScale(computeranges(data_full['DHSFS']['2013'])), data_full['DHSFS']['2013']);
+  if (selected_dataset=="LWHT"){
+    renderDP(computeranges(data_full['LWHM']), computeranges(data_full['LWHW']), computeranges(data_full['LWHC']));
+  };
+  if (selected_dataset=="Deaths"){
+    renderDP(computeranges(data_full['DeathsMale']), computeranges(data_full['DeathsFemale']), computeranges(data_full['DeathsChildren']));
+  };
 }
 
 function renderDP(dataM, dataF, dataC){
@@ -759,9 +769,11 @@ function renderDP(dataM, dataF, dataC){
 
   hratio = (totalM+totalF)/(totalM+totalF+totalC);
   wratio = totalM/(totalM+totalF);
-  hratio = 0.6;
-  wratio=0.8;
+  //hratio = 0.6;
+  //wratio=0.8;
   
+  svg_DP.selectAll('rect').remove();
+  svg_DP.selectAll('text').remove();
   svg_DP.append('rect') //men
   .attr('width', (widthDP-10)*(wratio))
   .attr('height', (heightDP-10)*(hratio))

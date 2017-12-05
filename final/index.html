@@ -47,13 +47,14 @@
             <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
         </div>  
         <div style="margin-top: -90px;">
-            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 140px;"></div>
-            <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;">Stacked Area Chart: Deaths</div>
+            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 120px;"></div>
+            <div  class=" bg-color" id="areatext" style="align: left; position: absolute;"></div>
+            <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;"></div>
         </div>
 
     </div>
     <div class="col-md-4 col-lg-4" id="right-pane">
-        <div class="border-round bg-color" id="DP"><h4>Demographics</h4></div>
+        <div class="border-round bg-color" id="DP"><h4>Demographics for Selected Countries</h4></div>
         <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
         <div class="border-round bg-color" id="bar">Bar Chart</div>  
     </div>
@@ -70,6 +71,7 @@
         var data_full=[];
         var dataRyan = [];
         var noselect = ["USA","CAN","CHN","RUS"];
+        //var cmapping = [];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
         var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
@@ -79,6 +81,7 @@
         var colorHIV = ["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"];
         var colorAIDS = ["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"];
         var colorcurr = colorAIDS;
+        var fixtext = "AIDS-related deaths";
 		//var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
 		//						{ value: "LWHT", text: "Living with HIV (Total)" },
 		//						//{ value: "NHIT", text: "New HIV infections (total)" }
@@ -253,6 +256,11 @@
         d3.json("data/all_data10.json", function(error, d) {
 
             dataRyan = dataTemp;
+            for (let key of Object.keys(dataRyan)) {
+                //console.log("Mcheck: ", dataRyan[key].id);
+
+            }
+            //console.log("cmapping: ",cmapping['AFG']);
 
 			if (error) throw error;
 			data_full = d;
@@ -290,7 +298,8 @@
                         div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                        div.html(d.id + "<br/>")
+                        //console.log("for val check: ",computeranges(data_full[selected_dataset])[d.id]);//computeranges[data_full[selected_dataset]]);
+                        div.html(data_full['countryMapping']['1990'][d.id] + "<br/>" + fixtext+": "+computeranges(data_full[selected_dataset])[d.id])
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px");
                     })
@@ -300,8 +309,8 @@
                         .style("opacity", 0);
                     })  
                     .call(fillMap, color, computeranges(data_deaths))
-                    .append("title")
-                    .call(setPathTitle, computeranges(data_deaths));
+                    //.append("title")
+                    //.call(setPathTitle, computeranges(data_deaths));
 
              //      let myKeys = d3.keys(dataD['Deaths']);
                //     let temp = d3.values(dataD['Deaths']);
@@ -357,6 +366,7 @@
             console.log("thisdata: ",computeranges(d['LWHT']));
             d3.selectAll('#switch_left').on("click", function(arg1, i){  
                 colorcurr=colorHIV;
+                fixtext = "Cases of HIV"
                 selected_dataset = "LWHT";
                 d3.selectAll("#switch_left_label").style("background-color",colorcurr[0]);
                 d3.selectAll("#switch_right_label").style("background-color","#e4e4e4");
@@ -378,6 +388,7 @@
             //function renderAIDS()
             d3.selectAll('#switch_right').on("click", function(arg1, i){ 
                 selected_dataset = "Deaths";
+                fixtext = "AIDS-related deaths";
                 colorcurr=colorAIDS;
                 d3.selectAll("#switch_right_label").style("background-color",colorcurr[0]);
                 d3.selectAll("#switch_left_label").style("background-color","#e4e4e4");
@@ -390,10 +401,12 @@
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderArea(thisData);
                 //renderDP();
+
                 
             });
 
-
+                //console.log("DataRyan: ",dataRyan[0].name);// Access country names
+                console.log("Access Country Names : ", data_full['countryMapping']['1990']['AFG']);
         }); // disaster data
     });
     </script>

@@ -167,6 +167,19 @@ function renderCircles(colorBub, data) {
         .attr("id", function(d) {
             return 'oc-bubble-'+d.id.toString();
         })
+        .on("mouseover", function(d) {            // code for hover tooltip
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html(data_full['countryMapping']['1990'][d.id] + "<br/>" + "%GDP spent on health: "+Math.round(d.value * 1000) / 1000)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+        })  
         .on("click", function(arg1, i){
                         //d3.select(".selected").classed("selected", false);
                         onClickfunc(this,arg1,i);
@@ -187,6 +200,7 @@ function renderBars(color, data) {
           let key = defaults[mkk];
           if (data[key] == null){
             console.log("yes baby -- undefined..");
+            continue;
           }
           console.log("datakey",data[key])
           console.log(data[key]== null ? 0 : data[key])
@@ -414,6 +428,8 @@ function renderArea(data) {
 
   //d3.select("svg#area g.area").selectAll('g.axis').remove();
   svg_area.selectAll('g').remove();//.data(stackArea(mydata)).remove();
+  //d3.selectAll("#areatext").remove();
+  d3.selectAll("#areatext").text(fixtext+" over the years");
   var browser = svg_area.selectAll('.browser')
       .data(stackArea(mydata))
     .enter().append('g')
@@ -425,7 +441,7 @@ function renderArea(data) {
           div.transition()
           .duration(200)
           .style("opacity", .9);
-          div.html(d.key + "<br/>")
+          div.html(data_full['countryMapping']['1990'][d.key] + "<br/>" + fixtext+": "+computeranges(data_full[selected_dataset])[d.id])
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
        })
@@ -456,6 +472,13 @@ function renderArea(data) {
       .style('stroke-width',"1")
       .style('fill', function(d) { //console.log("thisval:",d.index) ;
         return colorArea(d.key); });
+
+  browser.append('rect')
+      .attr('class', 'milestones')
+      .attr('width', 20)
+      .attr('height', heightDP/2)
+      .attr('x', 50)
+      .attr('fill','balck');
 
     // add the area
     /*
@@ -540,9 +563,9 @@ function renderBoxPlot(dataTemp) {
     if (max !== -1 && size > max) {
       size = max;
     }
-    return 14
+    return 10
   }
-  console.log("TempSet",dataTemp);
+  //console.log("TempSet",dataTemp);
   //create a scale for each column
   var colKeys = [];
   var sizeScales = [];
@@ -563,7 +586,7 @@ function renderBoxPlot(dataTemp) {
       colorScales.push(colorScale);
     }
   }
-  console.log("colkeys",colKeys);
+  //console.log("colkeys",colKeys);
 
     var columnWidth = widthBP/colKeys.length;
     
@@ -581,12 +604,20 @@ function renderBoxPlot(dataTemp) {
       .attr("transform", function(d, i) {return "translate(" + (columnWidth * i) +",0)"; });
     
     columnLabels.append("text")
-    .text(function(d) { return d })
+    .text(function(d) { console.log("myyy:", d.indexOf("-")); return d.substr(0,d.indexOf("-")) })
+  .attr("font-size", function(d) { return String(getFontSize(d,marginBP.top*1.5,24))+"px" })
+    .attr("y",-20)
+  .attr("x", columnWidth/2-55)
+  .style("text-anchor","left")
+    .attr("transform", "translate(20)");
+
+      columnLabels.append("text")
+    .text(function(d) { console.log("myyy:", d.indexOf("-")); return d.substr(1+d.indexOf("-"),d.length) })
   .attr("font-size", function(d) { return String(getFontSize(d,marginBP.top*1.5,24))+"px" })
     .attr("y",-5)
-  .attr("x", columnWidth/2-15)
+  .attr("x", columnWidth/2-55)
   .style("text-anchor","left")
-    .attr("transform", "translate(20)rotate(-30)");
+    .attr("transform", "translate(20)");
   
   /*var tooltip = d3.select("body")
     .append("div")
@@ -600,7 +631,7 @@ function renderBoxPlot(dataTemp) {
     dataTempset.forEach(function(d) {
   
     //console.log(d3.values(d).slice(2));
-      console.log("ryan: ",d);
+      //console.log("ryan: ",d);
       var rowNumber = defaults.indexOf(d.id);
 
 
@@ -875,7 +906,7 @@ function renderDP(dataM, dataF, dataC){
   svg_DP.append('text')
   .text("children")
   .attr("x", widthDP*(1/2))
-  .attr("y", (heightDP)*(hratio) + (heightDP)*(1-hratio)/2)
+  .attr("y", 5 +(heightDP)*(hratio) + (heightDP)*(1-hratio)/2)
   .style("text-anchor", "middle");
 
 

@@ -32,7 +32,7 @@
     
 
     <div class="col-md-8 col-lg-8 border-round bg-color" id="left-pane">
-        <div id="bubble" style="z-index: 2; position: absolute;"></div>
+        <div id="bubble" style="z-index: 2; position: absolute; fill-opacity: 0.7;"></div>
             <form class="form" style="z-index:3; position: absolute;">
                 <div class="switch-field">
                     <input type="radio" id="switch_left" name="switch_2" value="abc" /> <!-- onclick="renderHIV()"/>-->
@@ -315,7 +315,7 @@
                 // init legend
                 renderLegend(color, computeranges(data_deaths));
                 renderBars(color, data_full['DHSFS']['2013']);
-                renderCircles(colorBubbles, computeranges(data_GDP));
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
                 renderArea(data_deaths);
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderBoxPlot(dataTemp);

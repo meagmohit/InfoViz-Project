@@ -697,11 +697,11 @@ function calcColorScaleBubbles(data_GDP){
   // console.log(overMax)
 
   let color = d3.scaleLinear().domain([overMin,overMax])
-       .range([d3.rgb("#ff0000"), d3.rgb('#00ffe5')]);
-  let  colorScale = d3.scaleSequential(d3.interpolateInferno).domain([9365166,78870119013703]);  
-  let colorS = d3.scaleLog().base(100000).domain([overMin,overMax])
-    .interpolate(d3.interpolateHslLong)
-       .range([d3.rgb("#ff0000"), d3.rgb("#00ffe5")]);
+       .range(colorcurr);
+  //let  colorScale = d3.scaleSequential(d3.interpolateInferno).domain([9365166,78870119013703]).range(colorcurr);  
+  let colorS = d3.scaleLog().base(2).domain([overMin,overMax])
+    //.interpolate(d3.interpolateHslLong)
+       .range(colorcurr);
 //  console.log(colorScale(1911600970))
     
   return color;

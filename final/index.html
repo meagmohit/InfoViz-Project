@@ -361,6 +361,8 @@
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
                 renderArea(thisData);
+                //colorBubbles = ;
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
                 renderDP(computeranges(d['LWHM']), computeranges(d['LWHW']), computeranges(d['LWHC']));
                 
                 //renderDP();
@@ -379,6 +381,7 @@
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
                 renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderArea(thisData);
                 //renderDP();

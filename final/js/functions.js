@@ -627,6 +627,19 @@ function renderBoxPlot(dataTemp) {
     .attr("y", function(d,i) { return (rowHeight - sizeScales[i](d))/2; })
     .attr("width", function(d,i) { return sizeScales[i](d); })
     .attr("height", function(d,i) { return sizeScales[i](d); })
+    .on("mouseover", function(d) {            // code for hover tooltip
+      div.transition()
+      .duration(200)
+      .style("opacity", .9);
+      div.html(d)
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(d) {
+      div.transition()
+      .duration(500)
+      .style("opacity", 0);
+    }) 
     .style("fill", function(d,i){ return colorScales[i](d); });
     /*.on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
       .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
@@ -761,14 +774,22 @@ function onClickfunc(myobj, arg1, i){
 function renderDP(dataM, dataF, dataC){
   let totalM=0, totalF=0, totalC=0;
   for (var i = 0; i < defaults.length; i++) {
-        totalM = totalM + dataM[defaults[i]];
-        totalF = totalF + dataF[defaults[i]];
-        totalC = totalC + dataC[defaults[i]];
+        if (dataM[defaults[i]] >=0 && dataF[defaults[i]] >=0 && dataC[defaults[i]] >=0){ 
+          totalM = totalM + dataM[defaults[i]];
+          totalF = totalF + dataF[defaults[i]];
+          totalC = totalC + dataC[defaults[i]];
+        }
     };
   console.log("dataM: ",dataM);
 
   hratio = (totalM+totalF)/(totalM+totalF+totalC);
   wratio = totalM/(totalM+totalF);
+
+  console.log("hratio: ",hratio);
+  
+  if (isNaN(hratio) || isNaN(wratio)){
+    return;
+  }
   //hratio = 0.6;
   //wratio=0.8;
   
@@ -778,7 +799,20 @@ function renderDP(dataM, dataF, dataC){
   .attr('width', (widthDP-10)*(wratio))
   .attr('height', (heightDP-10)*(hratio))
   .attr('x',0)
-  .attr('fill',colorcurr[4])
+  .attr('fill',colorcurr[0])
+  .on("mouseover", function(d) {            // code for hover tooltip
+    div.transition()
+    .duration(200)
+    .style("opacity", .9);
+    div.html(totalM)
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY - 28) + "px");
+  })
+  .on("mouseout", function(d) {
+    div.transition()
+    .duration(500)
+    .style("opacity", 0);
+  }) 
   .attr('y',0);
 
   svg_DP.append('text')
@@ -791,7 +825,20 @@ function renderDP(dataM, dataF, dataC){
   .attr('width', (widthDP-10)*(1-wratio))
   .attr('height', (heightDP-10)*(hratio))
   .attr('x',widthDP*(wratio))
-  .attr('fill',colorcurr[4])
+  .attr('fill',colorcurr[0])
+  .on("mouseover", function(d) {            // code for hover tooltip
+    div.transition()
+    .duration(200)
+    .style("opacity", .9);
+    div.html(totalF)
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY - 28) + "px");
+  })
+  .on("mouseout", function(d) {
+    div.transition()
+    .duration(500)
+    .style("opacity", 0);
+  }) 
   .attr('y',0);
 
   svg_DP.append('text')
@@ -804,7 +851,20 @@ function renderDP(dataM, dataF, dataC){
   .attr('width', (widthDP))
   .attr('height', (heightDP-10)*(1-hratio))
   .attr('x',0)
-  .attr('fill',colorcurr[4])
+  .attr('fill',colorcurr[0])
+  .on("mouseover", function(d) {            // code for hover tooltip
+    div.transition()
+    .duration(200)
+    .style("opacity", .9);
+    div.html(totalC)
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY - 28) + "px");
+  })
+  .on("mouseout", function(d) {
+    div.transition()
+    .duration(500)
+    .style("opacity", 0);
+  }) 
   .attr('y',heightDP*hratio);
 
   svg_DP.append('text')

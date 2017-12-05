@@ -50,6 +50,7 @@
 
         .area {
             fill: lightsteelblue;
+            fill-opacity: 1;
         }
 
         .browser text {
@@ -73,7 +74,7 @@
             height:10px;
             position:absolute;
             bottom:0px;
-            z-index: 1;
+            z-index: 1;x
         }
 
         div.tooltip {

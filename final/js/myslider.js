@@ -46,7 +46,7 @@ function dostuff(begin, end){
   updateMap(upd_color, computeranges(data_deaths));
   renderLegend(upd_color, computeranges(data_deaths));
   //renderBars(upd_color, computeranges(data_full['DHSFS']));
-  renderCircles(colorBubbles, computeranges(data_GDP));
+  renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
   console.log("sd:",selected_dataset)
   if (selected_dataset=="LWHT"){
     renderDP(computeranges(data_full['LWHM']), computeranges(data_full['LWHW']), computeranges(data_full['LWHC']));

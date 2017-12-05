@@ -48,7 +48,7 @@
         </div>  
         <div style="margin-top: -90px;">
             <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 140px;"></div>
-            <div class="border-round bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;">Stacked Area Chart: Deaths</div>
+            <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;">Stacked Area Chart: Deaths</div>
         </div>
 
     </div>
@@ -209,7 +209,7 @@
         // demographics plot
                 //    var margin = {top: 50, right:10, bottom:50, left:30};
         var marginDP = {top: 0, right: 0, bottom: 0, left: 0},
-            widthDP = 400- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
+            widthDP = 360- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
             heightDP = 100 - marginDP.top - marginDP.bottom;
 
         var svg_DP = d3.select("#DP").append("svg")
@@ -250,7 +250,7 @@
 
         // load data
         d3.csv("data/boxMatrixData.csv", function(dataTemp) {  
-        d3.json("data/all_data9.json", function(error, d) {
+        d3.json("data/all_data10.json", function(error, d) {
 
             dataRyan = dataTemp;
 
@@ -314,7 +314,7 @@
                 
                 // init legend
                 renderLegend(color, computeranges(data_deaths));
-                renderBars(color, data_full['DHSFS']['2013']);
+                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderCircles(colorBubbles, computeranges(data_GDP));
                 renderArea(data_deaths);
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
@@ -353,13 +353,13 @@
             d3.selectAll('#switch_left').on("click", function(arg1, i){  
                 colorcurr=colorHIV;
                 selected_dataset = "LWHT";
-                d3.selectAll("#switch_left_label").style("background-color","#FFC500");
+                d3.selectAll("#switch_left_label").style("background-color",colorcurr[0]);
                 d3.selectAll("#switch_right_label").style("background-color","#e4e4e4");
                 thisData = d['LWHT'];
                 let upd_color = calcColorScale(computeranges(thisData));
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
-                renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderArea(thisData);
                 //colorBubbles = ;
                 renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
@@ -374,13 +374,13 @@
             d3.selectAll('#switch_right').on("click", function(arg1, i){ 
                 selected_dataset = "Deaths";
                 colorcurr=colorAIDS;
-                d3.selectAll("#switch_right_label").style("background-color","#FF3D00");
+                d3.selectAll("#switch_right_label").style("background-color",colorcurr[0]);
                 d3.selectAll("#switch_left_label").style("background-color","#e4e4e4");
                 thisData = d['Deaths'];
                 let upd_color = calcColorScale(computeranges(thisData));
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
-                renderBars(upd_color, data_full['DHSFS']['2013']);
+                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderArea(thisData);

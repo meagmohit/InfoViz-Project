@@ -23,14 +23,14 @@
 
 .switch-field label {
   display: inline-block;
-  width: 60px;
+  width: 50px;
   background-color: #e4e4e4;
   color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   text-align: center;
   text-shadow: none;
-  padding: 6px 14px;
+  padding: 4px 12px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
@@ -46,7 +46,7 @@
 }
 
 .switch-field input:checked + label {
-  background-color: #FF3D00;
+  background-color: #FF7E58;
   -webkit-box-shadow: none;
   box-shadow: none;
 }

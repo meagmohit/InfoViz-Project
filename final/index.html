@@ -60,7 +60,18 @@
         <!--<div class="border-round bg-color" id="bar">Bar Chart</div>  -->
     </div>
 
+    <div id="myNav" class="overlay" style="z-index: 5; width: 100%;">
+  <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">&times;</a>
+  <div class="overlay-content">
+    Put image here?? OR write text!!!
+  </div>
+</div>
+
     <script>
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
         /// params
 
         var color_na = d3.rgb("#d4d4d4");

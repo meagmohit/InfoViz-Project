@@ -311,7 +311,7 @@
                         .duration(200)
                         .style("opacity", .9);
                         //console.log("for val check: ",computeranges(data_full[selected_dataset])[d.id]);//computeranges[data_full[selected_dataset]]);
-                        div.html(data_full['countryMapping']['1990'][d.id] + "<br/>" + fixtext+": "+computeranges(data_full[selected_dataset])[d.id])
+                        div.html(data_full['countryMapping']['1990'][d.id] + "<br/>" + fixtext+": "+Math.round(100*computeranges(data_full[selected_dataset])[d.id])/100)
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px");
                     })

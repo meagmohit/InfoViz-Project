@@ -534,6 +534,8 @@ function renderArea(data) {
   legend.append('text')
   .attr('x', legendRectSize + legendSpacing )
   .attr('y', legendRectSize - legendSpacing + 8)
+ // .attr('text-color', black)
+ // .attr('color', black)     //#c0c0c0
   .text(function(d) { return d; });
   
 

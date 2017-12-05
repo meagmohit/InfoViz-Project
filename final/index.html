@@ -32,7 +32,7 @@
     
 
     <div class="col-md-8 col-lg-8 border-round bg-color" id="left-pane">
-        <div id="bubble" style="z-index: 2; position: absolute; fill-opacity: 0.7;"></div>
+        <div id="bubble" style="z-index: 2; position: absolute; fill-opacity: 0.7; margin-top: -10px;"></div>
             <form class="form" style="z-index:3; position: absolute;">
                 <div class="switch-field">
                     <input type="radio" id="switch_left" name="switch_2" value="abc" /> <!-- onclick="renderHIV()"/>-->
@@ -44,16 +44,17 @@
         <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
            <!-- <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  -->
             
-            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:500px; margin-top: 250px;"></div>
+            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:370px; margin-top: 400px;"></div>
         </div>  
         <div style="margin-top: -90px;">
             <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 120px;"></div>
-            <div  class=" bg-color" id="areatext" style="align: left; position: absolute;"></div>
+            <div  class="" id="areatext" style="align: left; position: absolute; "></div>
             <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;"></div>
         </div>
 
     </div>
     <div class="col-md-4 col-lg-4" id="right-pane">
+        <div class="border-round bg-color" id="DPTitle" style="padding:5px; padding-left: 20px;"><h1>VisualAIDS</h1></div>
         <div class="border-round bg-color" id="DP"><h4>Demographics for Selected Countries</h4></div>
         <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
         <div class="border-round bg-color" id="bar">Bar Chart</div>  
@@ -70,7 +71,7 @@
         var flag_countryselect = false;
         var data_full=[];
         var dataRyan = [];
-        var noselect = ["USA","CAN","CHN","RUS"];
+        var noselect = [];//["USA","CAN","CHN","RUS"];
         //var cmapping = [];
         //var trData = [];
         // only works if array.length-1 is between 3 and 9 (d3 color scheme)
@@ -107,7 +108,7 @@
             .attr("id", "year");
         */
 
-        d3.select("#select-years").insert("h5", ":first-child").text(headline + init_year + '-' + init_year2);
+        d3.select("#select-years").insert("h4", ":first-child").text(headline + init_year + '-' + init_year2);
 
 	
 		/*d3.select("#dropdown")
@@ -129,7 +130,7 @@
             bottom: 0,
             left: 20
         };
-        var svgBubbleWidth = 900,// + marginBubble.left - marginBubble.right,
+        var svgBubbleWidth = 850,// + marginBubble.left - marginBubble.right,
             svgBubbleHeight = 100;// + marginBubble.top - marginBubble.bottom;
 
         var svg_bubbles = d3.select("#bubble").append("svg")
@@ -163,9 +164,9 @@
 
         // Ryan's code
         widthBP = 300;
-        heightBP = 300;
-        marginBP = {"top": 80, "left": 80, "right": 50, "bottom": 50};
-        rowPadding = 20;
+        heightBP = 200;
+        marginBP = {"top": 62, "left": 80, "right": 50, "bottom": 50};
+        rowPadding = 10;
 
         var svg = d3.select("#BP").append("svg")
             .attr("width", widthBP + marginBP.right + marginBP.left)

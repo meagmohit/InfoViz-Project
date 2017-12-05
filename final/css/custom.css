@@ -11,6 +11,11 @@
                 font-size: 18px;
         }
 
+        h1 {
+            font-weight: 800;
+            font-size: 36px;
+        }
+
         p {
             font-size: 10pt;
             margin-left: 20px;
@@ -32,6 +37,7 @@
         .legend,
         .legend_title text {
             font-size: 10pt;
+
         }
 
         .barlabel {

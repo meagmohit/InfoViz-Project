@@ -57,7 +57,7 @@
         <div class="border-round bg-color" id="DPTitle" style="padding:5px; padding-left: 20px;"><h1>VisualAIDS</h1></div>
         <div class="border-round bg-color" id="DP"><h4>Demographics for Selected Countries</h4></div>
         <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
-        <div class="border-round bg-color" id="bar">Bar Chart</div>  
+        <!--<div class="border-round bg-color" id="bar">Bar Chart</div>  -->
     </div>
 
     <script>
@@ -108,7 +108,7 @@
             .attr("id", "year");
         */
 
-        d3.select("#select-years").insert("h4", ":first-child").text(headline + init_year + '-' + init_year2);
+        d3.select("#select-years").insert("h5", ":first-child").attr("class","yeartext").text(headline + init_year + '-' + init_year2);
 
 	
 		/*d3.select("#dropdown")
@@ -325,7 +325,7 @@
                 // init legend
                 renderLegend(color, computeranges(data_deaths));
 //<<<<<<< HEAD
-                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
 //=======
                 //renderBars(color, data_full['DHSFS']['2013']);
@@ -375,7 +375,7 @@
                 let upd_color = calcColorScale(computeranges(thisData));
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
-                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderArea(thisData);
                 //colorBubbles = ;
                 renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
@@ -397,7 +397,7 @@
                 let upd_color = calcColorScale(computeranges(thisData));
                 updateMap(upd_color, computeranges(thisData));
                 renderLegend(upd_color, computeranges(thisData));
-                renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
                 renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
                 renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
                 renderArea(thisData);

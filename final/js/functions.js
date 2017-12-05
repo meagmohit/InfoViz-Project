@@ -49,7 +49,9 @@ function updateMap(color, data) {
         .call(setPathTitle, data);
 
     // update headline
-    d3.select("h5").text(headline + init_year + '-' + init_year2);//d3.select("#year").node().value);
+    d3.selectAll("h5").text(headline + init_year + '-' + init_year2);//d3.select("#year").node().value);
+    console.log()
+    //d3.selectAll("#yeartext").text(headline + init_year + '-' + init_year2);
 }
 
 function renderLegend(color, data) {
@@ -191,7 +193,7 @@ function renderCircles(colorBub, data) {
 }
 
 
-function renderBars(color, data) {
+/*function renderBars(color, data) {
 
     // turn data into array of objects
     array = [];
@@ -276,8 +278,8 @@ function renderBars(color, data) {
             return y(d.value) - 5;
         });
         */
-
-}
+/*
+}*/
 
 function calcColorScale(data) {
 
@@ -428,6 +430,9 @@ function renderArea(data) {
 
   //d3.select("svg#area g.area").selectAll('g.axis').remove();
   svg_area.selectAll('g').remove();//.data(stackArea(mydata)).remove();
+
+
+
   //d3.selectAll("#areatext").remove();
   d3.selectAll("#areatext").text(fixtext+" over the years");
   var browser = svg_area.selectAll('.browser')
@@ -441,7 +446,8 @@ function renderArea(data) {
           div.transition()
           .duration(200)
           .style("opacity", .9);
-          div.html(data_full['countryMapping']['1990'][d.key] + "<br/>" + fixtext+": "+computeranges(data_full[selected_dataset])[d.id])
+          console.log("cr: ",computeranges(data_full[selected_dataset]))
+          div.html(data_full['countryMapping']['1990'][d.key] + "<br/>" + fixtext+" for selected years: "+ Math.round(computeranges(data_full[selected_dataset])[d.key]*100)/100)
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
        })
@@ -473,12 +479,6 @@ function renderArea(data) {
       .style('fill', function(d) { //console.log("thisval:",d.index) ;
         return colorArea(d.key); });
 
-  browser.append('rect')
-      .attr('class', 'milestones')
-      .attr('width', 20)
-      .attr('height', heightDP/2)
-      .attr('x', 50)
-      .attr('fill','balck');
 
     // add the area
     /*
@@ -504,6 +504,93 @@ function renderArea(data) {
       .attr("transform", "translate(" + widthArea + ",0)")
       .call(yAreaAxis);
 
+      //Milestones
+  svg_area.append('rect')
+      .attr('class', 'milestones')
+      .attr('width', 5)
+      .attr('height', heightDP*3/4)
+      .attr('x', 55)
+      .attr('y',heightDP/4)
+      .attr('fill','#c0c0c0')
+      .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html("Milestone <br> 1992: FDA licenses a rapid HIV diagnostic test kit which gives results from a blood test in 10 minutes")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+       })
+      .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+       })         
+  svg_area.append('rect')
+      .attr('class', 'milestones')
+      .attr('width', 5)
+      .attr('height', heightDP*3/4)
+      .attr('x', 110)
+      .attr('y',heightDP/4)
+      .attr('fill','#c0c0c0')
+      .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html("Milestone <br> 1994: The U.S. Public Health Service recommends that pregnant women be given the antiretroviral drug AZT to reduce the risk of perinatal transmission of HIV.")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+       })
+      .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+       })         
+  svg_area.append('rect')
+      .attr('class', 'milestones')
+      .attr('width', 5)
+      .attr('height', heightDP*3/4)
+      .attr('x', 190)
+      .attr('y',heightDP/4)
+      .attr('fill','#c0c0c0')
+      .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html("Milestone <br> 1997: Highly active antiretroviral therapy (HAART ) becomes the new standard of HIV care.")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+       })
+      .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+       }) 
+  svg_area.append('rect')
+      .attr('class', 'milestones')
+      .attr('width', 5)
+      .attr('height', heightDP*3/4)
+      .attr('x', 275)
+      .attr('y',heightDP/4)
+      .attr('fill','#c0c0c0')
+      .on("mouseover", function(d) {            // code for hover tooltip
+          console.log("Mouseover activated");
+          div.transition()
+          .duration(200)
+          .style("opacity", .9);
+          div.html("Milestone <br> 2000: UNAIDS, WHO, and other global health groups announce a joint initiative with five major pharmaceutical manufacturers to negotiate reduced prices for HIV/AIDS drugs in developing countries.")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+       })
+      .on("mouseout", function(d) {
+          div.transition()
+          .duration(500)
+          .style("opacity", 0);
+       }) 
+
+
   //svg_area.append("text")
   //  .attr("x", 0-margin.left)
   //  .text("Deaths")
@@ -522,7 +609,7 @@ function renderArea(data) {
     var offset =  -50 + height * defaults.length / 2;
     var horz = -2 * legendRectSize + 40;
     var vert = i * height - offset;
-    return 'translate(' + horz + ',' + vert + ')';
+    return 'translate(' + (horz-30) + ',' + vert + ')';
   });
 
   legend.append('rect')
@@ -800,7 +887,7 @@ function onClickfunc(myobj, arg1, i){
   };
   renderArea(data_full[selected_dataset]);
   renderBoxPlot(dataRyan);
-  renderBars(calcColorScale(computeranges(data_full['DHSFS']['2013'])), data_full['DHSFS']['2013']);
+  //renderBars(calcColorScale(computeranges(data_full['DHSFS']['2013'])), data_full['DHSFS']['2013']);
   if (selected_dataset=="LWHT"){
     renderDP(computeranges(data_full['LWHM']), computeranges(data_full['LWHW']), computeranges(data_full['LWHC']));
   };

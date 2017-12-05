@@ -63,7 +63,10 @@
             text-anchor: end;
         }
         .legendArea text{
-            font-size: 12pt;
+            font-size: 14pt;
+            fill: #c0c0c0;
+            stroke: white;
+            stroke-width: 0.2px;
         }
         #slider-range label {
             position: absolute;

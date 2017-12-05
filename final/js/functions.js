@@ -706,18 +706,23 @@ function calcColorScaleBubbles(data_GDP){
     if (max > overMax){overMax = max;}
     tot = tot + Object.values(data_GDP[year]).length
   }
-  // console.log(overMin)
-  // console.log(overMax)
+   console.log("T1",overMin)
+   console.log("T2",overMax)
 
   let color = d3.scaleLinear().domain([overMin,overMax])
        .range(colorcurr);
+	   
+  let colorS =d3.scaleLog().base(1)
+				.domain([overMin+1,overMax+1])
+				.range([d3.rgb(colorcurr[0]), d3.rgb(colorcurr[4])])
+				.interpolate(d3.interpolateHcl);
   //let  colorScale = d3.scaleSequential(d3.interpolateInferno).domain([9365166,78870119013703]).range(colorcurr);  
-  let colorS = d3.scaleLog().base(2).domain([overMin,overMax])
+//  let colorS = d3.scaleLog().base(2).domain([overMin,overMax])
     //.interpolate(d3.interpolateHslLong)
-       .range(colorcurr);
+ //      .range(colorcurr);
 //  console.log(colorScale(1911600970))
     
-  return color;
+  return colorS;
 //  let scale = d3.scalePow().exponent(6)
 //          .domain([overMin,overMax])
 //          .range(d3.schemeBuPu[tot]);

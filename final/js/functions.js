@@ -693,9 +693,8 @@ function calcColorScaleBubbles(data_GDP){
     if (max > overMax){overMax = max;}
     tot = tot + Object.values(data_GDP[year]).length
   }
-  // console.log(overMin)
-  // console.log(overMax)
    console.log("T1",overMin)
+   console.log("T2",overMax)
 
   let color = d3.scaleLinear().domain([overMin,overMax])
        .range(colorcurr);

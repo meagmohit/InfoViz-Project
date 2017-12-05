@@ -1,0 +1,171 @@
+        body {
+           /*font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            font-size: 14px;*/
+            font-family: 'Roboto', sans-serif;
+        }
+
+
+
+        h4 {
+               font-weight: 800;
+                font-size: 18px;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 10pt;
+            margin-left: 20px;
+        }
+
+        .border-round {
+            border:1px #E2E2E2 solid; 
+            border-radius: 4px;
+        }
+
+        .countries {
+            stroke: #fff;
+        }
+
+        .legend rect {
+            /*stroke: #000;*/
+        }
+
+        .legend,
+        .legend_title text {
+            font-size: 10pt;
+
+        }
+
+        .barlabel {
+            font-size: 8pt;
+            text-anchor: middle;
+        }
+        .selected {
+           opacity: 0.8;
+           stroke-width: 4;
+           stroke: green;
+           /*box-shadow: 10px 10px 5px #888888 ;*/
+
+        }
+        .line {
+        }       
+
+        .area {
+            fill: lightsteelblue;
+            fill-opacity: 1;
+        }
+
+        .browser text {
+            text-anchor: end;
+        }
+        .legendArea text{
+            font-size: 11pt;
+            fill: black;
+            stroke: white;
+            stroke-width: 0.1px;
+        }
+        #slider-range label {
+            position: absolute;
+            width: 20px;
+            margin-top: 20px;
+            margin-left: -10px;
+            text-align: center;
+            font-size: 10pt;
+        }
+        .tick {
+            width: 2px;
+            background-color:#999999;
+            margin-bottom: -10px;
+            height:10px;
+            position:absolute;
+            bottom:0px;
+            z-index: 1;x
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: left;
+            /*width: 60px;
+            height: 28px;*/
+            padding: 10px;
+            font: 8px sans-serif;
+            color: #ffffff;
+            background-color: #000000;
+            opacity: 0.7;
+            border: 0px;
+            border-radius: 2px;
+            pointer-events: none;
+            box-shadow: 2px 2px 5px #888888;
+        }
+
+
+        
+    rect, line { shape-rendering: crispEdges; }
+    .box text { fill: black; }
+        .annotation rect, .annotation line { fill: none; stroke: #002e5e; stroke-dasharray: 2,2 }
+        .annotation text { fill: black; font-size: 36}
+
+
+	.bg-color {
+            background-color: #FBFBFB;
+           /*margin-left:10px;*/
+             margin-top:10px;
+             padding:10px;
+        }
+		
+/* Overlay*/
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    /*top: 25%;*/
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}

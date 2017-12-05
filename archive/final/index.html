@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VizKidz</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/slider_styling.css" rel="stylesheet">
+    <link href="css/noYesBtns.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <!--<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />-->
+
+</head>
+
+<body>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/myslider.js"></script>
+
+
+
+    
+
+    <div class="col-md-8 col-lg-8 border-round bg-color" id="left-pane">
+        <div id="bubble" style="z-index: 2; position: absolute; fill-opacity: 0.7; margin-top: -10px;"></div>
+            <form class="form" style="z-index:3; position: absolute;">
+                <div class="switch-field">
+                    <input type="radio" id="switch_left" name="switch_2" value="abc" /> <!-- onclick="renderHIV()"/>-->
+                    <label for="switch_left" id="switch_left_label">HIV</label>
+                    <input type="radio" id="switch_right" name="switch_2" value="no" checked /> <!--onclick="renderAIDS()"/> -->
+                    <label for="switch_right" id="switch_right_label">AIDS</label>
+                </div>
+            </form>
+        <div id="map" style="z-index: 1; margin-left: 0px; padding-left: 0px; margin-top: 50px;"> 
+           <!-- <select id="dropdown" style="z-index: 2; position: absolute; width: 40%; margin-left:450px; margin-top: -25px;"></select>  -->
+            
+            <div id="select-years" style="z-index: 2; position: absolute; width: 50%; margin-left:370px; margin-top: 400px;"></div>
+        </div>  
+        <div style="margin-top: 22px;">
+            <div id="slider-range" style="z-index: 2; position: absolute; width: 722px; height: 8px; margin-left:20px; margin-top: 120px;"></div>
+            <div  class="" id="areatext" style="align: left; position: absolute; margin-top: -10px;"></div>
+            <div class=" bg-color" id="area" style="align: left; width: 800px; margin-left: 0px;"></div>
+        </div>
+
+    </div>
+    <div class="col-md-4 col-lg-4" id="right-pane">
+        <div class="border-round bg-color" id="DPTitle" style="padding:5px; padding-left: 20px;"><h1>VisualAIDS</h1></div>
+        <div class="border-round bg-color" id="DP"><h4>Demographics for Selected Countries</h4></div>
+        <div class="border-round bg-color" id="BP"><strong>Antiretroviral therapy (ART)</strong> is the combination of several antiretroviral(ARV) medicines used to slow the rate at which HIV makes copies of itself (multiplies) in the body.</div>
+        <!--<div class="border-round bg-color" id="bar">Bar Chart</div>  -->
+    </div>
+
+    <div id="myNav" class="overlay" style="z-index: 5; width: 100%;">
+          <div class="overlay-content">
+    <img src="img/infovis-overlay.png">  </div>
+  <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()" >&times;</a>
+
+</div>
+
+    <script>
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+        /// params
+
+        var color_na = d3.rgb("#d4d4d4");
+        var currMapdata = [];
+        var data_deaths=[];
+        var colorBubbles = [];
+        var data_GDP=[];
+        var flag_countryselect = false;
+        var data_full=[];
+        var dataRyan = [];
+        var noselect = [];//["USA","CAN","CHN","RUS"];
+        //var cmapping = [];
+        //var trData = [];
+        // only works if array.length-1 is between 3 and 9 (d3 color scheme)
+        var quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1];
+        var init_year = 1991;
+        var init_year2 = 2000;
+        var headline = "Year: ";
+        var colorHIV = ["#FFF658", "#FFDD2C" , "#FFC500", "#E78200", "#D08300"];
+        var colorAIDS = ["#FF7E58", "#FF5D2C", "#FF3D00", "#CC1C00", "#9F0000"];
+        var colorcurr = colorAIDS;
+        var fixtext = "AIDS-related deaths";
+		//var dropdown_options = [{ value: "Deaths", text: "Number of deaths caused due to AIDS" },
+		//						{ value: "LWHT", text: "Living with HIV (Total)" },
+		//						//{ value: "NHIT", text: "New HIV infections (total)" }
+                                //]
+        var selected_dataset = "Deaths";
+
+        /// main
+        var defaults = ['Total'];//, 'MEX', 'BRA'];//, 'MEX', 'BRA', 'COL', 'PER', 'ARG', 'CHL', 'PRY'];//, 'DZA', 'AGO', 'MEX'];
+
+        var div = d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+
+
+
+        // slider
+        /*
+        d3.select("body").insert("p", ":first-child").append("input")
+            .attr("type", "range")
+            .attr("min", "1990")
+            .attr("max", "2014")
+            .attr("value", init_year)
+            .attr("id", "year");
+        */
+
+        d3.select("#select-years").insert("h5", ":first-child").attr("class","yeartext").text(headline + init_year + '-' + init_year2);
+
+	
+		/*d3.select("#dropdown")
+          .selectAll("option")
+          .data(dropdown_options)
+          .enter()
+          .append("option")
+          .attr("value", function(option) { return option.value; })
+          .text(function(option) { return option.text; });*/
+	            
+
+		//var dropDown = d3.select("#dropdown");
+        
+        // init country GDP bubbles containor
+
+        var marginBubble = {
+            top: 25,
+            right: 20,
+            bottom: 0,
+            left: 20
+        };
+        var svgBubbleWidth = 850,// + marginBubble.left - marginBubble.right,
+            svgBubbleHeight = 100;// + marginBubble.top - marginBubble.bottom;
+
+        var svg_bubbles = d3.select("#bubble").append("svg")
+            .attr("id", "bubbles")
+            .attr("width", svgBubbleWidth + marginBubble.left + marginBubble.right)
+            .attr("height", svgBubbleHeight + marginBubble.top + marginBubble.bottom);
+
+
+
+        // init map container, projection
+        console.log(document.getElementById('left-pane').offsetWidth);
+        //legendmargin = 255;
+        var widthMap = document.getElementById('left-pane').offsetWidth*1.0583,
+            heightMap = widthMap*(5/9),
+            marginMap = {"top": 0, "left": -90, "right": 0, "bottom": 0};
+        var legendmargin = heightMap/2;
+        var svg_map = d3.select("#map").insert("svg")
+            .attr("id", "map")
+            .attr("height", heightMap-100)
+            .attr("width", widthMap)
+            .attr("transform", "translate(" + marginMap.left + ", " + marginMap.top + ")");
+        var path = d3.geoPath(d3.geoRobinson());
+
+        // init legend container
+        svg_map.append("g")
+            .attr("class", "legend");
+        svg_map.append("g")
+            .attr("class", "legend_title")
+            .append("text");
+
+
+        // Ryan's code
+        widthBP = 300;
+        heightBP = 200;
+        marginBP = {"top": 62, "left": 80, "right": 50, "bottom": 50};
+        rowPadding = 10;
+
+        var svg = d3.select("#BP").append("svg")
+            .attr("width", widthBP + marginBP.right + marginBP.left)
+            .attr("height", heightBP + marginBP.top + marginBP.bottom);
+
+
+        //init area chart containor : this section is being taken care my mohit
+        //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var marginArea = {top: 10, right: 70, bottom: 30, left: 10},
+            widthArea = 800- marginArea.left - marginArea.right,//document.getElementById('area').offsetWidth*0.9; 
+            heightArea = 150 - marginArea.top - marginArea.bottom;
+        var parseTime = d3.timeParse("%Y");
+
+
+        var xArea = d3.scaleTime().range([0, widthArea]);
+        var yArea = d3.scaleLinear().range([heightArea, 0]);
+
+        var xAreaAxis = d3.axisBottom()
+            .scale(xArea);
+
+        var yAreaAxis = d3.axisRight()
+            .scale(yArea);
+
+        var area = d3.area()
+            .x(function(d) { 
+                //console.log("yaha");
+                //console.log(d.data.date);
+                return xArea(d.data.date); })
+            .y0(function(d) { return yArea(d[0]); })
+            .y1(function(d) { return yArea(d[1]); });
+
+        var stackArea = d3.stack();
+
+        var svg_area = d3.select("#area").append("svg")
+            .attr("id","area")
+            .attr("width", widthArea + marginArea.left + marginArea.right)
+            .attr("height", heightArea + marginArea.top + marginArea.bottom)
+            .append("g")
+            .attr("class", "area")
+            .attr("align", "left")
+            .attr("transform",
+                    "translate(" + marginArea.left + "," + marginArea.top + ")");
+
+        // demographics plot
+                //    var margin = {top: 50, right:10, bottom:50, left:30};
+        var marginDP = {top: 0, right: 0, bottom: 0, left: 0},
+            widthDP = 360- marginDP.left - marginDP.right,//document.getElementById('area').offsetWidth*0.9; 
+            heightDP = 100 - marginDP.top - marginDP.bottom;
+
+        var svg_DP = d3.select("#DP").append("svg")
+            .attr("id","mosaicplot")
+            .attr("width", widthDP + marginDP.left + marginDP.right)
+            .attr("height", heightArea + marginDP.top + marginDP.bottom)
+            .append("g")
+            .attr("transform",
+                    "translate(" + marginDP.left + "," + marginDP.top + ")");
+
+
+        // init bars container
+        var margin = {
+            top: 20,
+            right: 10,
+            bottom: 10,
+            left: 50
+        };
+        var svgBarsWidth = 800 - margin.left - margin.right,
+            svgBarsHeight = 150 - margin.top - margin.bottom;
+
+        var xBars = d3.scaleBand()
+            .rangeRound([0, svgBarsWidth])
+            .padding(.05);
+        var yBars = d3.scaleLinear().range([svgBarsHeight, 0]);
+
+        var svg_bars = d3.select("#bar")
+            .append("svg")
+            .attr("id", "bars")
+            .attr("width", svgBarsWidth + margin.left + margin.right)
+            .attr("height", svgBarsHeight + margin.top + margin.bottom)
+            .append("g")
+            .attr("class", "bars")
+            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+
+
+
+        // load data
+        d3.csv("data/boxMatrixData.csv", function(dataTemp) {  
+        d3.json("data/all_data10.json", function(error, d) {
+
+            dataRyan = dataTemp;
+            for (let key of Object.keys(dataRyan)) {
+                //console.log("Mcheck: ", dataRyan[key].id);
+
+            }
+            //console.log("cmapping: ",cmapping['AFG']);
+
+			if (error) throw error;
+			data_full = d;
+            data_deaths = d['Deaths'];
+            data_GDP = d['GDPPercent'];
+
+            let dataD = data_deaths[init_year];
+            let dataG = data_GDP[init_year];
+            let color = calcColorScale(computeranges(data_deaths));
+            console.log(color(150));
+            colorBubbles = calcColorScaleBubbles(data_GDP);
+
+
+            // load map data and render it
+            d3.json("data/world.json", function(error, worldmap) {
+                if (error) throw error;
+
+                // init map
+                svg_map.append("g")
+                    .attr("class", "countries")
+                    .selectAll("path")
+                    .data(topojson.feature(worldmap, worldmap.objects.world).features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("id", function(d) {
+                        //console.log(d.id);
+                        return d.id;
+                    })
+                    .on("click", function(arg1, i){
+                        //d3.select(".selected").classed("selected", false);
+                        onClickfunc(this,arg1,i);
+                        //renderBoxPlot(dataTemp);
+                    })
+                    .on("mouseover", function(d) {            // code for hover tooltip
+                        div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                        //console.log("for val check: ",computeranges(data_full[selected_dataset])[d.id]);//computeranges[data_full[selected_dataset]]);
+                        div.html(data_full['countryMapping']['1990'][d.id] + "<br/>" + fixtext+": "+computeranges(data_full[selected_dataset])[d.id])
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function(d) {
+                        div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                    })  
+                    .call(fillMap, color, computeranges(data_deaths))
+                    //.append("title")
+                    //.call(setPathTitle, computeranges(data_deaths));
+
+             //      let myKeys = d3.keys(dataD['Deaths']);
+               //     let temp = d3.values(dataD['Deaths']);
+
+
+                 /*   for(let myX in myKeys){
+                        temp[myX]['date'] = parseTime(myKeys[myX]);
+                    };
+                    mydata = temp;*/
+                
+                // init legend
+                renderLegend(color, computeranges(data_deaths));
+//<<<<<<< HEAD
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
+//=======
+                //renderBars(color, data_full['DHSFS']['2013']);
+                //renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
+//>>>>>>> 265bc18563f7a15b03c04348851bb91e0e15dae5
+                renderArea(data_deaths);
+                renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
+                renderBoxPlot(dataTemp);
+   //         });
+            }); // map data
+
+
+
+            // was the slider used?
+         /*   d3.select("#year").on("input", function() {
+				init_year = this.value;
+                let upd_color = calcColorScale(data_deaths[this.value]);
+                updateMap(upd_color, data_deaths[this.value]);
+                renderLegend(upd_color, data_deaths[this.value]);
+                renderBars(upd_color, data_deaths[this.value]);
+                renderCircles(upd_color, data_GDP[this.value]);
+            });*/
+
+			
+			// dropdown used
+            /*
+			dropDown.on("change", function() {
+				selected_dataset = d3.event.target.value;
+                thisData = d[selected_dataset];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderArea(d[selected_dataset]);
+
+            //clicking on map
+            });	*/
+
+            // function renderHIV(){
+
+            console.log("thisdata: ",computeranges(d['LWHT']));
+            d3.selectAll('#switch_left').on("click", function(arg1, i){  
+                colorcurr=colorHIV;
+                fixtext = "Cases of HIV"
+                selected_dataset = "LWHT";
+                d3.selectAll("#switch_left_label").style("background-color",colorcurr[0]);
+                d3.selectAll("#switch_right_label").style("background-color","#e4e4e4");
+                thisData = d['LWHT'];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderLegend(upd_color, computeranges(thisData));
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                renderArea(thisData);
+                //colorBubbles = ;
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
+                renderDP(computeranges(d['LWHM']), computeranges(d['LWHW']), computeranges(d['LWHC']));
+                
+                //renderDP();
+                
+        
+            });
+
+            //function renderAIDS()
+            d3.selectAll('#switch_right').on("click", function(arg1, i){ 
+                selected_dataset = "Deaths";
+                fixtext = "AIDS-related deaths";
+                colorcurr=colorAIDS;
+                d3.selectAll("#switch_right_label").style("background-color",colorcurr[0]);
+                d3.selectAll("#switch_left_label").style("background-color","#e4e4e4");
+                thisData = d['Deaths'];
+                let upd_color = calcColorScale(computeranges(thisData));
+                updateMap(upd_color, computeranges(thisData));
+                renderLegend(upd_color, computeranges(thisData));
+                //renderBars(calcColorScale(computeranges(data_full['HDI'])), computeranges(data_full['HDI']));
+                renderCircles(calcColorScaleBubbles(data_GDP), computeranges(data_GDP));
+                renderDP(computeranges(d['DeathsMale']), computeranges(d['DeathsFemale']), computeranges(d['DeathsChildren']));
+                renderArea(thisData);
+                //renderDP();
+
+                
+            });
+
+                //console.log("DataRyan: ",dataRyan[0].name);// Access country names
+                console.log("Access Country Names : ", data_full['countryMapping']['1990']['AFG']);
+        }); // disaster data
+    });
+    </script>
+</body>
+
+</html>

@@ -973,7 +973,7 @@ function renderDP(dataM, dataF, dataC){
   .style("text-anchor", "middle");
 
   svg_DP.append('rect') // children
-  .attr('width', (widthDP))
+  .attr('width', (widthDP-10)*(1-wratio) + widthDP*(wratio))
   .attr('height', (heightDP-10)*(1-hratio))
   .attr('x',0)
   .attr('fill',colorcurr[0])
